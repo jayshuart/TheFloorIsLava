@@ -6,8 +6,10 @@ using UnityEngine.Networking;
 public class PlayerBehavior : MonoBehaviour {
 
     public Vector3 Position;        // global position of pc
-    public Vector3 Velocity;        // global movement speed of pc
-    public float speedVar;
+    public Vector3 Velocity;        // global movement speed of pc\
+    public Vector3 Heading;         // the rotation/direction the pc is facing
+    public float speedVar;          // 
+    public float turnRate;          //
 
 	// Use this for initialization
 	void Start ()
@@ -27,7 +29,11 @@ public class PlayerBehavior : MonoBehaviour {
         var zMovement = Input.GetAxis("Vertical") * Time.deltaTime * speedVar;
 
         transform.Translate(xMovement, 0, zMovement);
-        transform.Rotate(xMovement, 0, 0);
+    }
+
+    void PlayerRotation()
+    {
+
     }
 
     /// <summary>
