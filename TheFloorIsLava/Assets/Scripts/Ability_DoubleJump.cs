@@ -12,11 +12,30 @@ public class Ability_DoubleJump : NetworkBehaviour {
     [SerializeField] private float cooldownTime;
     [SerializeField] private float timeWaited;
 
+    //properties
+    public float CooldownTime
+    {
+        get { return cooldownTime; }
+    }
+
+    public float TimeWaited
+    {
+        get { return timeWaited; }
+    }
+
+
 	// Use this for initialization
 	void Start () {
         timeWaited = 0.0f;
         jumps = maxJumps;
 	}
+
+    //start but only for local player junk
+    public override void OnStartLocalPlayer()
+    {
+        GameObject.Find("shadow overlay").GetComponent<doubleJump_shadowOverlay>().LocalPlayer = this.gameObject;
+        GameObject.Find("shadow overlay").GetComponent<doubleJump_shadowOverlay>().JumpScript = this;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -26,6 +45,12 @@ public class Ability_DoubleJump : NetworkBehaviour {
 
     private void DoubleJump() 
     {
+        /*exit func if we are not the local player
+        if (!isLocalPlayer)
+        {
+            return;
+        }*/
+
         //get input
         if (Input.GetButtonDown("Jump") && jumps > 0) //whatever the jump button is in the unity input editor
         {
@@ -57,7 +82,7 @@ public class Ability_DoubleJump : NetworkBehaviour {
                 jumps++;
 
                 //reset time waited
-                timeWaited = 0.0f;
+                //timeWaited = 0.0f;
             }
         }
     }
