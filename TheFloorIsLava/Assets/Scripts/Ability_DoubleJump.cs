@@ -6,11 +6,11 @@ using UnityEngine.Networking;
 public class Ability_DoubleJump : NetworkBehaviour {
 
     //fields
-    [SerializeField] private int jumps;
+    private int jumps;
     [SerializeField] private int maxJumps;
     [SerializeField] private float jumpForce;
     [SerializeField] private float cooldownTime;
-    [SerializeField] private float timeWaited;
+    private float timeWaited;
 
     //properties
     public float CooldownTime
@@ -45,11 +45,11 @@ public class Ability_DoubleJump : NetworkBehaviour {
 
     private void DoubleJump() 
     {
-        /*exit func if we are not the local player
+        //exit func if we are not the local player
         if (!isLocalPlayer)
         {
             return;
-        }*/
+        }
 
         //get input
         if (Input.GetButtonDown("Jump") && jumps > 0) //whatever the jump button is in the unity input editor

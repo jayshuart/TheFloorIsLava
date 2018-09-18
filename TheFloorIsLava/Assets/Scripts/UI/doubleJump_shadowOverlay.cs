@@ -27,7 +27,7 @@ public class doubleJump_shadowOverlay : MonoBehaviour {
 	void Start () {
         //default values will be overun when local ply joins
         maxCoolShadow = 1.0f;
-        amountLeft = 1.0f;
+        amountLeft = 0.0f;
 		
 	}
 	
@@ -36,8 +36,17 @@ public class doubleJump_shadowOverlay : MonoBehaviour {
         //check to make sure we have a palyer to set values from
         if (localPlayer != null)
         {
-            //get new amount of shadow from local ply
-            amountLeft = jumpScript.CooldownTime - jumpScript.TimeWaited; //total time - time waited = amount left
+            //condition for when cooldown is maxed (not cooling thus 0.0 seconds)
+            if (jumpScript.TimeWaited == 0.0f)
+            {
+                amountLeft = 0.0f;
+            }
+            else //set amount left normally
+            {
+                //get new amount of shadow from local ply
+                amountLeft = jumpScript.CooldownTime - jumpScript.TimeWaited; //total time - time waited = amount left
+            }
+
 
             //set fill amount
             this.gameObject.GetComponent<Image>().fillAmount = (amountLeft / jumpScript.CooldownTime); //make a percent out of amount left
