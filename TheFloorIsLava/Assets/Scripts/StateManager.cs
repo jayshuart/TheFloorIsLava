@@ -10,6 +10,7 @@ public class StateManager : NetworkBehaviour {
 	// Use this for initialization
 	void Start () {
 		this.playerChar = playerChar;
+		Cursor.visible = false;
 	}
 
 	// Update is called once per frame

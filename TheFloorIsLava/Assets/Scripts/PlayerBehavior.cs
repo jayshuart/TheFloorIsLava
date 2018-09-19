@@ -5,22 +5,31 @@ using UnityEngine.Networking;
 
 public class PlayerBehavior : MonoBehaviour {
 
+	// PUBLIC
     public Vector3 Position;        // global position of pc
     public Vector3 Velocity;        // global movement speed of pc\
     public Vector3 Heading;         // the rotation/direction the pc is facing
     public float speedVar;          // speed of the pc
-    public float turnRate;          // speed in which pc turns
+	public float horizontalTurn;	// horizontal speed of turning the camera
 	public bool isGrounded;			// is the player connected with the ground
+
+	// PRIVATE
 	Rigidbody charRB;				// reference to the PC's rigidbody
+	private float yaw;				// rotation about Y axis
 
 	// Use this for initialization
 	void Start ()
     {
+		// INSTANTIATE GLOBALS
         Position = transform.position;
         Velocity = new Vector3(0, 0, 0);
         speedVar = 5.0f;
 		charRB = GetComponent<Rigidbody> ();
 		isGrounded = false;
+
+		// CAMERA INSTANTIATIONS
+		horizontalTurn = 6.5f;
+		yaw = 0.0f;
 	}
 	
     /// <summary>
@@ -35,9 +44,14 @@ public class PlayerBehavior : MonoBehaviour {
         transform.Translate(xMovement, 0, zMovement);
     }
 
-    void PlayerRotation()
+	/// <summary>
+	/// What allows character to turn about the Y axis
+	/// </summary>
+    void PlayerViewRotation()
     {
+		yaw += horizontalTurn * Input.GetAxis ("Mouse X");
 
+		charRB.transform.eulerAngles = new Vector3(0.0f, yaw, 0.0f);	// Euler Angles to prevent gimbal locking (as with previous issue)
     }
 
 	void onGround() 
@@ -85,6 +99,7 @@ public class PlayerBehavior : MonoBehaviour {
 	void Update ()
     {
         PlayerMovement();
+		PlayerViewRotation ();
 		onGround ();
 		PlayerJump ();
 		//Debug.Log (isGrounded);
