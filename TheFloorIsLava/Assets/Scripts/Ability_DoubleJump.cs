@@ -52,7 +52,7 @@ public class Ability_DoubleJump : NetworkBehaviour {
         }
 
         //get input
-        if (Input.GetButtonDown("Jump") && jumps > 0) //whatever the jump button is in the unity input editor
+        if (Input.GetButtonDown("Jump") && jumps > 0 && !this.gameObject.GetComponent<PlayerBehavior>().isGrounded) //check for the jump btn, we have jumps, and that the player has a;ready exhausted their normal jump 
         {
             //apply force upwards
             Vector3 jumpVector = new Vector3(0, jumpForce, 0); 

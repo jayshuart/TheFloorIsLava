@@ -14,8 +14,9 @@ public class PlayerBehavior : NetworkBehaviour {
 	public bool isGrounded;			// is the player connected with the ground
 
 	// PRIVATE
-	Rigidbody charRB;				// reference to the PC's rigidbody
+	private Rigidbody charRB;				// reference to the PC's rigidbody
 	private float yaw;				// rotation about Y axis
+    [SerializeField] private float jumpForce;
 
 	// Use this for initialization
 	void Start ()
@@ -68,9 +69,10 @@ public class PlayerBehavior : NetworkBehaviour {
     {
 		if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true) {
 			//Debug.Log ("Jump!");
-			charRB.AddForce (new Vector3 (0, 4.0f, 0), ForceMode.Impulse);
-			isGrounded = false;
+			charRB.AddForce (new Vector3 (0, jumpForce, 0), ForceMode.Impulse);
+			
 		}
+        isGrounded = false;
     }
 
 	/// <summary>

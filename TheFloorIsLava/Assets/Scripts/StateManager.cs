@@ -9,7 +9,7 @@ public class StateManager : NetworkBehaviour {
 	public GameObject lavaObj;			// lava object. May need to be an array in the future
 	// Use this for initialization
 	void Start () {
-		this.playerChar = playerChar;
+		//this.playerChar = playerChar;
 		Cursor.visible = false;
 	}
 
