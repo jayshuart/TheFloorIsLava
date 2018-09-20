@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class PlayerBehavior : MonoBehaviour {
+public class PlayerBehavior : NetworkBehaviour {
 
 	// PUBLIC
     public Vector3 Position;        // global position of pc
@@ -98,10 +98,18 @@ public class PlayerBehavior : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        PlayerMovement();
-		PlayerViewRotation ();
-		onGround ();
-		PlayerJump ();
+        //make sure we are the local player before we get user input
+        if (isLocalPlayer)
+        {
+            //ply movemenbt and cam
+            PlayerMovement();
+            PlayerViewRotation ();
+            PlayerJump ();
+        }
+
+        //check if ply is gorunded so it may jump again
+        onGround ();
+
 		//Debug.Log (isGrounded);
 	}
 }
