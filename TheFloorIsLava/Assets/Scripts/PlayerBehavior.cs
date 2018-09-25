@@ -6,6 +6,7 @@ using UnityEngine.Networking;
 public class PlayerBehavior : NetworkBehaviour {
 
 	// PUBLIC
+	public GameObject spawnPoint;	// control spawning of the character
     public Vector3 Position;        // global position of pc
     public Vector3 Velocity;        // global movement speed of pc\
     public Vector3 Heading;         // the rotation/direction the pc is facing
