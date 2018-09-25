@@ -68,7 +68,7 @@ public class PlayerBehavior : NetworkBehaviour {
     void PlayerJump()
     {
 		if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true) {
-			//Debug.Log ("Jump!");
+			Debug.Log ("Jump!");
 			charRB.AddForce (new Vector3 (0, jumpForce, 0), ForceMode.Impulse);
 			
 		}

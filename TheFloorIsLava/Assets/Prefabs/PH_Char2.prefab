@@ -6,11 +6,15 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: jumpForce
+      value: 4.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1158294675692992}
-  m_IsPrefabAsset: 1
+  m_IsPrefabAsset: 0
 --- !u!1 &1158294675692992
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,22 +234,22 @@ MonoBehaviour:
   m_SceneId:
     m_Value: 0
   m_AssetId:
-    i0: 241
-    i1: 52
+    i0: 0
+    i1: 0
     i2: 0
-    i3: 90
-    i4: 31
-    i5: 30
-    i6: 158
-    i7: 52
-    i8: 72
-    i9: 135
-    i10: 116
-    i11: 52
-    i12: 7
-    i13: 250
-    i14: 94
-    i15: 147
+    i3: 0
+    i4: 0
+    i5: 0
+    i6: 0
+    i7: 0
+    i8: 0
+    i9: 0
+    i10: 0
+    i11: 0
+    i12: 0
+    i13: 0
+    i14: 0
+    i15: 0
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
 --- !u!114 &114449386191190428
@@ -279,6 +283,7 @@ MonoBehaviour:
   speedVar: 0
   horizontalTurn: 0
   isGrounded: 0
+  jumpForce: 4.5
 --- !u!124 &124398117807477106
 Behaviour:
   m_ObjectHideFlags: 1
