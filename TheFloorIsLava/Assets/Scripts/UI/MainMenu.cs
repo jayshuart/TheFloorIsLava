@@ -9,12 +9,14 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour {
 
     [SerializeField] private NetworkManager networkManager;
-    [SerializeField] private GameObject levelBtnPrefab;
-    private List<string> sceneList = new List<string>();
+
+    [SerializeField] private GameObject levelsParent;
+    [SerializeField] private List<GameObject> levelsList = new List<GameObject>();
+    [SerializeField] private int currentLevel;
 
 	// Use this for initialization
 	void Start () {
-		
+        currentLevel = 0;
 	}
 	
 	// Update is called once per frame
@@ -34,24 +36,30 @@ public class MainMenu : MonoBehaviour {
 
     public void BuildLevelSelect()
     {
-        foreach(EditorBuildSettingsScene level in EditorBuildSettings.scenes)
+        //cycle through the children and add them tot he level list
+        for (int i = 0; i < levelsParent.transform.childCount; i++)
         {
-            //get enabled levels that are int he levels folder
-            if (level.enabled && level.path.ToString().Contains("Assets/Scenes/Levels/"))
-            {
-                //add scene to actual list
-                sceneList.Add(level.path);
-
-                //create btn for this level
-                GameObject lvlBtn = Instantiate(levelBtnPrefab, this.gameObject.transform);
-
-                //rip just the levels name from the unity scene file
-                string lvlName = level.path.ToString().Substring(21, (level.path.ToString().Substring(21).Length - 6));
-
-                //apply this name to the buttons text
-                lvlBtn.GetComponentInChildren<Text>().text = lvlName;
-            }
+            //actually adding them
+            levelsList.Add(levelsParent.transform.GetChild(i).gameObject);
         }
-
     }
+
+    public void ChangeLevelSelect(int changeAmount)
+    {
+        //turn off current level
+        levelsList[currentLevel].SetActive(false);
+
+        //turn on next one
+        currentLevel = (currentLevel + changeAmount) % (levelsList.Count - 1); //wrapping index so we dont try to acess and index that doesnt exist
+        levelsList[currentLevel].SetActive(true);
+    }
+
+    /// <summary>
+    /// leave this fuckin game
+    /// </summary>
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
 }
