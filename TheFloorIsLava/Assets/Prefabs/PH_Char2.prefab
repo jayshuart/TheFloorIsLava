@@ -34,8 +34,6 @@ GameObject:
   - component: {fileID: 20870987166081572}
   - component: {fileID: 124398117807477106}
   - component: {fileID: 81062289529292854}
-  - component: {fileID: 114617604137506988}
-  - component: {fileID: 114494981606388434}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -251,51 +249,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxJumps: 1
-  jumpForce: 350
+  jumpForce: 3.5
   cooldownTime: 3.5
---- !u!114 &114494981606388434
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1269037801988794}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6afec0f1473fc8c4ea8aa2d4d470794f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114617604137506988
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1269037801988794}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 0
-    i1: 0
-    i2: 0
-    i3: 0
-    i4: 0
-    i5: 0
-    i6: 0
-    i7: 0
-    i8: 0
-    i9: 0
-    i10: 0
-    i11: 0
-    i12: 0
-    i13: 0
-    i14: 0
-    i15: 0
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 1
+  timeWaited: 0
 --- !u!114 &114963407576218684
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -307,7 +263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4ff49821023baa4380fd3c0ff274ca2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoint: {fileID: 0}
+  spawnPoint: {fileID: 1655879165328226, guid: d7390f75020eecf42bb76246531dad11, type: 2}
   Position: {x: 0, y: 0, z: 0}
   Velocity: {x: 0, y: 0, z: 0}
   Heading: {x: 0, y: 0, z: 0}

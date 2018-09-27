@@ -83,7 +83,7 @@ public class PlayerBehavior : NetworkBehaviour {
 	void OnCollisionEnter(Collision col)
 	{
 		if (col.collider.name == "PH_Lava") {
-			Debug.Log ("hit");
+			this.transform.position = spawnPoint.transform.position;
 		}
 	}
 

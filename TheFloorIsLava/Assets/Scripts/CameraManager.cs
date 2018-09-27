@@ -10,6 +10,8 @@ public class CameraManager : NetworkBehaviour {
 		if (isLocalPlayer)
 			return;
 
-		this.gameObject.GetComponent<Camera>().enabled = false;
+		Camera myCamera = this.gameObject.GetComponentInChildren<Camera> ();
+
+		this.gameObject.GetComponentInChildren<Camera>().gameObject.SetActive(false);
 	}
 }
