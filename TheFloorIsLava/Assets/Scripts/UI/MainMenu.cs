@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour {
 
-    [SerializeField] private NetworkManager networkManager;
+    [SerializeField] private CustomNetwork networkManager;
 
     [SerializeField] private GameObject levelsParent;
     [SerializeField] private List<GameObject> levelsList = new List<GameObject>();
@@ -54,6 +54,11 @@ public class MainMenu : MonoBehaviour {
         levelsList[currentLevel].SetActive(true);
     }
 
+    public void GotoScene(string level)
+    {
+        networkManager.ServerChangeScene(level);
+    }
+
     /// <summary>
     /// leave this fuckin game
     /// </summary>
@@ -61,5 +66,7 @@ public class MainMenu : MonoBehaviour {
     {
         Application.Quit();
     }
+
+
 
 }
