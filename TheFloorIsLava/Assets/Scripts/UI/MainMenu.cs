@@ -24,16 +24,10 @@ public class MainMenu : MonoBehaviour {
 		
 	}
 
-    public void StartGame()
-    {
-        networkManager.StartHost();
-    }
 
-    public void JoinGame()
-    {
-        networkManager.StartClient();
-    }
-
+    /// <summary>
+    /// Builds list of levels from the children of the levels parent game object
+    /// </summary>
     public void BuildLevelSelect()
     {
         //cycle through the children and add them tot he level list
@@ -44,6 +38,10 @@ public class MainMenu : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Changes the selected level by the defined amount (preferably +/- 1)
+    /// </summary>
+    /// <param name="changeAmount">Change amount.</param>
     public void ChangeLevelSelect(int changeAmount)
     {
         //turn off current level
@@ -51,16 +49,21 @@ public class MainMenu : MonoBehaviour {
 
         //turn on next one
         currentLevel = (currentLevel + changeAmount) % (levelsList.Count - 1); //wrapping index so we dont try to acess and index that doesnt exist
-        levelsList[currentLevel].SetActive(true);
+        levelsList[currentLevel].SetActive(true); //turn this new current level on
     }
 
+    /// <summary>
+    /// changes the active scene on the server if it exists in the build
+    /// </summary>
+    /// <param name="level">Level.</param>
     public void GotoScene(string level)
     {
+        //uses ServerChangeScene so that all players (host and clients) 
         networkManager.ServerChangeScene(level);
     }
 
     /// <summary>
-    /// leave this fuckin game
+    /// leave the game
     /// </summary>
     public void Quit()
     {
