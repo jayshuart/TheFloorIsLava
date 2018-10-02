@@ -19,6 +19,14 @@ public class PlayerBehavior : NetworkBehaviour {
 	private float yaw;				// rotation about Y axis
     [SerializeField] private float jumpForce;
 
+    //start but only for once the network player is started
+    public override void OnStartLocalPlayer()
+    {
+        //set this local player as the player to ghost for the cam
+        GameObject ghost = GameObject.FindGameObjectWithTag("PlayerGhost");
+        ghost.GetComponent<GhostCam>().ply = this.gameObject;
+    }
+
 	// Use this for initialization
 	void Start ()
     {
