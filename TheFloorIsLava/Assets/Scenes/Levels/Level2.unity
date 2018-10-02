@@ -1870,6 +1870,52 @@ Transform:
   m_Father: {fileID: 2096639006}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!1001 &491540266
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4843925797615018, guid: af3db454b91ba344c82e7ed86ff5b767, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4843925797615018, guid: af3db454b91ba344c82e7ed86ff5b767, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4843925797615018, guid: af3db454b91ba344c82e7ed86ff5b767, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4843925797615018, guid: af3db454b91ba344c82e7ed86ff5b767, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4843925797615018, guid: af3db454b91ba344c82e7ed86ff5b767, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4843925797615018, guid: af3db454b91ba344c82e7ed86ff5b767, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4843925797615018, guid: af3db454b91ba344c82e7ed86ff5b767, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4843925797615018, guid: af3db454b91ba344c82e7ed86ff5b767, type: 2}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1125477214796646, guid: af3db454b91ba344c82e7ed86ff5b767, type: 2}
+      propertyPath: m_Name
+      value: Network Manager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: af3db454b91ba344c82e7ed86ff5b767, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &510539330
 GameObject:
   m_ObjectHideFlags: 0

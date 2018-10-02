@@ -1183,7 +1183,7 @@ Prefab:
     - target: {fileID: 114035019279020514, guid: 3d01063e211934d4fb2dbf793a9769dc,
         type: 2}
       propertyPath: m_PlayerSpawnMethod
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d01063e211934d4fb2dbf793a9769dc, type: 2}
