@@ -25,6 +25,8 @@ public class PlayerBehavior : NetworkBehaviour {
         //set this local player as the player to ghost for the cam
         GameObject ghost = GameObject.FindGameObjectWithTag("PlayerGhost");
         ghost.GetComponent<GhostCam>().ply = this.gameObject;
+
+		this.transform.position = spawnPoint.transform.position;
     }
 
 	// Use this for initialization
@@ -66,7 +68,7 @@ public class PlayerBehavior : NetworkBehaviour {
 
 	void onGround() 
 	{
-		if (!isGrounded & charRB.velocity.y == 0) {
+		if (!isGrounded && charRB.velocity.y == 0) {
 			isGrounded = true;
 		}
 	}
@@ -85,24 +87,21 @@ public class PlayerBehavior : NetworkBehaviour {
     }
 
 	/// <summary>
-	/// Initial touching of the lava
+	/// Return character to start points
 	/// </summary>
 	/// <param name="col">Col.</param>
-	void OnCollisionEnter(Collision col)
+	void OnTriggerStay(Collider col)
 	{
-		if (col.collider.name == "PH_Lava") {
+		if (col.name == "PH_Lava") {
 			this.transform.position = spawnPoint.transform.position;
+			Debug.Log ("triggered");
 		}
 	}
 
-	/// <summary>
-	/// Prolonged touching of the lava
-	/// </summary>
-	/// <param name="col">Col.</param>
-	void OnCollisionStay(Collision col)
+	void PlayerForcedRespawn()
 	{
-		if (col.collider.name == "PH_Lava") {
-			Debug.Log ("hit");
+		if (Input.GetKeyDown (KeyCode.R)) {
+			this.transform.position = spawnPoint.transform.position;
 		}
 	}
 
@@ -112,7 +111,7 @@ public class PlayerBehavior : NetworkBehaviour {
         //make sure we are the local player before we get user input
         if (isLocalPlayer)
         {
-            //ply movemenbt and cam
+            //ply movemenvt and cam
             PlayerMovement();
             PlayerViewRotation ();
             PlayerJump ();

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -189,7 +189,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1276750170}
+      - m_Target: {fileID: 1462924932}
         m_MethodName: JoinGame
         m_Mode: 1
         m_Arguments:
@@ -417,7 +417,7 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1276750170}
+      objectReference: {fileID: 1462924932}
     - target: {fileID: 224405294014747440, guid: a71e3f389a4fa444fab6342d5b3a4510,
         type: 2}
       propertyPath: m_LocalScale.x
@@ -590,7 +590,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1276750170}
+      - m_Target: {fileID: 1462924932}
         m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
@@ -1070,48 +1070,6 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 592745603}
   m_CullTransparentMesh: 0
---- !u!1001 &664186705
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4843925797615018, guid: af3db454b91ba344c82e7ed86ff5b767, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4843925797615018, guid: af3db454b91ba344c82e7ed86ff5b767, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4843925797615018, guid: af3db454b91ba344c82e7ed86ff5b767, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4843925797615018, guid: af3db454b91ba344c82e7ed86ff5b767, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4843925797615018, guid: af3db454b91ba344c82e7ed86ff5b767, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4843925797615018, guid: af3db454b91ba344c82e7ed86ff5b767, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4843925797615018, guid: af3db454b91ba344c82e7ed86ff5b767, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4843925797615018, guid: af3db454b91ba344c82e7ed86ff5b767, type: 2}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: af3db454b91ba344c82e7ed86ff5b767, type: 2}
-  m_IsPrefabAsset: 0
 --- !u!1 &681468594
 GameObject:
   m_ObjectHideFlags: 0
@@ -1356,8 +1314,50 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &925707214
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4755420182652236, guid: 0b06771821782de44ac4bd6aa56e0c63, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4755420182652236, guid: 0b06771821782de44ac4bd6aa56e0c63, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4755420182652236, guid: 0b06771821782de44ac4bd6aa56e0c63, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4755420182652236, guid: 0b06771821782de44ac4bd6aa56e0c63, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4755420182652236, guid: 0b06771821782de44ac4bd6aa56e0c63, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4755420182652236, guid: 0b06771821782de44ac4bd6aa56e0c63, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4755420182652236, guid: 0b06771821782de44ac4bd6aa56e0c63, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4755420182652236, guid: 0b06771821782de44ac4bd6aa56e0c63, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0b06771821782de44ac4bd6aa56e0c63, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &996038283
 Prefab:
   m_ObjectHideFlags: 0
@@ -1464,7 +1464,7 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1276750170}
+      objectReference: {fileID: 1462924932}
     - target: {fileID: 224405294014747440, guid: a71e3f389a4fa444fab6342d5b3a4510,
         type: 2}
       propertyPath: m_LocalScale.x
@@ -1908,7 +1908,7 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1276750170}
+      objectReference: {fileID: 1462924932}
     - target: {fileID: 224405294014747440, guid: a71e3f389a4fa444fab6342d5b3a4510,
         type: 2}
       propertyPath: m_LocalScale.x
@@ -1986,7 +1986,7 @@ Prefab:
     - target: {fileID: 114224317317898360, guid: a71e3f389a4fa444fab6342d5b3a4510,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
-      value: tutorial
+      value: Tutorial
       objectReference: {fileID: 0}
     - target: {fileID: 114224317317898360, guid: a71e3f389a4fa444fab6342d5b3a4510,
         type: 2}
@@ -2081,12 +2081,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 224405294014747440, guid: a71e3f389a4fa444fab6342d5b3a4510,
     type: 2}
   m_PrefabInternal: {fileID: 996038283}
---- !u!114 &1276750170 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114649769177678762, guid: af3db454b91ba344c82e7ed86ff5b767,
-    type: 2}
-  m_PrefabInternal: {fileID: 664186705}
-  m_Script: {fileID: 11500000, guid: 0cc642170839526448bd2fff971a91d4, type: 3}
 --- !u!1 &1365494868
 GameObject:
   m_ObjectHideFlags: 0
@@ -2247,6 +2241,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1462924932 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114470328112409164, guid: 0b06771821782de44ac4bd6aa56e0c63,
+    type: 2}
+  m_PrefabInternal: {fileID: 925707214}
+  m_Script: {fileID: 11500000, guid: 0cc642170839526448bd2fff971a91d4, type: 3}
 --- !u!1 &1709518695
 GameObject:
   m_ObjectHideFlags: 0
@@ -2954,7 +2954,7 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1276750170}
+      objectReference: {fileID: 1462924932}
     - target: {fileID: 224405294014747440, guid: a71e3f389a4fa444fab6342d5b3a4510,
         type: 2}
       propertyPath: m_LocalScale.x
@@ -3142,7 +3142,7 @@ RectTransform:
   - {fileID: 462227394}
   - {fileID: 2033852037}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3160,7 +3160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 863d3850c893e534394ec2e45678d250, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkManager: {fileID: 1276750170}
+  networkManager: {fileID: 1462924932}
   levelsParent: {fileID: 805258447}
   levelsList: []
   currentLevel: 0
