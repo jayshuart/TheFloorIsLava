@@ -6,6 +6,7 @@ using UnityEngine.Networking;
 public class PlayerBehavior : NetworkBehaviour {
 
 	// PUBLIC
+	public GameObject spawnPoint;	// control spawning of the character
     public Vector3 Position;        // global position of pc
     public Vector3 Velocity;        // global movement speed of pc\
     public Vector3 Heading;         // the rotation/direction the pc is facing
@@ -17,6 +18,14 @@ public class PlayerBehavior : NetworkBehaviour {
 	private Rigidbody charRB;				// reference to the PC's rigidbody
 	private float yaw;				// rotation about Y axis
     [SerializeField] private float jumpForce;
+
+    //start but only for once the network player is started
+    public override void OnStartLocalPlayer()
+    {
+        //set this local player as the player to ghost for the cam
+        GameObject ghost = GameObject.FindGameObjectWithTag("PlayerGhost");
+        ghost.GetComponent<GhostCam>().ply = this.gameObject;
+    }
 
 	// Use this for initialization
 	void Start ()
@@ -82,7 +91,7 @@ public class PlayerBehavior : NetworkBehaviour {
 	void OnCollisionEnter(Collision col)
 	{
 		if (col.collider.name == "PH_Lava") {
-			Debug.Log ("hit");
+			this.transform.position = spawnPoint.transform.position;
 		}
 	}
 
