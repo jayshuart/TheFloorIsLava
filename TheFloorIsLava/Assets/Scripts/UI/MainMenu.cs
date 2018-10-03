@@ -48,7 +48,7 @@ public class MainMenu : MonoBehaviour {
         levelsList[currentLevel].SetActive(false);
 
         //turn on next one
-        currentLevel = (currentLevel + changeAmount) % (levelsList.Count - 1); //wrapping index so we dont try to acess and index that doesnt exist
+        currentLevel = (currentLevel + changeAmount) % (levelsList.Count); //wrapping index so we dont try to acess and index that doesnt exist
         levelsList[currentLevel].SetActive(true); //turn this new current level on
     }
 
