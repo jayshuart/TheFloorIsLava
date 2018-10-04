@@ -7,11 +7,8 @@ public class PlayerBehavior : NetworkBehaviour {
 
 	// PUBLIC
 	public GameObject spawnPoint;	// control spawning of the character
-    public Vector3 Position;        // global position of pc
-    public Vector3 Velocity;        // global movement speed of pc\
-    public Vector3 Heading;         // the rotation/direction the pc is facing
-    public float speedVar;          // speed of the pc
-	public float horizontalTurn;	// horizontal speed of turning the camera
+    [SerializeField] private float speedVar;          // speed of the pc
+	[SerializeField] private float horizontalTurn;	// horizontal speed of turning the camera
 	public bool isGrounded;			// is the player connected with the ground
 
 	// PRIVATE
@@ -26,6 +23,7 @@ public class PlayerBehavior : NetworkBehaviour {
         GameObject ghost = GameObject.FindGameObjectWithTag("PlayerGhost");
         ghost.GetComponent<GhostCam>().ply = this.gameObject;
 
+        spawnPoint = GameObject.FindGameObjectWithTag("Respawn"); //set spawn point
 		this.transform.position = spawnPoint.transform.position;
     }
 
@@ -33,14 +31,12 @@ public class PlayerBehavior : NetworkBehaviour {
 	void Start ()
     {
 		// INSTANTIATE GLOBALS
-        Position = transform.position;
-        Velocity = new Vector3(0, 0, 0);
-        speedVar = 5.0f;
+        //speedVar = 5.0f;
 		charRB = GetComponent<Rigidbody> ();
 		isGrounded = false;
 
 		// CAMERA INSTANTIATIONS
-		horizontalTurn = 6.5f;
+		//horizontalTurn = 6.5f;
 		yaw = 0.0f;
 	}
 	

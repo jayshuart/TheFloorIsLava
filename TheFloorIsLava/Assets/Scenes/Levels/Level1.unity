@@ -3870,7 +3870,7 @@ GameObject:
   - component: {fileID: 713545170}
   - component: {fileID: 713545169}
   m_Layer: 0
-  m_Name: Lava
+  m_Name: PH_Lava
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3896,7 +3896,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 713545167}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
