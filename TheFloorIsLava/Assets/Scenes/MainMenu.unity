@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -505,6 +505,21 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: StartGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 114539273857375508, guid: a71e3f389a4fa444fab6342d5b3a4510,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 0.75912476
+      objectReference: {fileID: 0}
+    - target: {fileID: 114539273857375508, guid: a71e3f389a4fa444fab6342d5b3a4510,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114539273857375508, guid: a71e3f389a4fa444fab6342d5b3a4510,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 0.99215686
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a71e3f389a4fa444fab6342d5b3a4510, type: 2}
@@ -1552,6 +1567,21 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: StartGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 114539273857375508, guid: a71e3f389a4fa444fab6342d5b3a4510,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 0.09919691
+      objectReference: {fileID: 0}
+    - target: {fileID: 114539273857375508, guid: a71e3f389a4fa444fab6342d5b3a4510,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114539273857375508, guid: a71e3f389a4fa444fab6342d5b3a4510,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a71e3f389a4fa444fab6342d5b3a4510, type: 2}
@@ -3042,6 +3072,21 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: StartGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 114539273857375508, guid: a71e3f389a4fa444fab6342d5b3a4510,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114539273857375508, guid: a71e3f389a4fa444fab6342d5b3a4510,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 0.7731253
+      objectReference: {fileID: 0}
+    - target: {fileID: 114539273857375508, guid: a71e3f389a4fa444fab6342d5b3a4510,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a71e3f389a4fa444fab6342d5b3a4510, type: 2}

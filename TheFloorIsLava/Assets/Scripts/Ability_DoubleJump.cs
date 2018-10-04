@@ -6,11 +6,14 @@ using UnityEngine.Networking;
 public class Ability_DoubleJump : NetworkBehaviour {
 
     //fields
-    private int jumps;
+    private Rigidbody rb;
+    [SerializeField] private int jumps;
     [SerializeField] private int maxJumps;
     [SerializeField] private float jumpForce;
     [SerializeField] private float cooldownTime;
     [SerializeField] private float timeWaited;
+
+    [SerializeField] private float maxJumpVelocity;
 
     //properties
     public float CooldownTime
@@ -28,6 +31,8 @@ public class Ability_DoubleJump : NetworkBehaviour {
 	void Start () {
         timeWaited = 0.0f;
         jumps = maxJumps;
+
+        rb = this.gameObject.GetComponent<Rigidbody>();
 	}
 
     //start but only for local player junk
@@ -56,7 +61,12 @@ public class Ability_DoubleJump : NetworkBehaviour {
         {
             //apply force upwards
             Vector3 jumpVector = new Vector3(0, jumpForce, 0); 
-			this.gameObject.GetComponent<Rigidbody>().AddForce(jumpVector, ForceMode.Impulse);
+			rb.AddForce(jumpVector, ForceMode.Impulse);
+
+            if (rb.velocity.y > maxJumpVelocity)
+            {
+                rb.velocity = new Vector3(rb.velocity.x, maxJumpVelocity, rb.velocity.z);
+            }
 
             //remove one jump
             jumps--;
@@ -70,7 +80,7 @@ public class Ability_DoubleJump : NetworkBehaviour {
     private void CoolDown()
     {
         //check if we need to even do a cooldown (maybe they have all their jumps?)
-        if (jumps <= maxJumps)
+        if (jumps < maxJumps)
         {
             //up time waited
             timeWaited += Time.deltaTime;

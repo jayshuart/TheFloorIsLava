@@ -29,7 +29,7 @@ GameObject:
   - component: {fileID: 114766476170521346}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -160,13 +160,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 1655879165328226, guid: d7390f75020eecf42bb76246531dad11, type: 2}
-  Position: {x: 0, y: 0, z: 0}
-  Velocity: {x: 0, y: 0, z: 0}
-  Heading: {x: 0, y: 0, z: 0}
-  speedVar: 0
-  horizontalTurn: 0
+  speedVar: 3
+  horizontalTurn: 6.5
   isGrounded: 0
-  jumpForce: 4.5
+  vel: {x: 0, y: 0, z: 0}
+  jumpForce: 5
 --- !u!114 &114553431309926376
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -199,7 +197,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6044d02ecd0e4d4eb53e215f5160475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jumps: 0
   maxJumps: 1
-  jumpForce: 3.5
+  jumpForce: 6
   cooldownTime: 3.5
   timeWaited: 0
+  maxJumpVelocity: 1.2
