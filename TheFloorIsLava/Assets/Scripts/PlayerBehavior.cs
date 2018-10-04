@@ -11,6 +11,8 @@ public class PlayerBehavior : NetworkBehaviour {
 	[SerializeField] private float horizontalTurn;	// horizontal speed of turning the camera
 	public bool isGrounded;			// is the player connected with the ground
 
+    public Vector3 vel;
+
 	// PRIVATE
 	private Rigidbody charRB;				// reference to the PC's rigidbody
 	private float yaw;				// rotation about Y axis
@@ -115,7 +117,5 @@ public class PlayerBehavior : NetworkBehaviour {
 
         //check if ply is gorunded so it may jump again
         onGround ();
-
-		//Debug.Log (isGrounded);
 	}
 }

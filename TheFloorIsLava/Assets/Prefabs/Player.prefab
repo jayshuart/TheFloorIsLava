@@ -163,6 +163,7 @@ MonoBehaviour:
   speedVar: 3
   horizontalTurn: 6.5
   isGrounded: 0
+  vel: {x: 0, y: 0, z: 0}
   jumpForce: 5
 --- !u!114 &114553431309926376
 MonoBehaviour:
@@ -201,3 +202,4 @@ MonoBehaviour:
   jumpForce: 6
   cooldownTime: 3.5
   timeWaited: 0
+  maxJumpVelocity: 1.2
