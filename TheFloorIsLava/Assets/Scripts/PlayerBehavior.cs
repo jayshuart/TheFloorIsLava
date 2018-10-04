@@ -6,17 +6,17 @@ using UnityEngine.Networking;
 public class PlayerBehavior : NetworkBehaviour {
 
 	// PUBLIC
-	public GameObject spawnPoint;	// control spawning of the character
-    [SerializeField] private float speedVar;          // speed of the pc
+    [SerializeField] private float speedVar;        // speed of the playercharacter
 	[SerializeField] private float horizontalTurn;	// horizontal speed of turning the camera
-	public bool isGrounded;			// is the player connected with the ground
-
-    public Vector3 vel;
+	public bool isGrounded;							// is the player connected with the ground
 
 	// PRIVATE
-	private Rigidbody charRB;				// reference to the PC's rigidbody
-	private float yaw;				// rotation about Y axis
-    [SerializeField] private float jumpForce;
+	private GameObject spawnPoint;				// control spawning of the character
+	private Rigidbody charRB;					// reference to the PC's rigidbody
+	private float yaw;							// rotation about Y axis
+	private Vector3 raycastDown;				// search for collisions downward to fix isGrounded
+	private RaycastHit hit;						// RaycastHit detection
+    [SerializeField] private float jumpForce;	// force in which player launches upwards
 
     //start but only for once the network player is started
     public override void OnStartLocalPlayer()
@@ -25,8 +25,12 @@ public class PlayerBehavior : NetworkBehaviour {
         GameObject ghost = GameObject.FindGameObjectWithTag("PlayerGhost");
         ghost.GetComponent<GhostCam>().ply = this.gameObject;
 
+		charRB = GetComponent<Rigidbody> ();
+
         spawnPoint = GameObject.FindGameObjectWithTag("Respawn"); //set spawn point
 		this.transform.position = spawnPoint.transform.position;
+
+		raycastDown = Vector3.down; // (0, -1, 0);
     }
 
 	// Use this for initialization
@@ -34,8 +38,8 @@ public class PlayerBehavior : NetworkBehaviour {
     {
 		// INSTANTIATE GLOBALS
         //speedVar = 5.0f;
-		charRB = GetComponent<Rigidbody> ();
-		isGrounded = false;
+		//charRB = GetComponent<Rigidbody> ();
+		isGrounded = true;
 
 		// CAMERA INSTANTIATIONS
 		//horizontalTurn = 6.5f;
@@ -66,8 +70,12 @@ public class PlayerBehavior : NetworkBehaviour {
 
 	void onGround() 
 	{
-		if (!isGrounded && charRB.velocity.y == 0) { //might need updating using a raycast later - joel
+		/*if (!isGrounded && charRB.velocity.y == 0) { //might need updating using a raycast later - joel
 			isGrounded = true;
+		}*/
+		if (Physics.Raycast(gameObject.transform.position, raycastDown, 0.3f, 1, QueryTriggerInteraction.Collide)) {
+			isGrounded = true;
+			Debug.Log ("Hit");
 		}
 	}
 
@@ -77,7 +85,7 @@ public class PlayerBehavior : NetworkBehaviour {
     void PlayerJump()
     {
 		if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true) {
-			Debug.Log ("Jump!");
+			//Debug.Log ("Jump!");
 			charRB.AddForce (new Vector3 (0, jumpForce, 0), ForceMode.Impulse);
 			
 		}
@@ -92,10 +100,13 @@ public class PlayerBehavior : NetworkBehaviour {
 	{
 		if (col.name == "PH_Lava") {
 			this.transform.position = spawnPoint.transform.position;
-			Debug.Log ("triggered");
+			//Debug.Log ("triggered");
 		}
 	}
 
+	/// <summary>
+	/// Players can force their own respawn
+	/// </summary>
 	void PlayerForcedRespawn()
 	{
 		if (Input.GetKeyDown (KeyCode.R)) {
