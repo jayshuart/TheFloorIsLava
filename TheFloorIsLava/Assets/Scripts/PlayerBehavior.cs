@@ -13,8 +13,9 @@ public class PlayerBehavior : NetworkBehaviour {
 	// PRIVATE
 	private GameObject spawnPoint;				// control spawning of the character
 	private Rigidbody charRB;					// reference to the PC's rigidbody
+	private Collider charCollider;				//
 	private float yaw;							// rotation about Y axis
-	private Vector3 raycastDown;				// search for collisions downward to fix isGrounded
+	private Vector3 castDown;					// search for collisions downward to fix isGrounded
 	private RaycastHit hit;						// RaycastHit detection
     [SerializeField] private float jumpForce;	// force in which player launches upwards
 
@@ -26,11 +27,12 @@ public class PlayerBehavior : NetworkBehaviour {
         ghost.GetComponent<GhostCam>().ply = this.gameObject;
 
 		charRB = GetComponent<Rigidbody> ();
+		charCollider = GetComponent<Collider> ();
 
         spawnPoint = GameObject.FindGameObjectWithTag("Respawn"); //set spawn point
 		this.transform.position = spawnPoint.transform.position;
 
-		raycastDown = Vector3.down; // (0, -1, 0);
+		castDown = Vector3.down; // (0, -1, 0);
     }
 
 	// Use this for initialization
@@ -73,9 +75,13 @@ public class PlayerBehavior : NetworkBehaviour {
 		/*if (!isGrounded && charRB.velocity.y == 0) { //might need updating using a raycast later - joel
 			isGrounded = true;
 		}*/
-		if (Physics.Raycast(gameObject.transform.position, raycastDown, 0.3f, 1, QueryTriggerInteraction.Collide)) {
+		/*if (Physics.Raycast(gameObject.transform.position, raycastDown, 0.3f, 1, QueryTriggerInteraction.Collide)) {
 			isGrounded = true;
 			Debug.Log ("Hit");
+		}*/
+		if (Physics.BoxCast (charCollider.bounds.center, transform.localScale, castDown, transform.rotation, 0.3f, 1, QueryTriggerInteraction.Collide)) {
+			isGrounded = true;
+			//Debug.Log ("hit");
 		}
 	}
 
