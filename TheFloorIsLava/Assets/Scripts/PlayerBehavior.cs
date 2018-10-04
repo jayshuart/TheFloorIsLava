@@ -64,7 +64,7 @@ public class PlayerBehavior : NetworkBehaviour {
 
 	void onGround() 
 	{
-		if (!isGrounded && charRB.velocity.y == 0) {
+		if (!isGrounded && charRB.velocity.y == 0) { //might need updating using a raycast later - joel
 			isGrounded = true;
 		}
 	}

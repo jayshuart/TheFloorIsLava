@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 public class Ability_DoubleJump : NetworkBehaviour {
 
     //fields
-    private int jumps;
+    [SerializeField] private int jumps;
     [SerializeField] private int maxJumps;
     [SerializeField] private float jumpForce;
     [SerializeField] private float cooldownTime;
@@ -70,7 +70,7 @@ public class Ability_DoubleJump : NetworkBehaviour {
     private void CoolDown()
     {
         //check if we need to even do a cooldown (maybe they have all their jumps?)
-        if (jumps <= maxJumps)
+        if (jumps < maxJumps)
         {
             //up time waited
             timeWaited += Time.deltaTime;
