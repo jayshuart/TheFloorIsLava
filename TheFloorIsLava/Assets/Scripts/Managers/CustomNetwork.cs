@@ -5,13 +5,39 @@ using UnityEngine.Networking;
 
 public class CustomNetwork : NetworkManager {
 
+    [SerializeField] private List<GameObject> players;
+
+    #region Properties
+    //properties
+    public List<GameObject> Players
+    {
+        get{ return players; }
+    }
+
+    public GameObject GetPlayerAt(int index)
+    {
+        return players[index];
+    }
+    #endregion
+
 	// Use this for initialization
 	void Start () {
+        players = new List<GameObject>();
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+        //DEV CONTROLS _ REMOVE FOR FINAL BUILD
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            StartGame();
+        }
+        else if (Input.GetKeyDown(KeyCode.C))
+        {
+            JoinGame();
+        }
 		
 	}
 
@@ -40,9 +66,20 @@ public class CustomNetwork : NetworkManager {
         //instantiate a player prefab (defined in the inspector - declared here as this.playerPrefab)
         GameObject player = (GameObject)Object.Instantiate(this.playerPrefab, Vector3.zero, Quaternion.identity);
 
+        //add to list of players for easy access
+        players.Add(player);
+
         //connect this player tot he server
         NetworkServer.AddPlayerForConnection(conn, player, playerControllerId);
 
+
+
+    }
+
+    public override void OnServerRemovePlayer (NetworkConnection conn, UnityEngine.Networking.PlayerController player)
+    {
+        players.Remove(player.gameObject); //remove this player from list
+        base.OnServerRemovePlayer(conn, player);
     }
 
 

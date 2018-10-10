@@ -1283,6 +1283,7 @@ MonoBehaviour:
   speedVar: 3
   horizontalTurn: 6.5
   isGrounded: 0
+  spawnPoint: {fileID: 0}
   jumpForce: 5
 --- !u!114 &114966304366471036
 MonoBehaviour:

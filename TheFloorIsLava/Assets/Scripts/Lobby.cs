@@ -5,8 +5,11 @@ using UnityEngine.Networking;
 
 public class Lobby : NetworkBehaviour {
 
+    private CustomNetwork networkManager;
+
 	// Use this for initialization
 	void Start () {
+        networkManager = GameObject.Find("NetworkManager_Custom").GetComponent<CustomNetwork>();
 		
 	}
 	
@@ -21,14 +24,24 @@ public class Lobby : NetworkBehaviour {
         if(col.gameObject.GetComponent<NetworkIdentity>().netId.Value != 1)
         {
             //you have no power here- begone!
-            Debug.Log(col.gameObject.GetComponent<NetworkIdentity>().netId.Value);
             return;
         }
         else
         {
-            //goto actual level
-            Debug.Log("HOST READY");
-            Destroy(col.gameObject);
+            
+            //move all players to the actual level
+            foreach (GameObject ply in networkManager.Players)
+            {
+                //save this player bhevaior script
+                PlayerBehavior plyScript = ply.GetComponent<PlayerBehavior>();
+
+                //reset players spawnpoint
+                plyScript.spawnPoint = GameObject.FindGameObjectWithTag("Respawn"); //normal spawn point
+
+                //force respawn
+                ply.transform.position = plyScript.spawnPoint.transform.position;
+            }
+
         }
 
 

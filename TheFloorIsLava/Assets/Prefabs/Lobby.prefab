@@ -54,7 +54,7 @@ GameObject:
   - component: {fileID: 114815169298698360}
   m_Layer: 0
   m_Name: PH_Respawn1
-  m_TagString: Respawn
+  m_TagString: LobbySpawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1106,7 +1106,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1156071476260308}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.23, y: -2.47, z: -9.9}
+  m_LocalPosition: {x: 0, y: -11.94, z: 0}
   m_LocalScale: {x: 0.77742803, y: 0.77742803, z: 0.77742803}
   m_Children:
   - {fileID: 4346943771479750}
