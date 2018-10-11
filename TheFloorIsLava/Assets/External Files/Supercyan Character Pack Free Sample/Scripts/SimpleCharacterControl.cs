@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections.Generic;
 
-public class SimpleCharacterControl : MonoBehaviour {
+public class SimpleCharacterControl : NetworkBehaviour {
 
     private enum ControlMode
     {
@@ -89,6 +90,12 @@ public class SimpleCharacterControl : MonoBehaviour {
 
 	void Update () {
         m_animator.SetBool("Grounded", m_isGrounded);
+
+        //make sure we dont animate when we arent moving
+        if (!isLocalPlayer)
+        {
+            return;
+        }
 
         switch(m_controlMode)
         {
