@@ -3590,28 +3590,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 1605318319478366, guid: 0b06771821782de44ac4bd6aa56e0c63, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114470328112409164, guid: 0b06771821782de44ac4bd6aa56e0c63,
-        type: 2}
-      propertyPath: m_PlayerPrefab
-      value: 
-      objectReference: {fileID: 1796193417218644, guid: b755bc2d2c308db488cf797514b3f69d,
-        type: 2}
-    - target: {fileID: 114470328112409164, guid: 0b06771821782de44ac4bd6aa56e0c63,
-        type: 2}
-      propertyPath: m_AutoCreatePlayer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114975421510327498, guid: 0b06771821782de44ac4bd6aa56e0c63,
+    - target: {fileID: 114476611736448732, guid: 0b06771821782de44ac4bd6aa56e0c63,
         type: 2}
       propertyPath: showGUI
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 114975421510327498, guid: 0b06771821782de44ac4bd6aa56e0c63, type: 2}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b06771821782de44ac4bd6aa56e0c63, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &663615482
@@ -8739,26 +8723,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a91cb9a2dc0e0ca47a1b31cd7997bedc, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &1505136027 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1605318319478366, guid: 0b06771821782de44ac4bd6aa56e0c63,
-    type: 2}
-  m_PrefabInternal: {fileID: 638025761}
---- !u!114 &1505136029
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1505136027}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 227461547, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  manager: {fileID: 0}
-  showGUI: 1
-  offsetX: 0
-  offsetY: 0
 --- !u!1 &1508477900
 GameObject:
   m_ObjectHideFlags: 0

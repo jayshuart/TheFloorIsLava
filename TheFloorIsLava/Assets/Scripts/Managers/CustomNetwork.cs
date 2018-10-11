@@ -28,16 +28,6 @@ public class CustomNetwork : NetworkManager {
 	
 	// Update is called once per frame
 	void Update () {
-
-        //DEV CONTROLS _ REMOVE FOR FINAL BUILD
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            StartGame();
-        }
-        else if (Input.GetKeyDown(KeyCode.C))
-        {
-            JoinGame();
-        }
 		
 	}
 
