@@ -6,18 +6,19 @@ using UnityEngine.Networking;
 public class PlayerBehavior : NetworkBehaviour {
 
 	// PUBLIC
-    [SerializeField] private float speedVar;        // speed of the playercharacter
-	[SerializeField] private float horizontalTurn;	// horizontal speed of turning the camera
-	public bool isGrounded;							// is the player connected with the ground
+    [SerializeField] private float speedVar;        	// speed of the playercharacter
+	[SerializeField] private float horizontalTurn;		// horizontal speed of turning the camera
+	public bool isGrounded;								// is the player connected with the ground
 
 	// PRIVATE
-	private GameObject spawnPoint;				// control spawning of the character
-	private Rigidbody charRB;					// reference to the PC's rigidbody
-	private Collider charCollider;				//
-	private float yaw;							// rotation about Y axis
-	private Vector3 castDown;					// search for collisions downward to fix isGrounded
-	private RaycastHit hit;						// RaycastHit detection
-    [SerializeField] private float jumpForce;	// force in which player launches upwards
+	private GameObject spawnPoint;						// control spawning of the character
+	private Rigidbody charRB;							// reference to the PC's rigidbody
+	private Collider charCollider;						//
+	private float yaw;									// rotation about Y axis
+	private Vector3 castDown;							// search for collisions downward to fix isGrounded
+	private RaycastHit hit;								// RaycastHit detection
+    [SerializeField] private float jumpForce;			// force in which player launches upwards
+	[SerializeField] private float maxDist = 1.0f;		// maximum distance for casting
 
     //start but only for once the network player is started
     public override void OnStartLocalPlayer()
@@ -72,17 +73,30 @@ public class PlayerBehavior : NetworkBehaviour {
 
 	void onGround() 
 	{
+		maxDist = 0.75f;
 		/*if (!isGrounded && charRB.velocity.y == 0) { //might need updating using a raycast later - joel
 			isGrounded = true;
 		}*/
-		/*if (Physics.Raycast(gameObject.transform.position, raycastDown, 0.3f, 1, QueryTriggerInteraction.Collide)) {
+		if (Physics.Raycast(gameObject.transform.position, castDown, 0.3f, 1, QueryTriggerInteraction.Collide)) {
 			isGrounded = true;
 			Debug.Log ("Hit");
-		}*/
-		if (Physics.BoxCast (charCollider.bounds.center, transform.localScale, castDown, transform.rotation, 0.3f, 1, QueryTriggerInteraction.Collide)) {
+		}
+	if (Physics.BoxCast (charCollider.bounds.min, new Vector3(0,0,0), castDown * maxDist, transform.rotation, maxDist, 1)) {
 			isGrounded = true;
 			//Debug.Log ("hit");
 		}
+	}
+
+	void OnDrawGizmos() {
+		if (isGrounded) {
+			Gizmos.color = Color.green;
+		} else {
+			Gizmos.color = Color.red;
+		}
+
+		Gizmos.DrawRay (charCollider.bounds.min, castDown * 0.25f);
+		// Gizmos.DrawWirteCube(origin/center of the cube, size of the cube)
+	Gizmos.DrawWireCube (charCollider.bounds.min, transform.localScale);
 	}
 
     /// <summary>

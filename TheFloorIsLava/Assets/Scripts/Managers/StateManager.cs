@@ -12,6 +12,7 @@ public class StateManager : NetworkBehaviour {
 	// PRIVATE
 	private Rigidbody charRig;			// character's rigidbody
 	private Rigidbody lavaRig;			// laval's rigidbody
+	private GameObject finishLine;		// win state
 
 	// Use this for initialization
 	void Start () {
@@ -20,12 +21,16 @@ public class StateManager : NetworkBehaviour {
 
 		charRig = playerChar.GetComponent<Rigidbody> ();
 		lavaRig = lavaObj.GetComponent <Rigidbody> ();
+
+		finishLine = GameObject.FindGameObjectWithTag ("Finisher"); // finish line instantiation
 	}
 
-	void OnCollisionEnter(Collision col) {
-
+	void ReachFinishLine(GameObject other) {
+		//Physics.Raycast ();
+		if (other.tag == "Finisher") {
+			Debug.Log ("Finish");
+		}
 	}
-
 	// Update is called once per frame
 	void Update () {
 		
