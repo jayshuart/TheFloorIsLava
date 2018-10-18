@@ -6,17 +6,19 @@ using UnityEngine.Networking;
 public class PlayerBehavior : NetworkBehaviour {
 
 	// PUBLIC
-    [SerializeField] private float speedVar;        	// speed of the playercharacter
-	[SerializeField] private float horizontalTurn;		// horizontal speed of turning the camera
 	public bool isGrounded;								// is the player connected with the ground
 
 	// PRIVATE
+	public bool debugToggle;
 	private GameObject spawnPoint;						// control spawning of the character
 	private Rigidbody charRB;							// reference to the PC's rigidbody
 	private Collider charCollider;						//
 	private float yaw;									// rotation about Y axis
 	private Vector3 castDown;							// search for collisions downward to fix isGrounded
 	private RaycastHit hit;								// RaycastHit detection
+	private List<Collider> lCollisions;					// list of all objects the character will come into contact w
+	[SerializeField] private float speedVar;        	// speed of the playercharacter
+	[SerializeField] private float horizontalTurn;		// horizontal speed of turning the camera
     [SerializeField] private float jumpForce;			// force in which player launches upwards
 	[SerializeField] private float maxDist = 1.0f;		// maximum distance for casting
 
@@ -34,21 +36,17 @@ public class PlayerBehavior : NetworkBehaviour {
 		this.transform.position = spawnPoint.transform.position;
 
 		castDown = Vector3.down; // (0, -1, 0);
-    }
 
-	// Use this for initialization
-	void Start ()
-    {
-		// INSTANTIATE GLOBALS
-        //speedVar = 5.0f;
-		//charRB = GetComponent<Rigidbody> ();
+		lCollisions = new List<Collider> ();
+
+		yaw = 0.0f;
+
 		isGrounded = true;
 
-		// CAMERA INSTANTIATIONS
-		//horizontalTurn = 6.5f;
-		yaw = 0.0f;
-	}
-	
+		debugToggle = false;
+    }
+
+	#region PLAYER_MECHANICS
     /// <summary>
     /// Move player in X/Y axis; allow for diagonal movement
     /// </summary>
@@ -71,19 +69,97 @@ public class PlayerBehavior : NetworkBehaviour {
 		charRB.transform.eulerAngles = new Vector3(0.0f, yaw, 0.0f);	// Euler Angles to prevent gimbal locking (as with previous issue)
     }
 
-	void onGround() 
+	/// <summary>
+	/// Allow for upwards movement; gravity affected
+	/// </summary>
+	void PlayerJump()
 	{
-		maxDist = 0.75f;
-		/*if (!isGrounded && charRB.velocity.y == 0) { //might need updating using a raycast later - joel
-			isGrounded = true;
-		}*/
-		if (Physics.Raycast(gameObject.transform.position, castDown, 0.3f, 1, QueryTriggerInteraction.Collide)) {
-			isGrounded = true;
-			Debug.Log ("Hit");
+		if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true) {
+			//Debug.Log ("Jump!");
+			charRB.AddForce (new Vector3 (0, jumpForce, 0), ForceMode.Impulse);
+
 		}
-	if (Physics.BoxCast (charCollider.bounds.min, new Vector3(0,0,0), castDown * maxDist, transform.rotation, maxDist, 1)) {
+	}
+
+	/// <summary>
+	/// Force player's own respawn
+	/// </summary>
+	void PlayerForcedRespawn()
+	{
+		if (Input.GetKeyDown (KeyCode.R)) {
+			this.transform.position = spawnPoint.transform.position;
+		}
+	}
+	#endregion PLAYER_MECHANICS
+
+	#region COLLISION_DETECTION
+	private void OnCollisionEnter(Collision col) {
+		ContactPoint[] cPoints = col.contacts;
+
+		for (int i = 0; i < cPoints.Length; i++) {
+			if (Vector3.Dot(cPoints[i].normal, Vector3.up) > 0.5f) {
+				if (!lCollisions.Contains(col.collider)) {
+					lCollisions.Add (col.collider);
+				}
+				isGrounded = true;
+			}
+		}
+	}
+
+	private void OnCollisionStay(Collision col) {
+		ContactPoint[] cPoints = col.contacts;
+		bool contact = false;
+
+		for (int i = 0; i < cPoints.Length; i++) {
+			if (Vector3.Dot(cPoints[i].normal, Vector3.up) > 0.5f) {
+				contact = true;
+			}
+		}
+
+		if (contact) {
 			isGrounded = true;
-			//Debug.Log ("hit");
+			if (!lCollisions.Contains (col.collider)) {
+				lCollisions.Add (col.collider);
+			}
+		} else {
+			if (lCollisions.Contains(col.collider)) {
+				lCollisions.Remove (col.collider);
+			}
+			if (lCollisions.Count == 0) {
+				isGrounded = false;
+			}
+		}
+	}
+
+	private void OnCollisionExit(Collision col) {
+		if (lCollisions.Contains(col.collider)) {
+			lCollisions.Remove (col.collider);
+		}
+		if (lCollisions.Count == 0) {
+			isGrounded = false;
+			lCollisions.Remove (col.collider);
+		}
+	}
+
+	/// <summary>
+	/// Return character to start points
+	/// </summary>
+	/// <param name="col">Col.</param>
+	private void OnTriggerStay(Collider col)
+	{
+		// Colliding with lav
+		if (col.name == "PH_Lava") {
+			this.transform.position = spawnPoint.transform.position;
+			//Debug.Log ("triggered");
+		}
+	}
+	#endregion
+
+	#region DEBUG
+	void DebugToggleButton() {
+		if (Input.GetKeyDown(KeyCode.B)) {
+			Debug.Log ("DEBUGGING: " + debugToggle);
+			debugToggle = !debugToggle;
 		}
 	}
 
@@ -94,45 +170,11 @@ public class PlayerBehavior : NetworkBehaviour {
 			Gizmos.color = Color.red;
 		}
 
-		Gizmos.DrawRay (charCollider.bounds.min, castDown * 0.25f);
-		// Gizmos.DrawWirteCube(origin/center of the cube, size of the cube)
-	Gizmos.DrawWireCube (charCollider.bounds.min, transform.localScale);
-	}
-
-    /// <summary>
-    /// Allow for upwards movement; gravity affected
-    /// </summary>
-    void PlayerJump()
-    {
-		if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true) {
-			//Debug.Log ("Jump!");
-			charRB.AddForce (new Vector3 (0, jumpForce, 0), ForceMode.Impulse);
-			
-		}
-        isGrounded = false;
-    }
-
-	/// <summary>
-	/// Return character to start points
-	/// </summary>
-	/// <param name="col">Col.</param>
-	void OnTriggerStay(Collider col)
-	{
-		if (col.name == "PH_Lava") {
-			this.transform.position = spawnPoint.transform.position;
-			//Debug.Log ("triggered");
+		if (debugToggle == true) {
+			Gizmos.DrawWireCube (transform.position, new Vector3(1, 1, 1));
 		}
 	}
-
-	/// <summary>
-	/// Players can force their own respawn
-	/// </summary>
-	void PlayerForcedRespawn()
-	{
-		if (Input.GetKeyDown (KeyCode.R)) {
-			this.transform.position = spawnPoint.transform.position;
-		}
-	}
+	#endregion DEBUG
 
 	// Update is called once per frame
 	void Update ()
@@ -144,9 +186,7 @@ public class PlayerBehavior : NetworkBehaviour {
             PlayerMovement();
             PlayerViewRotation ();
             PlayerJump ();
+			DebugToggleButton ();
         }
-
-        //check if ply is gorunded so it may jump again
-        onGround ();
 	}
 }
