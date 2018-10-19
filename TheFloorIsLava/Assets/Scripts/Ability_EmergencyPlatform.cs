@@ -18,14 +18,28 @@ public class Ability_EmergencyPlatform : NetworkBehaviour {
         if (isLocalPlayer)
         {
             //left click
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonUp(0))
             {
                 //actually throw our emergency platform
                 throwPlatform();
+
+                //retunr time to original set
+                Time.timeScale = 1.0f;
+                Time.fixedDeltaTime = 0.02f * Time.timeScale;
             }
+            else if (Input.GetMouseButtonDown(0))
+            {
+                //slow time
+                Time.timeScale = 0.2f;
+                Time.fixedDeltaTime = 0.02f * Time.timeScale;
+            }
+
         }
 	}
 
+    /// <summary>
+    /// Throws the platform.
+    /// </summary>
     private void throwPlatform()
     {
         //create platform
