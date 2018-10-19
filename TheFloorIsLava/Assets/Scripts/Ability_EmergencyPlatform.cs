@@ -7,6 +7,8 @@ public class Ability_EmergencyPlatform : NetworkBehaviour {
 
     [SerializeField] private GameObject throwablePrefab;
     [SerializeField] private float throwForce;
+    [SerializeField] private Transform throwStartTransform;
+    private Rigidbody throwRB;
 
 	// Use this for initialization
 	void Start () {
@@ -33,6 +35,14 @@ public class Ability_EmergencyPlatform : NetworkBehaviour {
                 Time.timeScale = 0.2f;
                 Time.fixedDeltaTime = 0.02f * Time.timeScale;
             }
+            else if (Input.GetMouseButton(0))
+            {
+                //show arc
+                //PlotTrajectory((this.transform.position + this.transform.forward), (this.transform.forward * throwForce), .002f, 50f);
+            }
+
+            //show arc
+            PlotTrajectory(throwStartTransform.position, throwRB.velocity, .2f, 5f);
 
         }
 	}
@@ -43,12 +53,27 @@ public class Ability_EmergencyPlatform : NetworkBehaviour {
     private void throwPlatform()
     {
         //create platform
-        Vector3 instantiatePos = this.transform.position + (this.transform.forward);
-        GameObject throwable = GameObject.Instantiate(throwablePrefab, instantiatePos,  this.transform.localRotation);
+        GameObject throwable = GameObject.Instantiate(throwablePrefab, throwStartTransform.position,  this.transform.localRotation);
 
         //apply force to it
-        Rigidbody throwRB = throwable.GetComponent<Rigidbody>();
+        throwRB = throwable.GetComponent<Rigidbody>();
         Vector3 throwVector = this.transform.forward * throwForce;
-        throwRB.AddForce(throwVector);
+        throwRB.AddForce(throwVector, ForceMode.Impulse);
+    }
+
+
+    public Vector3 PlotTrajectoryAtTime (Vector3 start, Vector3 startVelocity, float time) {
+        return start + startVelocity*time + Physics.gravity*time*time*0.5f;
+    }
+
+    public void PlotTrajectory (Vector3 start, Vector3 startVelocity, float timestep, float maxTime) {
+        Vector3 prev = start;
+        for (float i = 1; i < maxTime; i = i + timestep)
+        {
+            Vector3 point = PlotTrajectoryAtTime(start, startVelocity, i);
+            Debug.DrawLine(prev, point, Color.cyan);
+
+            prev = point;
+        }
     }
 }
