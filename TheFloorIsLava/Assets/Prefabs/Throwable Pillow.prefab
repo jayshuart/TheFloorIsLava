@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 23319132445044864}
   - component: {fileID: 64501943563533582}
   - component: {fileID: 54978274450927474}
+  - component: {fileID: 114069057737304368}
   m_Layer: 0
   m_Name: Throwable Pillow
   m_TagString: Untagged
@@ -53,8 +54,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1535682391317602}
   m_LocalRotation: {x: -0.00000007283367, y: 0.26331607, z: -0.96470964, w: 0.0000000198798}
-  m_LocalPosition: {x: 2.8389, y: -0.709, z: 4.6813145}
-  m_LocalScale: {x: 0.18646508, y: 0.18646508, z: 0.18646508}
+  m_LocalPosition: {x: 2.8389, y: 0.04, z: 4.6813145}
+  m_LocalScale: {x: 0.21753016, y: 0.21753016, z: 0.21753016}
   m_Children:
   - {fileID: 4792609473826272}
   m_Father: {fileID: 0}
@@ -67,8 +68,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1966900620943724}
   m_LocalRotation: {x: 0.26623273, y: 0.03154924, z: 0.0061900015, w: 0.96337247}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.0011231, y: 0.11264, z: 0.067005}
+  m_LocalScale: {x: 1.0038953, y: 0.5411258, z: 0.82172}
   m_Children: []
   m_Father: {fileID: 4455697510914428}
   m_RootOrder: 0
@@ -128,7 +129,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 64
   m_CollisionDetection: 0
 --- !u!64 &64501943563533582
 MeshCollider:
@@ -156,3 +157,14 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 6.365357, y: 2.7839, z: 4.9790854}
   m_Center: {x: -0.12877396, y: 0.28562945, z: -0.0016347351}
+--- !u!114 &114069057737304368
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1535682391317602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ed5aa9e404a8db45b1cf0d8f65c7fd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -14,8 +14,17 @@ public class thrownPlatform : MonoBehaviour {
 		
 	}
 
-    void OnCollistionEnter(Collision col)
+    void OnTriggerEnter(Collider col)
     {
-        
+        //check if we have collided w/ lava
+        if (col.gameObject.CompareTag("Lava"))
+        {
+            //freeze object
+            this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+
+            //allow collisons w/ player again
+            this.gameObject.GetComponent<Collider>().enabled = false;
+            this.gameObject.GetComponent<Collider>().enabled = true;
+        }
     }
 }
