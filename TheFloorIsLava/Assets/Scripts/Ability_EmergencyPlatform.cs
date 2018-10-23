@@ -7,6 +7,7 @@ public class Ability_EmergencyPlatform : NetworkBehaviour {
 
     [SerializeField] private GameObject throwablePrefab;
     [SerializeField] private float throwForce;
+    [SerializeField] private float forceScaleAmount;
     [SerializeField] private Transform throwStartTransform;
     private Rigidbody throwRB;
 
@@ -23,7 +24,7 @@ public class Ability_EmergencyPlatform : NetworkBehaviour {
             if (Input.GetMouseButtonUp(0))
             {
                 //actually throw our emergency platform
-                throwPlatform();
+                ThrowPlatform();
 
                 //retunr time to original set
                 Time.timeScale = 1.0f;
@@ -37,28 +38,49 @@ public class Ability_EmergencyPlatform : NetworkBehaviour {
             }
             else if (Input.GetMouseButton(0))
             {
+                //scale force
+                AdjustForce();
+                
                 //show arc
-                //PlotTrajectory((this.transform.position + this.transform.forward), (this.transform.forward * throwForce), .002f, 50f);
+                Vector3 throwVelocity = (this.transform.forward * throwForce) * throwRB.mass; //v = m * f
+                PlotTrajectory(throwStartTransform.position, throwVelocity, .05f, 2f);;
             }
-
-            //show arc
-            PlotTrajectory(throwStartTransform.position, throwRB.velocity, .2f, 5f);
-
         }
 	}
 
     /// <summary>
     /// Throws the platform.
     /// </summary>
-    private void throwPlatform()
+    private void ThrowPlatform()
     {
         //create platform
         GameObject throwable = GameObject.Instantiate(throwablePrefab, throwStartTransform.position,  this.transform.localRotation);
+
+        //ignore collisions with this throwable and the player
+        Physics.IgnoreCollision(this.gameObject.GetComponent<Collider>(), throwable.GetComponent<Collider>());
 
         //apply force to it
         throwRB = throwable.GetComponent<Rigidbody>();
         Vector3 throwVector = this.transform.forward * throwForce;
         throwRB.AddForce(throwVector, ForceMode.Impulse);
+    }
+
+    /// <summary>
+    /// Adjusts the force of the htrow via scrolling
+    /// </summary>
+    private void AdjustForce()
+    {
+        //get input
+        if (Input.mouseScrollDelta.y > 0) //scroll forward (positive)
+        {
+            //up force
+            throwForce += forceScaleAmount;
+        }
+        else if (Input.mouseScrollDelta.y < 0) //scroll backward (negative)
+        {
+            //lessen throw force
+            throwForce -= forceScaleAmount;
+        }
     }
 
 
@@ -67,13 +89,28 @@ public class Ability_EmergencyPlatform : NetworkBehaviour {
     }
 
     public void PlotTrajectory (Vector3 start, Vector3 startVelocity, float timestep, float maxTime) {
-        Vector3 prev = start;
-        for (float i = 1; i < maxTime; i = i + timestep)
-        {
-            Vector3 point = PlotTrajectoryAtTime(start, startVelocity, i);
-            Debug.DrawLine(prev, point, Color.cyan);
+        // get line renderer
+        LineRenderer line = throwStartTransform.gameObject.GetComponent<LineRenderer>();
 
-            prev = point;
+        //make line rednerer have enough space for all the points
+        float steps = (maxTime / timestep);
+        line.positionCount = (int) steps;
+
+        //set intial point
+        int iterator = 0;
+        line.SetPosition(iterator, start);
+
+        //loop through time calculting trajectory
+        for (float i = timestep; i < maxTime; i = i + timestep)
+        {
+            //update iterator for line renderer
+            iterator++;
+
+            // plot point at thips instance in time
+            Vector3 point = PlotTrajectoryAtTime(start, startVelocity, i);
+
+            //draw line
+            line.SetPosition(iterator, point);
         }
     }
 }
