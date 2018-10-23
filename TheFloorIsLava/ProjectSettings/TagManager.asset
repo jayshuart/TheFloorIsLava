@@ -7,6 +7,8 @@ TagManager:
   - Platform
   - PlayerGhost
   - Finisher
+  - Lava
+  - StateMan
   layers:
   - Default
   - TransparentFX

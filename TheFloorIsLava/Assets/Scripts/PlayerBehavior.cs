@@ -11,6 +11,7 @@ public class PlayerBehavior : NetworkBehaviour {
 	// PRIVATE
 	public bool debugToggle;
 	private GameObject spawnPoint;						// control spawning of the character
+	private GameObject stateManager;					// game statemanager
 	private Rigidbody charRB;							// reference to the PC's rigidbody
 	private Collider charCollider;						//
 	private float yaw;									// rotation about Y axis
@@ -44,6 +45,11 @@ public class PlayerBehavior : NetworkBehaviour {
 		isGrounded = true;
 
 		debugToggle = false;
+
+		// attach this player to the StateManager
+		stateManager = GameObject.FindGameObjectWithTag("StateMan");
+		StateManager t = stateManager.GetComponent<StateManager> ();
+		t.playerChar = this.gameObject;
     }
 
 	#region PLAYER_MECHANICS
