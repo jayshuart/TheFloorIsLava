@@ -1331,6 +1331,8 @@ MonoBehaviour:
   throwForce: 10
   forceScaleAmount: 1
   throwStartTransform: {fileID: 4908003956481444}
+  cooldownTime: 4
+  timeWaited: 0
 --- !u!114 &114966304366471036
 MonoBehaviour:
   m_ObjectHideFlags: 1
