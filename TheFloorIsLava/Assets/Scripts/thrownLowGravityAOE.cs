@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class thrownPlatform : MonoBehaviour {
+public class thrownLowGravityAOE : MonoBehaviour {
+    [SerializeField] private float upwardForce;
 
 	// Use this for initialization
 	void Start () {
@@ -22,5 +23,19 @@ public class thrownPlatform : MonoBehaviour {
             //freeze object
             this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         }
+
+    }
+
+    void OnTriggerStay(Collider col)
+    {
+        if (col.gameObject.CompareTag("Player"))
+        {
+            LowGravity(col.gameObject);
+        }
+    }
+
+    private void LowGravity(GameObject affectedObject)
+    {
+        affectedObject.GetComponent<Rigidbody>().AddForce((Vector3.up * upwardForce), ForceMode.Force);
     }
 }
