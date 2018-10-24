@@ -22,9 +22,9 @@ public class thrownPlatform : MonoBehaviour {
             //freeze object
             this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
 
-            //allow collisons w/ player again
-            this.gameObject.GetComponent<Collider>().enabled = false;
-            this.gameObject.GetComponent<Collider>().enabled = true;
+            /*allow collisons w/ player again
+            this.gameObject.GetComponentInChildren<Collider>().enabled = false;
+            this.gameObject.GetComponentInChildren<Collider>().enabled = true;*/
         }
     }
 }

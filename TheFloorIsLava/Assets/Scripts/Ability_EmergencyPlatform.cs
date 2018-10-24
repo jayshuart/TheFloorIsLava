@@ -21,10 +21,12 @@ public class Ability_EmergencyPlatform : NetworkBehaviour {
     [SerializeField] private float cooldownTime; //time needed to wait before can throw again
     [SerializeField] private float timeWaited; //amount of time waited
 
+    //vignette
+    public float tStep = 0;
+
 	// Use this for initialization
 	void Start () {
         canThrow = true;
-		
 	}
 
     //start but only for local player junk
@@ -50,6 +52,10 @@ public class Ability_EmergencyPlatform : NetworkBehaviour {
                 //retunr time to original set
                 Time.timeScale = 1.0f;
                 Time.fixedDeltaTime = 0.02f * Time.timeScale;
+
+                //remove vignette
+                Camera.main.GetComponent<CameraEffect>().intensity = 0;
+                tStep = 0;
             }
             else if (Input.GetMouseButtonDown(0) && canThrow)
             {
@@ -63,8 +69,12 @@ public class Ability_EmergencyPlatform : NetworkBehaviour {
                 AdjustForce();
                 
                 //show arc
-                Vector3 throwVelocity = (this.transform.forward * throwForce) * throwRB.mass; //v = m * f
-                PlotTrajectory(throwStartTransform.position, throwVelocity, .05f, 2f);;
+                Vector3 throwVelocity = (this.transform.forward * throwForce); //v = m * f
+                PlotTrajectory(throwStartTransform.position, throwVelocity, .05f, 1f);;
+
+                //vignette
+                Camera.main.GetComponent<CameraEffect>().intensity = Mathf.Lerp(0, .5f, tStep);
+                tStep += 50f * Time.deltaTime;
             }
 
             //update UI and cooldown timer
@@ -85,7 +95,7 @@ public class Ability_EmergencyPlatform : NetworkBehaviour {
         GameObject throwable = GameObject.Instantiate(throwablePrefab, throwStartTransform.position,  this.transform.localRotation);
 
         //ignore collisions with this throwable and the player
-        Physics.IgnoreCollision(this.gameObject.GetComponent<Collider>(), throwable.GetComponent<Collider>());
+        //Physics.IgnoreCollision(this.gameObject.GetComponent<Collider>(), throwable.GetComponentInChildren<Collider>());
 
         //apply force to it
         throwRB = throwable.GetComponent<Rigidbody>();
@@ -136,7 +146,7 @@ public class Ability_EmergencyPlatform : NetworkBehaviour {
 
         //make line rednerer have enough space for all the points
         float steps = (maxTime / timestep);
-        line.positionCount = (int) steps;
+        line.positionCount = (int) (steps);
 
         //set intial point
         int iterator = 0;
