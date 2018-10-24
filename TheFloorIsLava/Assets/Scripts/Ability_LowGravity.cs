@@ -32,7 +32,7 @@ public class Ability_LowGravity : NetworkBehaviour {
     //start but only for local player junk
     public override void OnStartLocalPlayer()
     {
-        uiOverlay = GameObject.Find("Emergency Platform UI").GetComponentInChildren<shadowOverlay>();
+        uiOverlay = GameObject.Find("Low Gravity UI").GetComponentInChildren<shadowOverlay>();
         uiOverlay.LocalPlayer = this.gameObject;
         uiOverlay.CooldownTime = this.cooldownTime;
         uiOverlay.TimeWaited = this.timeWaited;
@@ -44,7 +44,7 @@ public class Ability_LowGravity : NetworkBehaviour {
         if (isLocalPlayer)
         {
             //left click
-            if (Input.GetMouseButtonUp(0) && canThrow)
+            if (Input.GetMouseButtonUp(1) && canThrow)
             {
                 //actually throw our emergency platform
                 ThrowPlatform();
@@ -57,13 +57,13 @@ public class Ability_LowGravity : NetworkBehaviour {
                 Camera.main.GetComponent<CameraEffect>().intensity = 0;
                 tStep = 0;
             }
-            else if (Input.GetMouseButtonDown(0) && canThrow)
+            else if (Input.GetMouseButtonDown(1) && canThrow)
             {
                 //slow time
                 Time.timeScale = 0.2f;
                 Time.fixedDeltaTime = 0.02f * Time.timeScale;
             }
-            else if (Input.GetMouseButton(0) && canThrow)
+            else if (Input.GetMouseButton(1) && canThrow)
             {
                 //scale force
                 AdjustForce();

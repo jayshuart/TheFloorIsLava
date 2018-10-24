@@ -1307,12 +1307,13 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1796193417218644}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4eb4a3f62a2add14b9ef5c405853a18b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  throwablePrefab: {fileID: 0}
+  throwablePrefab: {fileID: 1144172684995612, guid: 3ed046a5bb1ee83409f25a0918593045,
+    type: 2}
   throwForce: 10
   forceScaleAmount: 1
   throwStartTransform: {fileID: 4908003956481444}
