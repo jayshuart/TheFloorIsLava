@@ -15,6 +15,8 @@ public class Ability_DoubleJump : NetworkBehaviour {
 
     [SerializeField] private float maxJumpVelocity;
 
+    private shadowOverlay uiOverlay;
+
     //properties
     public float CooldownTime
     {
@@ -38,8 +40,10 @@ public class Ability_DoubleJump : NetworkBehaviour {
     //start but only for local player junk
     public override void OnStartLocalPlayer()
     {
-        GameObject.Find("shadow overlay").GetComponent<doubleJump_shadowOverlay>().LocalPlayer = this.gameObject;
-        GameObject.Find("shadow overlay").GetComponent<doubleJump_shadowOverlay>().JumpScript = this;
+        uiOverlay = GameObject.Find("Double Jump UI").GetComponentInChildren<shadowOverlay>();
+        uiOverlay.LocalPlayer = this.gameObject;
+        uiOverlay.CooldownTime = this.cooldownTime;
+        uiOverlay.TimeWaited = this.timeWaited;
     }
 	
 	// Update is called once per frame
@@ -79,6 +83,10 @@ public class Ability_DoubleJump : NetworkBehaviour {
 
     private void CoolDown()
     {
+        //update HUD info
+        uiOverlay.CooldownTime = this.cooldownTime;
+        uiOverlay.TimeWaited = this.timeWaited;
+
         //check if we need to even do a cooldown (maybe they have all their jumps?)
         if (jumps < maxJumps)
         {
