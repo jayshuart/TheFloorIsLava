@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class Ability_EmergencyPlatform : NetworkBehaviour {
+public class Ability_LowGravity : NetworkBehaviour {
 
     [SerializeField] private GameObject throwablePrefab; //prefab of object being thrown
 
@@ -24,27 +24,27 @@ public class Ability_EmergencyPlatform : NetworkBehaviour {
     //vignette
     private float tStep = 0;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         canThrow = true;
-	}
+    }
 
     //start but only for local player junk
     public override void OnStartLocalPlayer()
     {
-        uiOverlay = GameObject.Find("Emergency Platform UI").GetComponentInChildren<shadowOverlay>();
+        uiOverlay = GameObject.Find("Low Gravity UI").GetComponentInChildren<shadowOverlay>();
         uiOverlay.LocalPlayer = this.gameObject;
         uiOverlay.CooldownTime = this.cooldownTime;
         uiOverlay.TimeWaited = this.timeWaited;
     }
 
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
         if (isLocalPlayer)
         {
             //left click
-            if (Input.GetMouseButtonUp(0) && canThrow)
+            if (Input.GetMouseButtonUp(1) && canThrow)
             {
                 //actually throw our emergency platform
                 ThrowPlatform();
@@ -57,17 +57,17 @@ public class Ability_EmergencyPlatform : NetworkBehaviour {
                 Camera.main.GetComponent<CameraEffect>().intensity = 0;
                 tStep = 0;
             }
-            else if (Input.GetMouseButtonDown(0) && canThrow)
+            else if (Input.GetMouseButtonDown(1) && canThrow)
             {
                 //slow time
                 Time.timeScale = 0.2f;
                 Time.fixedDeltaTime = 0.02f * Time.timeScale;
             }
-            else if (Input.GetMouseButton(0) && canThrow)
+            else if (Input.GetMouseButton(1) && canThrow)
             {
                 //scale force
                 AdjustForce();
-                
+
                 //show arc
                 Vector3 throwVelocity = (this.transform.forward * throwForce); //v = m * f
                 PlotTrajectory(throwStartTransform.position, throwVelocity, .05f, 1f);;
@@ -80,7 +80,7 @@ public class Ability_EmergencyPlatform : NetworkBehaviour {
             //update UI and cooldown timer
             CoolDown(); 
         }
-	}
+    }
 
     /// <summary>
     /// Throws the platform.
@@ -93,9 +93,6 @@ public class Ability_EmergencyPlatform : NetworkBehaviour {
 
         //create platform
         GameObject throwable = GameObject.Instantiate(throwablePrefab, throwStartTransform.position,  this.transform.localRotation);
-
-        //ignore collisions with this throwable and the player
-        //Physics.IgnoreCollision(this.gameObject.GetComponent<Collider>(), throwable.GetComponentInChildren<Collider>());
 
         //apply force to it
         throwRB = throwable.GetComponent<Rigidbody>();
@@ -190,5 +187,3 @@ public class Ability_EmergencyPlatform : NetworkBehaviour {
         }
     }
 }
-
-

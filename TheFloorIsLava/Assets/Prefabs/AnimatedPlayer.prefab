@@ -525,6 +525,7 @@ GameObject:
   - component: {fileID: 114481610916620092}
   - component: {fileID: 114989874139281456}
   - component: {fileID: 114509917349957396}
+  - component: {fileID: 114377813954398854}
   m_Layer: 0
   m_Name: AnimatedPlayer
   m_TagString: Player
@@ -1300,6 +1301,24 @@ MonoBehaviour:
   m_SnapThreshold: 5
   m_InterpolateRotation: 1
   m_InterpolateMovement: 1.81
+--- !u!114 &114377813954398854
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1796193417218644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eb4a3f62a2add14b9ef5c405853a18b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  throwablePrefab: {fileID: 1144172684995612, guid: 3ed046a5bb1ee83409f25a0918593045,
+    type: 2}
+  throwForce: 10
+  forceScaleAmount: 1
+  throwStartTransform: {fileID: 4908003956481444}
+  cooldownTime: 4
+  timeWaited: 0
 --- !u!114 &114481610916620092
 MonoBehaviour:
   m_ObjectHideFlags: 1
