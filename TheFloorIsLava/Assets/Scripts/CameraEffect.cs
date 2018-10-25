@@ -7,12 +7,16 @@ public class CameraEffect : MonoBehaviour {
 
         public float intensity;
         private Material material;
-        [SerializeField] private Shader shader;
 
         // Creates a private material used to the effect
         void Awake ()
         {
-            material = new Material( shader);
+            
+        }
+
+        public void SetShader(Shader newShader)
+        {
+            material = new Material(newShader);
         }
 
         // Postprocess the image
