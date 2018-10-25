@@ -1411,22 +1411,9 @@ Prefab:
       propertyPath: m_RootOrder
       value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 135579265424359446, guid: 3ed046a5bb1ee83409f25a0918593045,
-        type: 2}
-      propertyPath: m_Radius
-      value: 134.88
-      objectReference: {fileID: 0}
-    - target: {fileID: 4120941252212460, guid: 3ed046a5bb1ee83409f25a0918593045, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 270.13077
-      objectReference: {fileID: 0}
-    - target: {fileID: 4120941252212460, guid: 3ed046a5bb1ee83409f25a0918593045, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 338.5819
-      objectReference: {fileID: 0}
-    - target: {fileID: 4120941252212460, guid: 3ed046a5bb1ee83409f25a0918593045, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 279.46805
+    - target: {fileID: 1144172684995612, guid: 3ed046a5bb1ee83409f25a0918593045, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ed046a5bb1ee83409f25a0918593045, type: 2}
@@ -4141,7 +4128,7 @@ GameObject:
   - component: {fileID: 713545169}
   m_Layer: 0
   m_Name: PH_Lava
-  m_TagString: Untagged
+  m_TagString: Lava
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8783,7 +8770,7 @@ Prefab:
         type: 2}
       propertyPath: shader
       value: 
-      objectReference: {fileID: 4800000, guid: e85cf93b88a3f734aacbec1c2fad21e3, type: 3}
+      objectReference: {fileID: 4800000, guid: 4d60a5bb5f84ffe468ea1a0a2c3a8e2e, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a91cb9a2dc0e0ca47a1b31cd7997bedc, type: 2}
   m_IsPrefabAsset: 0
@@ -9548,6 +9535,31 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224636553158092596, guid: 0634f0242c19f7c4c98e380ddf0cbf8a,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: -286
+      objectReference: {fileID: 0}
+    - target: {fileID: 224636553158092596, guid: 0634f0242c19f7c4c98e380ddf0cbf8a,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -206
+      objectReference: {fileID: 0}
+    - target: {fileID: 224460471910890340, guid: 0634f0242c19f7c4c98e380ddf0cbf8a,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -206
+      objectReference: {fileID: 0}
+    - target: {fileID: 224415690878683146, guid: 0634f0242c19f7c4c98e380ddf0cbf8a,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: -220
+      objectReference: {fileID: 0}
+    - target: {fileID: 224415690878683146, guid: 0634f0242c19f7c4c98e380ddf0cbf8a,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -205
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0634f0242c19f7c4c98e380ddf0cbf8a, type: 2}
