@@ -9,6 +9,7 @@ TagManager:
   - Finisher
   - Lava
   - StateMan
+  - TimeScore
   layers:
   - Default
   - TransparentFX
