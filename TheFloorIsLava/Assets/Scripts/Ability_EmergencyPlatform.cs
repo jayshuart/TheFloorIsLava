@@ -22,5 +22,4 @@ public class Ability_EmergencyPlatform : ThrowParent {
 
     }
 }
-
-
+   

@@ -19,6 +19,10 @@ public class PlayerBehavior : NetworkBehaviour {
 	private RaycastHit hit;						// RaycastHit detection
     [SerializeField] private float jumpForce;	// force in which player launches upwards
 
+    //ability switching
+    [SerializeField] private List<Behaviour> abilities;
+    private int activeAbility;
+
     //start but only for once the network player is started
     public override void OnStartLocalPlayer()
     {
@@ -43,7 +47,43 @@ public class PlayerBehavior : NetworkBehaviour {
 
 		// CAMERA INSTANTIATIONS
 		yaw = 0.0f;
+
+        //fill abilites list
+        Behaviour[] components = this.gameObject.GetComponents<Behaviour>();
+
+        foreach (Behaviour b in components) //cycle through all components
+        {
+            if (b.ToString().Contains("(Ability_" ) && !b.ToString().Contains("(Ability_DoubleJump" )) //filter for only ability scripts - and not our double jump(its always active)
+            {
+                abilities.Add(b); //add to list of abilities
+                b.enabled = false;
+            }
+        }
+
+        //set active ability
+        activeAbility = 0;
+        abilities[activeAbility].enabled = true;
 	}
+
+    /// <summary>
+    /// Cycles the active abiility.
+    /// </summary>
+    private void CycleAbiility()
+    {
+        if (Input.GetKeyDown(KeyCode.KeypadPlus))
+        {
+            abilities[activeAbility].enabled = false;
+            activeAbility = (activeAbility + 1) % abilities.Count;
+            abilities[activeAbility].enabled = true;
+        }
+        else if (Input.GetKeyDown(KeyCode.KeypadMinus))
+        {
+            abilities[activeAbility].enabled = false;
+            activeAbility = (activeAbility - 1) % abilities.Count;
+            abilities[activeAbility].enabled = true;
+        }
+
+    }
 	
     /// <summary>
     /// Move player in X/Y axis; allow for diagonal movement
@@ -127,6 +167,7 @@ public class PlayerBehavior : NetworkBehaviour {
             PlayerMovement();
             PlayerViewRotation ();
             PlayerJump ();
+            CycleAbiility();
         }
 
         //check if ply is gorunded so it may jump again
