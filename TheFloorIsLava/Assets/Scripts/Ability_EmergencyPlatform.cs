@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
+
 public class Ability_EmergencyPlatform : ThrowParent {
 
     // Use this for initialization
@@ -13,8 +14,15 @@ public class Ability_EmergencyPlatform : ThrowParent {
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
-        InitializeUI("Emergency Platform UI");
+        //InitializeUI("Emergency Platform UI");
     }
+
+    void OnEnable()
+    {
+        InitializeUI("Emergency Platform UI");
+        base.OnEnable();
+    }
+
 
     // Update is called once per frame
     void Update () {

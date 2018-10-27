@@ -13,7 +13,13 @@ public class Ability_LowGravity : ThrowParent {
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
+        //InitializeUI("Low Gravity UI");
+    }
+
+    void OnEnable()
+    {
         InitializeUI("Low Gravity UI");
+        base.OnEnable();
     }
 
     // Update is called once per frame

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public  class ThrowParent : NetworkBehaviour {
-
     [SerializeField] protected GameObject throwablePrefab; //prefab of object being thrown
 
     //force properties
@@ -20,6 +20,8 @@ public  class ThrowParent : NetworkBehaviour {
     protected shadowOverlay uiOverlay; //ui element
     [SerializeField] protected float cooldownTime; //time needed to wait before can throw again
     [SerializeField] protected float timeWaited; //amount of time waited
+    [SerializeField]protected Image uiTop;
+    [SerializeField] protected Image uiShadow;
 
     //vignette
     protected float tStep = 0;
@@ -36,6 +38,19 @@ public  class ThrowParent : NetworkBehaviour {
     public override void OnStartLocalPlayer()
     {
         
+    }
+
+    protected void OnEnable()
+    {
+        //fade in
+        ToggleHUDElement(1.0f);
+
+    }
+
+    protected void OnDisable()
+    {
+        //fade out
+        ToggleHUDElement(.3f);
     }
 
 
@@ -88,6 +103,9 @@ public  class ThrowParent : NetworkBehaviour {
         uiOverlay.LocalPlayer = this.gameObject;
         uiOverlay.CooldownTime = this.cooldownTime;
         uiOverlay.TimeWaited = this.timeWaited;
+
+        uiTop = GameObject.Find(uiName).GetComponent<Image>();
+        uiShadow = uiTop.gameObject.transform.GetChild(0).GetComponent<Image>();
     }
 
     /// <summary>
@@ -193,5 +211,16 @@ public  class ThrowParent : NetworkBehaviour {
                 canThrow = true;
             }
         }
+    }
+
+    protected void ToggleHUDElement(float alpha)
+    {
+        Color temp = uiTop.color;
+        temp.a = alpha;
+        uiTop.color = temp;
+
+        temp = uiShadow.color;
+        temp.a = alpha;
+        uiShadow.color = temp;
     }
 }
