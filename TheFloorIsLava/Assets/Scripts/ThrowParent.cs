@@ -58,8 +58,23 @@ public  class ThrowParent : NetworkBehaviour {
     protected void Update () {
         if (isLocalPlayer)
         {
+            //right click to cancel
+            if(Input.GetMouseButton(1))
+            {
+                //retunr time to original set
+                Time.timeScale = 1.0f;
+                Time.fixedDeltaTime = 0.02f * Time.timeScale;
+
+                //remove vignette
+                Camera.main.GetComponent<CameraEffect>().intensity = 0;
+                tStep = 0;
+
+                //leave method
+                return;
+            }
+
             //left click
-            if (Input.GetMouseButtonUp(0) && canThrow)
+            if (Input.GetMouseButtonUp(0) && canThrow) //if right clikc is donw dont throw
             {
                 //actually throw our emergency platform
                 ThrowObject();
