@@ -16,6 +16,9 @@ public  class ThrowParent : NetworkBehaviour {
     protected Rigidbody throwRB; //rigid body of the thrown object
     protected bool canThrow;
 
+    //throw arc
+    protected LineRenderer line;
+
     //ui properties
     protected shadowOverlay uiOverlay; //ui element
     [SerializeField] protected float cooldownTime; //time needed to wait before can throw again
@@ -32,6 +35,9 @@ public  class ThrowParent : NetworkBehaviour {
     protected void Start () {
         canThrow = true;
         Camera.main.GetComponent<CameraEffect>().SetShader(screenEffect);
+
+        // get line renderer
+        line = throwStartTransform.gameObject.GetComponent<LineRenderer>();
     }
 
     //start but only for local player junk
@@ -69,6 +75,9 @@ public  class ThrowParent : NetworkBehaviour {
                 Camera.main.GetComponent<CameraEffect>().intensity = 0;
                 tStep = 0;
 
+                //clean up arc line
+                line.enabled = false;
+
                 //leave method
                 return;
             }
@@ -86,12 +95,18 @@ public  class ThrowParent : NetworkBehaviour {
                 //remove vignette
                 Camera.main.GetComponent<CameraEffect>().intensity = 0;
                 tStep = 0;
+
+                //clean up arc line
+                line.enabled = false;
             }
             else if (Input.GetMouseButtonDown(0) && canThrow)
             {
                 //slow time
                 Time.timeScale = 0.2f;
                 Time.fixedDeltaTime = 0.02f * Time.timeScale;
+
+                //turn on arc line
+                line.enabled = true;
             }
             else if (Input.GetMouseButton(0) && canThrow)
             {
@@ -179,8 +194,6 @@ public  class ThrowParent : NetworkBehaviour {
     /// <param name="timestep">time between each trajectory point</param>
     /// <param name="maxTime">Max time ploted</param>
     protected void PlotTrajectory (Vector3 start, Vector3 startVelocity, float timestep, float maxTime) {
-        // get line renderer
-        LineRenderer line = throwStartTransform.gameObject.GetComponent<LineRenderer>();
 
         //make line rednerer have enough space for all the points
         float steps = (maxTime / timestep);
