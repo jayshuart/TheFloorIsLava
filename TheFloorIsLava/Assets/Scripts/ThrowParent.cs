@@ -101,12 +101,13 @@ public  class ThrowParent : NetworkBehaviour {
             }
             else if (Input.GetMouseButtonDown(0) && canThrow)
             {
+                //turn on arc line
+                line.enabled = true;
+
                 //slow time
                 Time.timeScale = 0.2f;
                 Time.fixedDeltaTime = 0.02f * Time.timeScale;
 
-                //turn on arc line
-                line.enabled = true;
             }
             else if (Input.GetMouseButton(0) && canThrow)
             {

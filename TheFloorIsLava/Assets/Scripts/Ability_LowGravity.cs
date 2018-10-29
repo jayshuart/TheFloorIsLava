@@ -7,13 +7,12 @@ public class Ability_LowGravity : ThrowParent {
 
     // Use this for initialization
     void Start () {
-
+        base.Start();
     }
 
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
-        //InitializeUI("Low Gravity UI");
     }
 
     void OnEnable()
