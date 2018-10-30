@@ -3,20 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class StateManager : NetworkBehaviour {
 
 	// PUBLIC
-	public GameObject playerChar;		// the character
-	public GameObject lavaObj;			// lava object. May need to be an array in the future
-	public Text timeScore;				// time taken to complete level for each player
+	public GameObject playerChar;					// the character
+	public GameObject lavaObj;						// lava object. May need to be an array in the future
+	public Text timeScore;							// time taken to complete level for each player
 
 	// PRIVATE
-	private Rigidbody charRig;			// character's rigidbody
-	private Rigidbody lavaRig;			// laval's rigidbody
-	private GameObject finishLine;		// win state
-	private float elapsedTime;			// total time since start of game
-	//public Text totalScore;				// final time
+	private Rigidbody charRig;						// character's rigidbody
+	private Rigidbody lavaRig;						// laval's rigidbody
+	private GameObject finishLine;					// win state
+	[SerializeField] private GameObject[] nwPlayers;// the players in the level
+	private float elapsedTime;						// total time since start of game
+	[SerializeField] private NetworkManager cm;		// network manager
+	//public Text totalScore;						// final time
 
 	// Use this for initialization
 	void Start () {
@@ -47,8 +50,10 @@ public class StateManager : NetworkBehaviour {
 			// display the time taken to reach finish
 			///Debug.Log (elapsedTime.ToString ("0.00"));
 			//Debug.Log ("Trigger!");
+			playerChar.GetComponent<PlayerBehavior>().reachFinish = true;
+			playerChar.GetComponent<PlayerBehavior> ().TeleportBackToLobby ();
 		} else {
-			Debug.Log ("Unknown error/exception");
+			//Debug.Log ("Unknown error/exception");
 		}
 		//Debug.Log (elapsedTime.ToString("0.000"));
 	}
@@ -62,6 +67,14 @@ public class StateManager : NetworkBehaviour {
 	}
 	*/
 
+	/// <summary>
+	/// All this is is a small snippet to help transition from scene to scene
+	/// </summary>
+	/// <param name="level">Level.</param>
+	public void GoToNextLevel(string level) {
+		cm.ServerChangeScene(level);
+	}
+
 	// Update is called once per frame
 	void Update () {
 		elapsedTime += Time.deltaTime;
@@ -71,6 +84,9 @@ public class StateManager : NetworkBehaviour {
 			playerChar = GameObject.FindGameObjectWithTag ("Player");
 
 		timeScore.text = "Time: " + elapsedTime.ToString("0.00");
+
+		// populate the player array with all players in the scene
+		nwPlayers = GameObject.FindGameObjectsWithTag("Player");
 
 	}
 }

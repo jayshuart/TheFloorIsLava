@@ -7,6 +7,7 @@ public class PlayerBehavior : NetworkBehaviour {
 
 	// PUBLIC
 	public bool isGrounded;								// is the player connected with the ground
+	public bool reachFinish;							// has the player reached the finish line?
 
 	// PRIVATE
 	public bool debugToggle;
@@ -43,6 +44,8 @@ public class PlayerBehavior : NetworkBehaviour {
 		yaw = 0.0f;
 
 		isGrounded = true;
+
+		reachFinish = false;
 
 		debugToggle = false;
 
@@ -96,6 +99,17 @@ public class PlayerBehavior : NetworkBehaviour {
 			this.transform.position = spawnPoint.transform.position;
 		}
 	}
+
+	/// <summary>
+	/// Use this to teleport a character back to lobby for whatever necessary 
+	/// </summary>
+	public void TeleportBackToLobby() {
+		if (reachFinish == true) {
+			// do teleport code here
+			Debug.Log("Teleportation Initialied...");
+		}
+	}
+
 	#endregion PLAYER_MECHANICS
 
 	#region COLLISION_DETECTION
