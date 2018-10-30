@@ -6,14 +6,10 @@ TagManager:
   tags:
   - Platform
   - PlayerGhost
-<<<<<<< HEAD
   - Finisher
   - Lava
   - StateMan
   - TimeScore
-=======
-  - LobbySpawn
->>>>>>> origin/lobby
   layers:
   - Default
   - TransparentFX
