@@ -70,13 +70,13 @@ public class PlayerBehavior : NetworkBehaviour {
     /// </summary>
     private void CycleAbiility()
     {
-        if (Input.GetKeyDown(KeyCode.KeypadPlus))
+        if (Input.GetKeyDown(KeyCode.KeypadPlus) || Input.mouseScrollDelta > 0)
         {
             abilities[activeAbility].enabled = false;
             activeAbility = (activeAbility + 1) % abilities.Count;
             abilities[activeAbility].enabled = true;
         }
-        else if (Input.GetKeyDown(KeyCode.KeypadMinus))
+        else if (Input.GetKeyDown(KeyCode.KeypadMinus) || Input.mouseScrollDelta < 0)
         {
             abilities[activeAbility].enabled = false;
             activeAbility = (activeAbility - 1) % abilities.Count;
