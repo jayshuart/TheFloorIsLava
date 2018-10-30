@@ -9,9 +9,9 @@ public class PlayerBehavior : NetworkBehaviour {
     [SerializeField] private float speedVar;        // speed of the playercharacter
 	[SerializeField] private float horizontalTurn;	// horizontal speed of turning the camera
 	public bool isGrounded;							// is the player connected with the ground
+    public GameObject spawnPoint;               // control spawning of the character
 
 	// PRIVATE
-	private GameObject spawnPoint;				// control spawning of the character
 	private Rigidbody charRB;					// reference to the PC's rigidbody
 	private Collider charCollider;				//
 	private float yaw;							// rotation about Y axis
@@ -29,7 +29,7 @@ public class PlayerBehavior : NetworkBehaviour {
 		charRB = GetComponent<Rigidbody> ();
 		charCollider = GetComponent<Collider> ();
 
-        spawnPoint = GameObject.FindGameObjectWithTag("Respawn"); //set spawn point
+        spawnPoint = GameObject.FindGameObjectWithTag("LobbySpawn"); //set spawn point to that of the lobby - will update later
 		this.transform.position = spawnPoint.transform.position;
 
 		castDown = Vector3.down; // (0, -1, 0);
@@ -39,12 +39,9 @@ public class PlayerBehavior : NetworkBehaviour {
 	void Start ()
     {
 		// INSTANTIATE GLOBALS
-        //speedVar = 5.0f;
-		//charRB = GetComponent<Rigidbody> ();
 		isGrounded = true;
 
 		// CAMERA INSTANTIATIONS
-		//horizontalTurn = 6.5f;
 		yaw = 0.0f;
 	}
 	
@@ -113,7 +110,7 @@ public class PlayerBehavior : NetworkBehaviour {
 	/// <summary>
 	/// Players can force their own respawn
 	/// </summary>
-	void PlayerForcedRespawn()
+	private void PlayerForcedRespawn()
 	{
 		if (Input.GetKeyDown (KeyCode.R)) {
 			this.transform.position = spawnPoint.transform.position;
