@@ -6,6 +6,7 @@ using UnityEngine.Networking;
 public class PlayerBehavior : NetworkBehaviour {
 
 	// PUBLIC
+<<<<<<< HEAD
 	public bool isGrounded;								// is the player connected with the ground
 	public bool reachFinish;							// has the player reached the finish line?
 
@@ -23,6 +24,20 @@ public class PlayerBehavior : NetworkBehaviour {
 	[SerializeField] private float horizontalTurn;		// horizontal speed of turning the camera
     [SerializeField] private float jumpForce;			// force in which player launches upwards
 	[SerializeField] private float maxDist = 1.0f;		// maximum distance for casting
+=======
+    [SerializeField] private float speedVar;        // speed of the playercharacter
+	[SerializeField] private float horizontalTurn;	// horizontal speed of turning the camera
+	public bool isGrounded;							// is the player connected with the ground
+    public GameObject spawnPoint;               // control spawning of the character
+
+	// PRIVATE
+	private Rigidbody charRB;					// reference to the PC's rigidbody
+	private Collider charCollider;				//
+	private float yaw;							// rotation about Y axis
+	private Vector3 castDown;					// search for collisions downward to fix isGrounded
+	private RaycastHit hit;						// RaycastHit detection
+    [SerializeField] private float jumpForce;	// force in which player launches upwards
+>>>>>>> origin/lobby
 
     //start but only for once the network player is started
     public override void OnStartLocalPlayer()
@@ -34,13 +49,23 @@ public class PlayerBehavior : NetworkBehaviour {
 		charRB = GetComponent<Rigidbody> ();
 		charCollider = GetComponent<Collider> ();
 
-        spawnPoint = GameObject.FindGameObjectWithTag("Respawn"); //set spawn point
+        spawnPoint = GameObject.FindGameObjectWithTag("LobbySpawn"); //set spawn point to that of the lobby - will update later
 		this.transform.position = spawnPoint.transform.position;
 
 		castDown = Vector3.down; // (0, -1, 0);
 
+<<<<<<< HEAD
 		lCollisions = new List<Collider> ();
 
+=======
+	// Use this for initialization
+	void Start ()
+    {
+		// INSTANTIATE GLOBALS
+		isGrounded = true;
+
+		// CAMERA INSTANTIATIONS
+>>>>>>> origin/lobby
 		yaw = 0.0f;
 
 		isGrounded = true;
@@ -175,6 +200,7 @@ public class PlayerBehavior : NetworkBehaviour {
 	}
 	#endregion
 
+<<<<<<< HEAD
 	#region DEBUG
 	void DebugToggleButton() {
 		if (Input.GetKeyDown(KeyCode.B)) {
@@ -192,6 +218,15 @@ public class PlayerBehavior : NetworkBehaviour {
 
 		if (debugToggle == true) {
 			Gizmos.DrawWireCube (transform.position, new Vector3(1, 1, 1));
+=======
+	/// <summary>
+	/// Players can force their own respawn
+	/// </summary>
+	private void PlayerForcedRespawn()
+	{
+		if (Input.GetKeyDown (KeyCode.R)) {
+			this.transform.position = spawnPoint.transform.position;
+>>>>>>> origin/lobby
 		}
 	}
 	#endregion DEBUG
