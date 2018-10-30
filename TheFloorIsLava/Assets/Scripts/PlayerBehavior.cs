@@ -70,18 +70,24 @@ public class PlayerBehavior : NetworkBehaviour {
     /// </summary>
     private void CycleAbiility()
     {
-        if (Input.GetKeyDown(KeyCode.KeypadPlus) || Input.mouseScrollDelta.x > 0)
+        //check the player isnt alreayd trying to throw
+        if (!Input.GetMouseButton(0))
         {
-            abilities[activeAbility].enabled = false;
-            activeAbility = (activeAbility + 1) % abilities.Count;
-            abilities[activeAbility].enabled = true;
+            //get input and cycle through abilites
+            if (Input.GetKeyDown(KeyCode.KeypadPlus) || (Input.mouseScrollDelta.y > 0)) //cycle forward
+            {
+                abilities[activeAbility].enabled = false; //turn off current
+                activeAbility = ((activeAbility + 1) % (abilities.Count)); //set new ability
+                abilities[activeAbility].enabled = true; //turn on new current
+            }
+            else if (Input.GetKeyDown(KeyCode.KeypadMinus) || (Input.mouseScrollDelta.y < 0)) //cycle backward
+            {
+                abilities[activeAbility].enabled = false;
+                activeAbility = Mathf.Abs((activeAbility - 1) % (abilities.Count));
+                abilities[activeAbility].enabled = true;
+            }
         }
-        else if (Input.GetKeyDown(KeyCode.KeypadMinus) || Input.mouseScrollDelta.x < 0)
-        {
-            abilities[activeAbility].enabled = false;
-            activeAbility = (activeAbility - 1) % abilities.Count;
-            abilities[activeAbility].enabled = true;
-        }
+
 
     }
 	

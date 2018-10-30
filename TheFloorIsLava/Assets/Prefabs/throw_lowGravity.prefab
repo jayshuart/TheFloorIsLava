@@ -218,7 +218,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   upwardForce: 10
-  scaleRate: 0.1
+  scaleTime: 10
+  scaleSpeed: 2
+  decayTime: 10
 --- !u!135 &135579265424359446
 SphereCollider:
   m_ObjectHideFlags: 1
