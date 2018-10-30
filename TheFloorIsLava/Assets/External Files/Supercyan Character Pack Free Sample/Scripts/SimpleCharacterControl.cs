@@ -9,9 +9,9 @@ public class SimpleCharacterControl : MonoBehaviour {
         Direct
     }
 
-    [SerializeField] private float m_moveSpeed = 2;
-    [SerializeField] private float m_turnSpeed = 200;
-    [SerializeField] private float m_jumpForce = 4;
+    [SerializeField] private float m_moveSpeed;
+    [SerializeField] private float m_turnSpeed;
+    [SerializeField] private float m_jumpForce;
     [SerializeField] private Animator m_animator;
     [SerializeField] private Rigidbody m_rigidBody;
 
