@@ -14,7 +14,6 @@ public class StateManager : NetworkBehaviour {
 
 	// PRIVATE
 	private Rigidbody charRig;						// character's rigidbody
-	private Rigidbody lavaRig;						// laval's rigidbody
 	private GameObject finishLine;					// win state
 	[SerializeField] private GameObject[] nwPlayers;// the players in the level
 	private float elapsedTime;						// total time since start of game
@@ -30,7 +29,7 @@ public class StateManager : NetworkBehaviour {
 
 		elapsedTime = 0;
 
-		timeScore.color = Color.white;
+		//timeScore.color = Color.white;
 
 		//totalScore.transform.SetParent (GameObject.FindGameObjectWithTag (""));
 	}
@@ -38,15 +37,17 @@ public class StateManager : NetworkBehaviour {
 	void Awake() {
 		if (playerChar != null) {
 			charRig = playerChar.GetComponent<Rigidbody> ();
-			lavaRig = lavaObj.GetComponent <Rigidbody> ();
 		}
 	}
 
 	void ReachFinishLine(GameObject other) {
+		if (playerChar == null) {
+			return;
+		}
 		Collider tempCollider = other.GetComponent<Collider> ();
-		Collider tempCollider2 = playerChar.GetComponent<Collider> ();
+		//Collider tempCollider2 = playerChar.GetComponent<Collider> ();
 
-		if (other.tag == "Finisher" && tempCollider2.bounds.Intersects (tempCollider.bounds)) {
+		if (other.tag == "Finisher" && playerChar.GetComponent<Collider>().bounds.Intersects (tempCollider.bounds)) {
 			// display the time taken to reach finish
 			///Debug.Log (elapsedTime.ToString ("0.00"));
 			//Debug.Log ("Trigger!");
