@@ -9,10 +9,13 @@ public class thrownPlatform : MonoBehaviour {
     [SerializeField] private float dropRate;
     private float distCovered;
     private bool solid;
+    [SerializeField] float decayTime;
 
     // Use this for initialization
     void Start () {
         solid = false;
+
+        StartCoroutine(Decay());
     }
 	
 	// Update is called once per frame
@@ -48,6 +51,22 @@ public class thrownPlatform : MonoBehaviour {
     {
         distCovered += dropRate * Time.deltaTime;
         this.transform.position = Vector3.Lerp(originalPos, ((direction * dropDistance) + originalPos), distCovered); //lerp change in pos for smooth movement
+    }
+
+    IEnumerator Decay()
+    {
+        yield return new WaitForSeconds(decayTime);
+
+        StartCoroutine(Destory());
+    }
+
+    IEnumerator Destory()
+    {
+        this.gameObject.GetComponent<ParticleSystem>().Play();
+        yield return new WaitForSeconds(.21f);
+        Destroy(this.gameObject);
+        yield return null;
+
     }
 
    
