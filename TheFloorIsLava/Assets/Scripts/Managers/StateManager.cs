@@ -10,7 +10,9 @@ public class StateManager : NetworkBehaviour {
 	// PUBLIC
 	public GameObject playerChar;					// the character
 	public GameObject lavaObj;						// lava object. May need to be an array in the future
+	public GameObject lobbyResPoint;				// point to throw character back into lobby
 	public Text timeScore;							// time taken to complete level for each player
+	public Text totalScore;							// final time
 
 	// PRIVATE
 	private Rigidbody charRig;						// character's rigidbody
@@ -18,20 +20,14 @@ public class StateManager : NetworkBehaviour {
 	[SerializeField] private GameObject[] nwPlayers;// the players in the level
 	private float elapsedTime;						// total time since start of game
 	[SerializeField] private NetworkManager cm;		// network manager
-	//public Text totalScore;						// final time
 
 	// Use this for initialization
 	void Start () {
 		Cursor.visible = false;
 
-		//playerChar = GameObject.FindGameObjectWithTag ("Player");
 		finishLine = GameObject.FindGameObjectWithTag ("Finisher"); // finish line instantiation
 
 		elapsedTime = 0;
-
-		//timeScore.color = Color.white;
-
-		//totalScore.transform.SetParent (GameObject.FindGameObjectWithTag (""));
 	}
 
 	void Awake() {
@@ -49,8 +45,7 @@ public class StateManager : NetworkBehaviour {
 
 		if (other.tag == "Finisher" && playerChar.GetComponent<Collider>().bounds.Intersects (tempCollider.bounds)) {
 			// display the time taken to reach finish
-			///Debug.Log (elapsedTime.ToString ("0.00"));
-			//Debug.Log ("Trigger!");
+			totalScore.text = elapsedTime.ToString("0.00");
 			playerChar.GetComponent<PlayerBehavior>().reachFinish = true;
 			playerChar.GetComponent<PlayerBehavior> ().TeleportBackToLobby ();
 		} else {
@@ -58,15 +53,6 @@ public class StateManager : NetworkBehaviour {
 		}
 		//Debug.Log (elapsedTime.ToString("0.000"));
 	}
-
-
-	/*void OnTriggerEnter (Collider col) {
-		if (col.name == "Finisher") {
-			Debug.Log ("Triggered");
-			Debug.Log (elapsedTime.ToString("0.000"));
-		}
-	}
-	*/
 
 	/// <summary>
 	/// All this is is a small snippet to help transition from scene to scene
