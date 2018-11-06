@@ -54,6 +54,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerChar: {fileID: 0}
   lavaObj: {fileID: 0}
+  lobbyResPoint: {fileID: 0}
+  timeScore: {fileID: 0}
+  totalScore: {fileID: 0}
+  nwPlayers: []
+  cm: {fileID: 0}
 --- !u!114 &114956364917437704
 MonoBehaviour:
   m_ObjectHideFlags: 1

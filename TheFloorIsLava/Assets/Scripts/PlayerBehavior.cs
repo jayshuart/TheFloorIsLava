@@ -12,7 +12,8 @@ public class PlayerBehavior : NetworkBehaviour {
 
 	// PRIVATE
 	public bool debugToggle;
-	[SerializeField] private GameObject stateManager;					// game statemanager
+	[SerializeField] private GameObject stateManager;	// game statemanager
+	private StateManager t;
 	private Rigidbody charRB;							// reference to the PC's rigidbody
 	private Collider charCollider;						//
 	private float yaw;									// rotation about Y axis
@@ -54,9 +55,11 @@ public class PlayerBehavior : NetworkBehaviour {
 
 		debugToggle = false;
 
+		jumpForce = 8.0f;
+
 		// attach this player to the StateManager
 		stateManager = GameObject.FindGameObjectWithTag("StateMan");
-		StateManager t = stateManager.GetComponent<StateManager> ();
+		t = stateManager.GetComponent<StateManager> ();
 		t.playerChar = this.gameObject;
 
         //fill abilites list
@@ -143,6 +146,7 @@ public class PlayerBehavior : NetworkBehaviour {
 	public void TeleportBackToLobby() {
 		if (reachFinish == true) {
 			// do teleport code here
+			gameObject.transform.position = t.lobbyResPoint.transform.position;
 			Debug.Log("Teleportation Initialied...");
 		}
 	}
