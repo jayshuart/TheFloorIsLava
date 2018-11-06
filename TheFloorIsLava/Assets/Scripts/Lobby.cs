@@ -21,7 +21,7 @@ public class Lobby : NetworkBehaviour {
     void OnTriggerEnter(Collider col)
     {
         //check if this is the host
-        if(col.gameObject.CompareTag("Player") && col.gameObject.GetComponent<NetworkIdentity>().netId.Value != 1)
+        if(col.gameObject.GetComponent<NetworkIdentity>().netId.Value < 0)
         {
             //you have no power here- begone!
             return;
