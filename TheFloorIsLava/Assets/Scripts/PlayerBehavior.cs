@@ -19,6 +19,10 @@ public class PlayerBehavior : NetworkBehaviour {
 	private RaycastHit hit;						// RaycastHit detection
     [SerializeField] private float jumpForce;	// force in which player launches upwards
 
+    //ability switching
+    [SerializeField] private List<Behaviour> abilities;
+    private int activeAbility;
+
     //start but only for once the network player is started
     public override void OnStartLocalPlayer()
     {
@@ -43,7 +47,49 @@ public class PlayerBehavior : NetworkBehaviour {
 
 		// CAMERA INSTANTIATIONS
 		yaw = 0.0f;
+
+        //fill abilites list
+        Behaviour[] components = this.gameObject.GetComponents<Behaviour>();
+
+        foreach (Behaviour b in components) //cycle through all components
+        {
+            if (b.ToString().Contains("(Ability_" ) && !b.ToString().Contains("(Ability_DoubleJump" )) //filter for only ability scripts - and not our double jump(its always active)
+            {
+                abilities.Add(b); //add to list of abilities
+                b.enabled = false;
+            }
+        }
+
+        //set active ability
+        activeAbility = 0;
+        abilities[activeAbility].enabled = true;
 	}
+
+    /// <summary>
+    /// Cycles the active abiility.
+    /// </summary>
+    private void CycleAbiility()
+    {
+        //check the player isnt alreayd trying to throw
+        if (!Input.GetMouseButton(0))
+        {
+            //get input and cycle through abilites
+            if (Input.GetKeyDown(KeyCode.KeypadPlus) || (Input.mouseScrollDelta.y > 0)) //cycle forward
+            {
+                abilities[activeAbility].enabled = false; //turn off current
+                activeAbility = ((activeAbility + 1) % (abilities.Count)); //set new ability
+                abilities[activeAbility].enabled = true; //turn on new current
+            }
+            else if (Input.GetKeyDown(KeyCode.KeypadMinus) || (Input.mouseScrollDelta.y < 0)) //cycle backward
+            {
+                abilities[activeAbility].enabled = false;
+                activeAbility = Mathf.Abs((activeAbility - 1) % (abilities.Count));
+                abilities[activeAbility].enabled = true;
+            }
+        }
+
+
+    }
 	
     /// <summary>
     /// Move player in X/Y axis; allow for diagonal movement
@@ -127,6 +173,7 @@ public class PlayerBehavior : NetworkBehaviour {
             PlayerMovement();
             PlayerViewRotation ();
             PlayerJump ();
+            CycleAbiility();
         }
 
         //check if ply is gorunded so it may jump again
