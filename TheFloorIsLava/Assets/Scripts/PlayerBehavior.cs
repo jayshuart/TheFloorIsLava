@@ -254,7 +254,7 @@ public class PlayerBehavior : NetworkBehaviour {
             PlayerViewRotation ();
             PlayerJump ();
             CycleAbiility();
-		DebugToggleButton ();
+		    DebugToggleButton ();
         }
-	
+    }
 }
