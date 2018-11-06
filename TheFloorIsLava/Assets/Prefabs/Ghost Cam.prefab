@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4813025709948426}
   - component: {fileID: 114188758633608374}
+  - component: {fileID: 114326655043639850}
   m_Layer: 0
   m_Name: Ghost Cam
   m_TagString: PlayerGhost
@@ -131,6 +132,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ply: {fileID: 0}
+--- !u!114 &114326655043639850
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1559606721348840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d31b53cefd8c0624487cfa87d3b8bd27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ply: {fileID: 0}
 --- !u!114 &114523046303024774
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -143,4 +156,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   intensity: 0
-  shader: {fileID: 4800000, guid: 4d60a5bb5f84ffe468ea1a0a2c3a8e2e, type: 3}
