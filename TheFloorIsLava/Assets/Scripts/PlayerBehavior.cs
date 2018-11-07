@@ -209,7 +209,7 @@ public class PlayerBehavior : NetworkBehaviour {
 	private void OnTriggerStay(Collider col)
 	{
 		// Colliding with lav
-		if (col.name == "PH_Lava") {
+        if (col.gameObject.CompareTag("Lava")) {
 			this.transform.position = spawnPoint.transform.position;
 			//Debug.Log ("triggered");
 		}

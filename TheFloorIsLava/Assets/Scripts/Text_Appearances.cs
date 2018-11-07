@@ -22,7 +22,7 @@ public class Text_Appearances : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        player = GameObject.Find("Player(Clone)");
+        player = GameObject.FindGameObjectWithTag("Player");
         if (count == 0 && player.transform.position.x < 5 && player.transform.position.x > 4.5 && player.transform.position.z < 3 && player.transform.position.z > 2)
         {
             texts[count].GetComponent<Renderer>().enabled = false;
