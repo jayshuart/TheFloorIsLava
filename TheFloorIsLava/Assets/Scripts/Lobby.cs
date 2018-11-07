@@ -5,10 +5,10 @@ using UnityEngine.Networking;
 
 public class Lobby : NetworkBehaviour {
 
-    private CustomNetwork networkManager;
+    [SerializeField] private CustomNetwork networkManager;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         networkManager = GameObject.Find("NetworkManager_Custom").GetComponent<CustomNetwork>();
 		
 	}
@@ -21,7 +21,7 @@ public class Lobby : NetworkBehaviour {
     void OnTriggerEnter(Collider col)
     {
         //check if this is the host
-        if(col.gameObject.GetComponent<NetworkIdentity>().netId.Value < 0)
+        if(col.gameObject.CompareTag("Player") && col.gameObject.GetComponent<NetworkIdentity>().netId.Value < 0)
         {
             //you have no power here- begone!
             return;

@@ -19,7 +19,8 @@ public class StateManager : NetworkBehaviour {
 	private GameObject finishLine;					// win state
 	[SerializeField] private GameObject[] nwPlayers;// the players in the level
 	private float elapsedTime;						// total time since start of game
-	[SerializeField] private NetworkManager cm;		// network manager
+    [SerializeField] private CustomNetwork cm;		// network manager
+    [SerializeField] string nextScene;
 
 	// Use this for initialization
 	void Start () {
@@ -48,6 +49,7 @@ public class StateManager : NetworkBehaviour {
 			totalScore.text = elapsedTime.ToString("0.00");
 			playerChar.GetComponent<PlayerBehavior>().reachFinish = true;
 			playerChar.GetComponent<PlayerBehavior> ().TeleportBackToLobby ();
+            GoToNextLevel();
 		} else {
 			//Debug.Log ("Unknown error/exception");
 		}
@@ -57,9 +59,9 @@ public class StateManager : NetworkBehaviour {
 	/// <summary>
 	/// All this is is a small snippet to help transition from scene to scene
 	/// </summary>
-	/// <param name="level">Level.</param>
-	public void GoToNextLevel(string level) {
-		cm.ServerChangeScene(level);
+	public void GoToNextLevel() {
+        
+		cm.ServerChangeScene(nextScene);
 	}
 
 	// Update is called once per frame

@@ -3741,6 +3741,11 @@ Prefab:
       propertyPath: lobbyResPoint
       value: 
       objectReference: {fileID: 562613218}
+    - target: {fileID: 114665473397096890, guid: 8115300c2cbdfab42aac3427e94369e9,
+        type: 2}
+      propertyPath: nextScene
+      value: Level3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8115300c2cbdfab42aac3427e94369e9, type: 2}
   m_IsPrefabAsset: 0
