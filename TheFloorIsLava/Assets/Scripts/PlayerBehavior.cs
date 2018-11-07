@@ -245,16 +245,15 @@ public class PlayerBehavior : NetworkBehaviour {
 
 	// Update is called once per frame
 	void Update ()
-    {
-        //make sure we are the local player before we get user input
-        if (isLocalPlayer)
-        {
-            //ply movemenvt and cam
-            PlayerMovement();
-            PlayerViewRotation ();
-            PlayerJump ();
-            CycleAbiility();
-		DebugToggleButton ();
-        }
-	
+	{
+		//make sure we are the local player before we get user input
+		if (isLocalPlayer) {
+			//ply movemenvt and cam
+			PlayerMovement ();
+			PlayerViewRotation ();
+			PlayerJump ();
+			CycleAbiility ();
+			DebugToggleButton ();
+		}
+	}
 }
