@@ -6,11 +6,13 @@ using UnityEngine.Networking;
 public class Lobby : NetworkBehaviour {
 
     [SerializeField] private CustomNetwork networkManager;
+    public bool nextLevel; //check for if we are chaning level or starting level
+    [SerializeField] string nextScene;
 
 	// Use this for initialization
 	void Awake () {
         networkManager = GameObject.Find("NetworkManager_Custom").GetComponent<CustomNetwork>();
-		
+        nextLevel = false;
 	}
 	
 	// Update is called once per frame
@@ -28,7 +30,12 @@ public class Lobby : NetworkBehaviour {
         }
         else
         {
-            
+            if (nextLevel)
+            {
+                networkManager.ServerChangeScene(nextScene);
+                return; //leave method
+            }
+
             //move all players to the actual level
             foreach (GameObject ply in networkManager.Players)
             {

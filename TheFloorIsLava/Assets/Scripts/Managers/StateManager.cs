@@ -11,6 +11,7 @@ public class StateManager : NetworkBehaviour {
 	public GameObject playerChar;					// the character
 	public GameObject lavaObj;						// lava object. May need to be an array in the future
 	public GameObject lobbyResPoint;				// point to throw character back into lobby
+    [SerializeField] private Lobby lobbyScript;
 	public Text timeScore;							// time taken to complete level for each player
 	public Text totalScore;							// final time
 
@@ -20,7 +21,6 @@ public class StateManager : NetworkBehaviour {
 	[SerializeField] private GameObject[] nwPlayers;// the players in the level
 	private float elapsedTime;						// total time since start of game
     [SerializeField] private CustomNetwork cm;		// network manager
-    [SerializeField] string nextScene;
 
 	// Use this for initialization
 	void Start () {
@@ -49,20 +49,14 @@ public class StateManager : NetworkBehaviour {
 			totalScore.text = elapsedTime.ToString("0.00");
 			playerChar.GetComponent<PlayerBehavior>().reachFinish = true;
 			playerChar.GetComponent<PlayerBehavior> ().TeleportBackToLobby ();
-            GoToNextLevel();
+            lobbyScript.nextLevel = true;
+
 		} else {
 			//Debug.Log ("Unknown error/exception");
 		}
 		//Debug.Log (elapsedTime.ToString("0.000"));
 	}
 
-	/// <summary>
-	/// All this is is a small snippet to help transition from scene to scene
-	/// </summary>
-	public void GoToNextLevel() {
-        
-		cm.ServerChangeScene(nextScene);
-	}
 
 	// Update is called once per frame
 	void Update () {

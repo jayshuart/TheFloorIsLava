@@ -425,6 +425,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114822005327552040, guid: f40b98c2865cb5c46b5a056aa309e30a,
+        type: 2}
+      propertyPath: nextScene
+      value: Tutorial
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f40b98c2865cb5c46b5a056aa309e30a, type: 2}
   m_IsPrefabAsset: 0
@@ -433,6 +438,12 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1022354130636612, guid: f40b98c2865cb5c46b5a056aa309e30a,
     type: 2}
   m_PrefabInternal: {fileID: 124874534}
+--- !u!114 &124874536 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114822005327552040, guid: f40b98c2865cb5c46b5a056aa309e30a,
+    type: 2}
+  m_PrefabInternal: {fileID: 124874534}
+  m_Script: {fileID: 11500000, guid: 08fbc6e3d0a884f4cbba0a96a6835bde, type: 3}
 --- !u!1001 &144917434
 Prefab:
   m_ObjectHideFlags: 0
@@ -5070,6 +5081,11 @@ Prefab:
       propertyPath: cm
       value: 
       objectReference: {fileID: 511627410}
+    - target: {fileID: 114665473397096890, guid: 8115300c2cbdfab42aac3427e94369e9,
+        type: 2}
+      propertyPath: lobbyScript
+      value: 
+      objectReference: {fileID: 124874536}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8115300c2cbdfab42aac3427e94369e9, type: 2}
   m_IsPrefabAsset: 0
