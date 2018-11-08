@@ -9,9 +9,10 @@ public class Text_Appearances : MonoBehaviour {
     public int count = 0;
     GameObject player;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         texts = GameObject.FindGameObjectsWithTag("Text");
+
         //player = GameObject.Find("PH_Char2(Clone)");
         for (int i = 0; i < texts.Length; i++)
         {
@@ -19,9 +20,9 @@ public class Text_Appearances : MonoBehaviour {
             texts[i].GetComponent<Renderer>().enabled = false;
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
         player = GameObject.FindGameObjectWithTag("Player");
         if (count == 0 && player.transform.position.x < 5 && player.transform.position.x > 4.5 && player.transform.position.z < 3 && player.transform.position.z > 2)
         {
@@ -53,19 +54,13 @@ public class Text_Appearances : MonoBehaviour {
             texts[count + 1].GetComponent<Renderer>().enabled = true;
             count++;
         }
-        if (count == 5 && player.transform.position.x < -8 && player.transform.position.x > -10 && player.transform.position.z < 6 && player.transform.position.z > 2)
+        if (count == 5 && player.transform.position.x < -14 && player.transform.position.x > -16 && player.transform.position.z < 6 && player.transform.position.z > 2)
         {
             texts[count].GetComponent<Renderer>().enabled = false;
             texts[count + 1].GetComponent<Renderer>().enabled = true;
             count++;
         }
-        if (count == 6 && player.transform.position.x < -8 && player.transform.position.x > -10 && player.transform.position.z < 6 && player.transform.position.z > 2)
-        {
-            texts[count].GetComponent<Renderer>().enabled = false;
-            texts[count + 1].GetComponent<Renderer>().enabled = true;
-            count++;
-        }
-        if (count == 7 && player.transform.position.x < -8 && player.transform.position.x > -10 && player.transform.position.z < 6 && player.transform.position.z > 2)
+        if (count == 6 && player.transform.position.x < -19 && player.transform.position.x > -21 && player.transform.position.z < 6 && player.transform.position.z > 2)
         {
             texts[count].GetComponent<Renderer>().enabled = false;
             texts[count + 1].GetComponent<Renderer>().enabled = true;
