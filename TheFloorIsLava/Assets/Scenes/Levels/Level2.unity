@@ -1629,11 +1629,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 39.785477, y: 50.836678, z: 5}
   m_Center: {x: 0.0000019073489, y: 0.0000028610225, z: -25}
---- !u!1 &562613218 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1655879165328226, guid: d7390f75020eecf42bb76246531dad11,
-    type: 2}
-  m_PrefabInternal: {fileID: 278291769}
 --- !u!4 &562613222 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4590488444078048, guid: d7390f75020eecf42bb76246531dad11,
@@ -3740,7 +3735,7 @@ Prefab:
         type: 2}
       propertyPath: lobbyResPoint
       value: 
-      objectReference: {fileID: 562613218}
+      objectReference: {fileID: 2079635944}
     - target: {fileID: 114665473397096890, guid: 8115300c2cbdfab42aac3427e94369e9,
         type: 2}
       propertyPath: nextScene
@@ -4164,6 +4159,11 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 2079635942}
   m_Script: {fileID: 11500000, guid: 08fbc6e3d0a884f4cbba0a96a6835bde, type: 3}
+--- !u!1 &2079635944 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1022354130636612, guid: f40b98c2865cb5c46b5a056aa309e30a,
+    type: 2}
+  m_PrefabInternal: {fileID: 2079635942}
 --- !u!4 &2088185476 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: aab68a45c7d5bcb428bbbfbda224b2cb,
