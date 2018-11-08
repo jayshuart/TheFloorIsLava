@@ -47,6 +47,8 @@ public class StateManager : NetworkBehaviour {
 		if (other.tag == "Finisher" && playerChar.GetComponent<Collider>().bounds.Intersects (tempCollider.bounds)) {
 			// display the time taken to reach finish
 			totalScore.text = elapsedTime.ToString("0.00");
+            totalScore.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+
 			playerChar.GetComponent<PlayerBehavior>().reachFinish = true;
 			playerChar.GetComponent<PlayerBehavior> ().TeleportBackToLobby ();
             lobbyScript.nextLevel = true;
