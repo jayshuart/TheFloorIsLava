@@ -20,11 +20,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4758832530598928}
   - component: {fileID: 33458820505318922}
-  - component: {fileID: 65369637822264358}
   - component: {fileID: 23097333726624278}
+  - component: {fileID: 65369637822264358}
   m_Layer: 0
   m_Name: PH_Lava
-  m_TagString: Untagged
+  m_TagString: Lava
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -35,9 +35,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1222166693072890}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.9634675, y: -0.09148686, z: 0.55680513}
-  m_LocalScale: {x: 14.625896, y: 0.296921, z: 9.560969}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -9.3, y: -0.61, z: -18.2}
+  m_LocalScale: {x: 23.891, y: 0.13171, z: 37.1734}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -57,7 +57,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 40eba6157c2e7fd48accf084a75062c4, type: 2}
+  - {fileID: 2100000, guid: 6beaf20cf5009d34494f2f37a1ceeecd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -65,7 +65,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_PreserveUVs: 1
+  m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_StitchLightmapSeams: 0

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Platform
   - PlayerGhost
+  - LobbySpawn
+  - Lava
   layers:
   - Default
   - TransparentFX

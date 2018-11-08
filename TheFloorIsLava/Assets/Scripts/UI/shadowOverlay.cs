@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class doubleJump_shadowOverlay : MonoBehaviour {
+public class shadowOverlay : MonoBehaviour {
 
     //fields
     private float maxCoolShadow;
     [SerializeField] private float amountLeft;
     [SerializeField] private GameObject localPlayer;
-    private Ability_DoubleJump jumpScript;
+    private float cooldownTime;
+    private float timeWaited;
 
     //properties
     public GameObject LocalPlayer
@@ -17,11 +18,15 @@ public class doubleJump_shadowOverlay : MonoBehaviour {
         set { localPlayer = value; }
     }
 
-    public Ability_DoubleJump JumpScript
+    public float CooldownTime
     {
-        set { jumpScript = value; }
+        set { cooldownTime = value; }
     }
 
+    public float TimeWaited
+    {
+        set { timeWaited = value; }
+    }
 
 	// Use this for initialization
 	void Start () {
@@ -37,19 +42,19 @@ public class doubleJump_shadowOverlay : MonoBehaviour {
         if (localPlayer != null)
         {
             //condition for when cooldown is maxed (not cooling thus 0.0 seconds)
-            if (jumpScript.TimeWaited == 0.0f)
+            if (timeWaited == 0.0f)
             {
                 amountLeft = 0.0f;
             }
             else //set amount left normally
             {
                 //get new amount of shadow from local ply
-                amountLeft = jumpScript.CooldownTime - jumpScript.TimeWaited; //total time - time waited = amount left
+                amountLeft = cooldownTime - timeWaited; //total time - time waited = amount left
             }
 
 
             //set fill amount
-            this.gameObject.GetComponent<Image>().fillAmount = (amountLeft / jumpScript.CooldownTime); //make a percent out of amount left
+            this.gameObject.GetComponent<Image>().fillAmount = (amountLeft / cooldownTime); //make a percent out of amount left
         }
 	}
 }

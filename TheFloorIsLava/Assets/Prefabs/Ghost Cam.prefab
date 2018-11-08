@@ -19,7 +19,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4813025709948426}
-  - component: {fileID: 114374959642771460}
+  - component: {fileID: 114188758633608374}
+  - component: {fileID: 114326655043639850}
   m_Layer: 0
   m_Name: Ghost Cam
   m_TagString: PlayerGhost
@@ -37,9 +38,10 @@ GameObject:
   - component: {fileID: 4390747975884980}
   - component: {fileID: 20896413183825906}
   - component: {fileID: 81073316877327176}
+  - component: {fileID: 114523046303024774}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -118,7 +120,7 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1739818582953882}
   m_Enabled: 1
---- !u!114 &114374959642771460
+--- !u!114 &114188758633608374
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,3 +132,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ply: {fileID: 0}
+--- !u!114 &114326655043639850
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1559606721348840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d31b53cefd8c0624487cfa87d3b8bd27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ply: {fileID: 0}
+--- !u!114 &114523046303024774
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1739818582953882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6ec842cf4dc4094a82edcb59b42689f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  intensity: 0

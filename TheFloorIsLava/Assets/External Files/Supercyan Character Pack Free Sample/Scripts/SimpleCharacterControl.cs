@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections.Generic;
 
-public class SimpleCharacterControl : MonoBehaviour {
+public class SimpleCharacterControl : NetworkBehaviour {
 
     private enum ControlMode
     {
@@ -9,9 +10,9 @@ public class SimpleCharacterControl : MonoBehaviour {
         Direct
     }
 
-    [SerializeField] private float m_moveSpeed = 2;
-    [SerializeField] private float m_turnSpeed = 200;
-    [SerializeField] private float m_jumpForce = 4;
+    [SerializeField] private float m_moveSpeed;
+    [SerializeField] private float m_turnSpeed;
+    [SerializeField] private float m_jumpForce;
     [SerializeField] private Animator m_animator;
     [SerializeField] private Rigidbody m_rigidBody;
 
@@ -89,6 +90,12 @@ public class SimpleCharacterControl : MonoBehaviour {
 
 	void Update () {
         m_animator.SetBool("Grounded", m_isGrounded);
+
+        //make sure we dont animate when we arent moving
+        if (!isLocalPlayer)
+        {
+            return;
+        }
 
         switch(m_controlMode)
         {
