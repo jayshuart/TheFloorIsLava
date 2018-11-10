@@ -1319,7 +1319,9 @@ MonoBehaviour:
   throwStartTransform: {fileID: 4908003956481444}
   cooldownTime: 4
   timeWaited: 0
-  maxIntensity: 0
+  uiTop: {fileID: 0}
+  uiShadow: {fileID: 0}
+  maxIntensity: 0.5
   screenEffect: {fileID: 4800000, guid: 4d60a5bb5f84ffe468ea1a0a2c3a8e2e, type: 3}
 --- !u!114 &114481610916620092
 MonoBehaviour:
@@ -1332,11 +1334,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4ff49821023baa4380fd3c0ff274ca2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGrounded: 0
+  reachFinish: 0
+  spawnPoint: {fileID: 0}
+  debugToggle: 0
+  stateManager: {fileID: 0}
   speedVar: 3
   horizontalTurn: 6.5
-  isGrounded: 0
-  spawnPoint: {fileID: 0}
   jumpForce: 5
+  maxDist: 1
+  abilities: []
 --- !u!114 &114509917349957396
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1355,6 +1362,8 @@ MonoBehaviour:
   throwStartTransform: {fileID: 4908003956481444}
   cooldownTime: 4
   timeWaited: 0
+  uiTop: {fileID: 0}
+  uiShadow: {fileID: 0}
   maxIntensity: 1
   screenEffect: {fileID: 4800000, guid: e85cf93b88a3f734aacbec1c2fad21e3, type: 3}
 --- !u!114 &114966304366471036

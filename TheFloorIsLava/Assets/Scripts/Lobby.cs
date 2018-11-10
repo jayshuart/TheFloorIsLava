@@ -5,12 +5,14 @@ using UnityEngine.Networking;
 
 public class Lobby : NetworkBehaviour {
 
-    private CustomNetwork networkManager;
+    [SerializeField] private CustomNetwork networkManager;
+    public bool nextLevel; //check for if we are chaning level or starting level
+    [SerializeField] string nextScene;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         networkManager = GameObject.Find("NetworkManager_Custom").GetComponent<CustomNetwork>();
-		
+        nextLevel = false;
 	}
 	
 	// Update is called once per frame
@@ -21,14 +23,19 @@ public class Lobby : NetworkBehaviour {
     void OnTriggerEnter(Collider col)
     {
         //check if this is the host
-        if(col.gameObject.CompareTag("Player") && col.gameObject.GetComponent<NetworkIdentity>().netId.Value != 1)
+        if(col.gameObject.CompareTag("Player") && col.gameObject.GetComponent<NetworkIdentity>().netId.Value < 0)
         {
             //you have no power here- begone!
             return;
         }
         else
         {
-            
+            if (nextLevel)
+            {
+                networkManager.ServerChangeScene(nextScene);
+                return; //leave method
+            }
+
             //move all players to the actual level
             foreach (GameObject ply in networkManager.Players)
             {

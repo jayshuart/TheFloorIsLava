@@ -77,11 +77,13 @@ public class CustomNetwork : NetworkManager {
     public override void OnClientSceneChanged(NetworkConnection conn)
     {
         //add player tot he client via networkign info (0 because its the client id)
+        players.Clear();
         ClientScene.AddPlayer(conn, 0);
     }
 
     public override void OnClientConnect(NetworkConnection conn)
     {
-        //base.OnClientConnect(conn); //commented out so this cusotm setup doesnt try to create a player that already exists
+        base.OnClientConnect(conn); //commented out so this cusotm setup doesnt try to create a player that already exists
     }
+        
 }
