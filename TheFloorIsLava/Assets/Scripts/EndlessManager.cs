@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class EndlessManager : MonoBehaviour {
 
-    [SerializeField] private float gapDistance;
+    [SerializeField] private float xVariation;
+    [SerializeField] private float yVariation;
+    [SerializeField] private float zVariation;
+    [SerializeField] private float maxGap;
     [SerializeField] private int numOfPlatforms;
     [SerializeField] private GameObject platformPrefab;
     private List<GameObject> platforms;
+    Vector3 platformPos;
 
 	// Use this for initialization
 	void Start () {
@@ -23,27 +27,22 @@ public class EndlessManager : MonoBehaviour {
     private void BuildInital()
     {
         //build platforms in loop
-        Vector3 platformPos = this.gameObject.transform.position; //start from root
+        platformPos = this.gameObject.transform.position; //start from root
         for (int i = 0; i < numOfPlatforms; i++)
         {
+            float gapLeft = maxGap;
+
+            float addZ = Random.Range(0, zVariation); //only go forward
+            gapLeft-= addZ;
+
+            float addX = Mathf.Clamp(Random.Range(-xVariation, xVariation), -gapLeft, gapLeft); //left/right
+            gapLeft -= Mathf.Abs(addX);
+
+
+            float addY = Random.Range(-yVariation, yVariation); //up/down
+
+            platformPos = new Vector3((platformPos.x + addX), (platformPos.y + addY), (platformPos.z + addZ));
             GameObject.Instantiate(platformPrefab, platformPos, this.gameObject.transform.rotation, this.gameObject.transform); //make a platform at the platformPos
-
-            //update platform pos based on the gap distance
-            /*
-             *  mag = sqrRoot((x+add)^2 + y^2 + (z+add)^2)
-             *  mag^2 = (x+add)^2 + y^2 + (z+add)^2
-             *  sqrRoot(mag) = sqrRoot((x+add)^2 + y^2 + (z+add)^2)
-             *  mag = (x+add) + y + (z + add)
-             *  mag - y = x + add + z + add
-             *  mag -x - y = add * 2
-             *  mag / 2 = add
-              */
-            float addedDist = (Mathf.Sqrt((gapDistance*gapDistance) - (platformPos.x*platformPos.x) - (platformPos.y*platformPos.y) - (platformPos.z*platformPos.z)) / numOfPlatforms);
-
-            float addX = Random.Range(0, addedDist);
-            float addZ = addedDist - addX;
-            platformPos = new Vector3((platformPos.x + addX), platformPos.y, (platformPos.z + addZ));
-            //gapDistance = Mathf.Sqrt((platformPos.x + addedDist) ^ 2 + platformPos.y ^ 2 + (platformPos.z + addedDist ^ 2));
         }
     }
 }
