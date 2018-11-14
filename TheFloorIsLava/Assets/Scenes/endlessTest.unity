@@ -284,6 +284,11 @@ Prefab:
       propertyPath: cm
       value: 
       objectReference: {fileID: 1147469781}
+    - target: {fileID: 114665473397096890, guid: 8115300c2cbdfab42aac3427e94369e9,
+        type: 2}
+      propertyPath: lobbyScript
+      value: 
+      objectReference: {fileID: 2121070428}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8115300c2cbdfab42aac3427e94369e9, type: 2}
   m_IsPrefabAsset: 0
@@ -937,3 +942,9 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1633060551}
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!114 &2121070428 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114822005327552040, guid: f40b98c2865cb5c46b5a056aa309e30a,
+    type: 2}
+  m_PrefabInternal: {fileID: 1601363225}
+  m_Script: {fileID: 11500000, guid: 08fbc6e3d0a884f4cbba0a96a6835bde, type: 3}

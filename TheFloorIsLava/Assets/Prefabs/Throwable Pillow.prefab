@@ -157,7 +157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   originalPos: {x: 0, y: 0, z: 0}
   dropDistance: 2
-  dropRate: 0.2
+  dropRate: 0.06
   decayTime: 40
 --- !u!198 &198537057584253768
 ParticleSystem:
