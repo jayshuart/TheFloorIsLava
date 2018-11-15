@@ -9,19 +9,19 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1179112297600838}
+  m_RootGameObject: {fileID: 1933600459199912}
   m_IsPrefabAsset: 1
---- !u!1 &1179112297600838
+--- !u!1 &1860150156416810
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4232219071742750}
-  - component: {fileID: 33561615576513330}
-  - component: {fileID: 23366047070729568}
-  - component: {fileID: 65028662336058568}
+  - component: {fileID: 4747620205581894}
+  - component: {fileID: 33810120376600300}
+  - component: {fileID: 23980681974386638}
+  - component: {fileID: 65410747996405642}
   m_Layer: 0
   m_Name: test block
   m_TagString: Untagged
@@ -29,25 +29,55 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4232219071742750
+--- !u!1 &1933600459199912
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4685855896626244}
+  - component: {fileID: 114113243843265406}
+  m_Layer: 0
+  m_Name: root
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4685855896626244
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1179112297600838}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.8157578, y: -0.54, z: -13.393361}
-  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
-  m_Children: []
+  m_GameObject: {fileID: 1933600459199912}
+  m_LocalRotation: {x: -0.010532746, y: 0.7070284, z: 0.7070284, w: 0.010532746}
+  m_LocalPosition: {x: 2.18, y: -0.74, z: -16.12}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4747620205581894}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23366047070729568
+--- !u!4 &4747620205581894
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1860150156416810}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0, z: 0.64}
+  m_LocalScale: {x: 2.6395, y: 2.0863, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4685855896626244}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &23980681974386638
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1179112297600838}
+  m_GameObject: {fileID: 1860150156416810}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -77,22 +107,42 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33561615576513330
+--- !u!33 &33810120376600300
 MeshFilter:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1179112297600838}
+  m_GameObject: {fileID: 1860150156416810}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65028662336058568
+--- !u!65 &65410747996405642
 BoxCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1179112297600838}
+  m_GameObject: {fileID: 1860150156416810}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114113243843265406
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1933600459199912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed8cb52b0fb818344a4b55996bc3a847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xVariation: 4
+  yVariation: 0
+  zVariation: 6
+  maxGap: 5
+  numOfPlatforms: 20
+  platforms: []
+  platformPrefab: {fileID: 1179112297600838, guid: c5e510041f79e424ab1f1fee4db9c17f,
+    type: 2}
+  decayTime: 5

@@ -8,6 +8,10 @@ TagManager:
   - PlayerGhost
   - LobbySpawn
   - Lava
+  - StateMan
+  - Finisher
+  - Text
+  - EndlessManager
   layers:
   - Default
   - TransparentFX
