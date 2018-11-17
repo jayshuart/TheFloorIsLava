@@ -729,7 +729,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1796193417218644}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -2.813848, y: 1.594, z: -4.171095}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4908003956481444}
@@ -1396,6 +1396,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canJump: 0
   jumpForce: 5
+  jumpEffectPrefab: {fileID: 1217066596094446, guid: 87739ba92167c09408563e3fc14fd61c,
+    type: 2}
 --- !u!120 &120397100557057618
 LineRenderer:
   m_ObjectHideFlags: 1
