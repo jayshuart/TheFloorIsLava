@@ -48,7 +48,7 @@ public class Ability_DoubleJump : NetworkBehaviour {
         if (grounded && !canJump)
         {
             canJump = true;
-            StartCoroutine(FadeIn(1f));
+            StartCoroutine(FadeIn(100f));
         }
 
         //get input
@@ -67,14 +67,14 @@ public class Ability_DoubleJump : NetworkBehaviour {
             //remove one jump
             canJump = false;
             //uiOverlay.enabled = true;
-            StartCoroutine(FadeOut(1f));
+            StartCoroutine(FadeOut(180f));
         }
     }
 
     IEnumerator FadeOut(float fadeSpeed)
     {
         //shift og alpha in direction defined by bool
-        float rate = 255 / (fadeSpeed / Time.deltaTime);
+        float rate = 255 / (fadeSpeed * Time.deltaTime);
         while (uiOverlay.color.a < 254)
         {
             float alpha = (uiOverlay.color.a + rate);
@@ -92,7 +92,7 @@ public class Ability_DoubleJump : NetworkBehaviour {
     IEnumerator FadeIn(float fadeSpeed)
     {
         //shift og alpha in direction defined by bool
-        float rate = 255 / (fadeSpeed / Time.deltaTime);
+        float rate = 255 / (fadeSpeed * Time.deltaTime);
         while (uiOverlay.color.a > 1)
         {
             float alpha = (uiOverlay.color.a - rate);
