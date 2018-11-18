@@ -12,7 +12,7 @@ public class jumpEffect : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+        this.gameObject.transform.LookAt(Camera.main.transform.position);
 	}
 
     IEnumerator FadeIn(float fadeSpeed)
