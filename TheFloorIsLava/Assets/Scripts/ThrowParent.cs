@@ -244,6 +244,11 @@ public  class ThrowParent : NetworkBehaviour {
 
     protected void ToggleHUDElement(float alpha)
     {
+        if (uiTop == null)
+        {
+            return;
+        }
+
         Color temp = uiTop.color;
         temp.a = alpha;
         uiTop.color = temp;
