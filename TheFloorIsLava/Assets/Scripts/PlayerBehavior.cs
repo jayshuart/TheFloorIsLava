@@ -7,6 +7,7 @@ public class PlayerBehavior : NetworkBehaviour {
 
 	// PUBLIC
 	public bool isGrounded;								// is the player connected with the ground
+    private bool wasGrounded;
 	public bool reachFinish;							// has the player reached the finish line?
 	public GameObject spawnPoint;						// control spawning of the character
 
@@ -25,6 +26,12 @@ public class PlayerBehavior : NetworkBehaviour {
     [SerializeField] private float jumpForce;			// force in which player launches upwards
 	[SerializeField] private float maxDist = 1.0f;		// maximum distance for casting
 
+    //animation
+    [SerializeField] private Animator m_animator;
+
+    private readonly float animInterpolation = 10;
+    private readonly float walkScale = 1.5f;
+    private float currentV = 0;
 
     //ability switching
     [SerializeField] private List<Behaviour> abilities;
@@ -49,6 +56,7 @@ public class PlayerBehavior : NetworkBehaviour {
 
 		yaw = 0.0f;
 
+        wasGrounded = true;
 		isGrounded = true;
 
 		reachFinish = false;
@@ -112,10 +120,16 @@ public class PlayerBehavior : NetworkBehaviour {
     void PlayerMovement()
     {
         // Track movements in LEFT/RIGHT and FORWARD/BACKWARD
+        float v = Input.GetAxis("Vertical");
         var xMovement = Input.GetAxis("Horizontal") * Time.deltaTime * speedVar;
-        var zMovement = Input.GetAxis("Vertical") * Time.deltaTime * speedVar;
+        var zMovement = v * Time.deltaTime * speedVar;
 
         transform.Translate(xMovement, 0, zMovement);
+
+        //animation
+        v *= walkScale;
+        currentV = Mathf.Lerp(currentV, v, Time.deltaTime * animInterpolation);
+        m_animator.SetFloat("MoveSpeed", currentV);
     }
 
 	/// <summary>
@@ -162,6 +176,7 @@ public class PlayerBehavior : NetworkBehaviour {
 				if (!lCollisions.Contains(col.collider)) {
 					lCollisions.Add (col.collider);
 				}
+                wasGrounded = isGrounded;
 				isGrounded = true;
 			}
 		}
@@ -187,6 +202,7 @@ public class PlayerBehavior : NetworkBehaviour {
 				lCollisions.Remove (col.collider);
 			}
 			if (lCollisions.Count == 0) {
+                wasGrounded = isGrounded;
 				isGrounded = false;
 			}
 		}
@@ -197,6 +213,7 @@ public class PlayerBehavior : NetworkBehaviour {
 			lCollisions.Remove (col.collider);
 		}
 		if (lCollisions.Count == 0) {
+            wasGrounded = isGrounded;
 			isGrounded = false;
 			lCollisions.Remove (col.collider);
 		}
@@ -259,6 +276,19 @@ public class PlayerBehavior : NetworkBehaviour {
             PlayerJump ();
             CycleAbiility();
 		    DebugToggleButton ();
+
+            //anim
+            m_animator.SetBool("Grounded", isGrounded);
+
+            if (!wasGrounded && isGrounded)
+            {
+                m_animator.SetTrigger("Land");
+            }
+
+            if (!isGrounded && wasGrounded)
+            {
+                m_animator.SetTrigger("Jump");
+            }
         }
     }
 }
