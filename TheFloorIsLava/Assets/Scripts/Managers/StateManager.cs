@@ -64,6 +64,13 @@ public class StateManager : NetworkBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+        //quick check for if we even should be updating time at all
+        if (!lobbyScript.nextLevel)
+        {
+            return;
+        }
+
+        //all is well- calc time and update ui
 		elapsedTime += Time.deltaTime;
 		ReachFinishLine (finishLine);
 

@@ -49,6 +49,9 @@ public class Lobby : NetworkBehaviour {
                 ply.transform.position = plyScript.spawnPoint.transform.position;
             }
 
+            //make it so next pass wil goto next level instead of restarting this one
+            nextLevel = true;
+
         }
 
 
