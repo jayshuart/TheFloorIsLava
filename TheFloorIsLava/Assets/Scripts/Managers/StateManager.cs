@@ -46,8 +46,10 @@ public class StateManager : NetworkBehaviour {
 
 		if (other.tag == "Finisher" && playerChar.GetComponent<Collider>().bounds.Intersects (tempCollider.bounds)) {
 			// display the time taken to reach finish
-			totalScore.text = elapsedTime.ToString("0.00");
+            totalScore.text = elapsedTime.ToString("0.00") + " Secs";
             totalScore.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+
+            timeScore.gameObject.SetActive(false);
 
 			playerChar.GetComponent<PlayerBehavior>().reachFinish = true;
 			playerChar.GetComponent<PlayerBehavior> ().TeleportBackToLobby ();
@@ -68,7 +70,7 @@ public class StateManager : NetworkBehaviour {
 		if (playerChar == null) 
 			playerChar = GameObject.FindGameObjectWithTag ("Player");
 
-		timeScore.text = "Time: " + elapsedTime.ToString("0.00");
+		timeScore.text = elapsedTime.ToString("0.00") + " Secs";
 
 		// populate the player array with all players in the scene
 		nwPlayers = GameObject.FindGameObjectsWithTag("Player");

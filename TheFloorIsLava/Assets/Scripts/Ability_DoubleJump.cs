@@ -48,7 +48,7 @@ public class Ability_DoubleJump : NetworkBehaviour {
         if (grounded && !canJump)
         {
             canJump = true;
-            StartCoroutine(FadeIn(100f));
+            StartCoroutine(FadeIn(250f));
         }
 
         //get input
@@ -67,7 +67,7 @@ public class Ability_DoubleJump : NetworkBehaviour {
             //remove one jump
             canJump = false;
             //uiOverlay.enabled = true;
-            StartCoroutine(FadeOut(180f));
+            StartCoroutine(FadeOut(300f));
         }
     }
 

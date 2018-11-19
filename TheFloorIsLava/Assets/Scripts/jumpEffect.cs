@@ -7,7 +7,7 @@ public class jumpEffect : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         effect = this.gameObject.GetComponent<SpriteRenderer>();
-        StartCoroutine(FadeIn(60f));
+        StartCoroutine(FadeIn(250f));
 	}
 	
 	// Update is called once per frame
