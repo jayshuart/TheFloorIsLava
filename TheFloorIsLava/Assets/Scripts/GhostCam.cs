@@ -26,7 +26,7 @@ public class GhostCam : MonoBehaviour {
             //check if player is moving forward
             RotateCam("Mouse X");
 
-            if (!Input.GetKey(KeyCode.LeftShift))
+            if (!Input.GetKey(KeyCode.LeftShift) && !Input.GetMouseButton(0))
             {
                 //realign cam
                 ReAlignCam();
@@ -42,7 +42,14 @@ public class GhostCam : MonoBehaviour {
         yaw += (6.5f * Input.GetAxis (inputAxis));
         yaw = yaw % 360;
 
-        ply.transform.eulerAngles = new Vector3(0.0f, yaw, 0.0f);    // Euler Angles to prevent gimbal locking (as with previous issue)
+        if (Input.GetMouseButton(0))
+        {
+            ply.transform.eulerAngles = new Vector3(0.0f, yaw, 0.0f);
+        }
+        else
+        {
+            this.transform.eulerAngles = new Vector3(0.0f, yaw, 0.0f);    // Euler Angles to prevent gimbal locking (as with previous issue)
+        }
 
         //set plys forward to the new one
         ply.GetComponent<PlayerBehavior>().yaw = this.yaw;
@@ -50,8 +57,10 @@ public class GhostCam : MonoBehaviour {
 
     private void ReAlignCam()
     {
-        Quaternion toRotation = Quaternion.LookRotation(transform.forward, ply.transform.rotation.eulerAngles);
-        transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, Time.deltaTime);
+        ply.transform.eulerAngles = new Vector3(0.0f, yaw, 0.0f);
+
+        /*Quaternion toRotation = Quaternion.LookRotation(transform.forward, ply.transform.rotation.eulerAngles);
+        transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, Time.deltaTime);*/
 
         this.gameObject.transform.rotation = ply.transform.rotation;
 
