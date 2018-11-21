@@ -63,7 +63,7 @@ public class thrownPlatform : MonoBehaviour {
     IEnumerator Destory()
     {
         this.gameObject.GetComponent<ParticleSystem>().Play();
-        yield return new WaitForSeconds(.21f);
+        yield return new WaitForSeconds(.4f);
         Destroy(this.gameObject);
         yield return null;
 

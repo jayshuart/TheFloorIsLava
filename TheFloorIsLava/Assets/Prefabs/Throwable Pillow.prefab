@@ -55,7 +55,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1535682391317602}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.8386557, y: 0.011490095, z: 4.6814203}
+  m_LocalPosition: {x: 0.27619028, y: 2.06, z: -4.042}
   m_LocalScale: {x: 0.21837763, y: 0.11771126, z: 0.17874888}
   m_Children:
   - {fileID: 4601657836483086}
@@ -158,7 +158,7 @@ MonoBehaviour:
   originalPos: {x: 0, y: 0, z: 0}
   dropDistance: 2
   dropRate: 0.2
-  decayTime: 40
+  decayTime: 4
 --- !u!198 &198537057584253768
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -166,7 +166,7 @@ ParticleSystem:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1535682391317602}
   serializedVersion: 5
-  lengthInSec: 0.1
+  lengthInSec: 0.2
   simulationSpeed: 1
   stopAction: 0
   looping: 0
@@ -291,7 +291,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 50
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -932,7 +932,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 250
+      scalar: 300
       minScalar: 10
       maxCurve:
         serializedVersion: 2
