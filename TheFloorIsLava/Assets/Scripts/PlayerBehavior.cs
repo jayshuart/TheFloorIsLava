@@ -17,7 +17,7 @@ public class PlayerBehavior : NetworkBehaviour {
 	private StateManager t;
 	private Rigidbody charRB;							// reference to the PC's rigidbody
 	private Collider charCollider;						//
-	private float yaw;									// rotation about Y axis
+	public float yaw;									// rotation about Y axis
 	private Vector3 castDown;							// search for collisions downward to fix isGrounded
 	private RaycastHit hit;								// RaycastHit detection
 	private List<Collider> lCollisions;					// list of all objects the character will come into contact w
@@ -121,7 +121,9 @@ public class PlayerBehavior : NetworkBehaviour {
     {
         // Track movements in LEFT/RIGHT and FORWARD/BACKWARD
         float v = Input.GetAxis("Vertical");
-        var xMovement = Input.GetAxis("Horizontal") * Time.deltaTime * speedVar;
+        float h = Input.GetAxis("Horizontal");
+
+        var xMovement = h * Time.deltaTime * speedVar;
         var zMovement = v * Time.deltaTime * speedVar;
 
         transform.Translate(xMovement, 0, zMovement);
@@ -135,11 +137,24 @@ public class PlayerBehavior : NetworkBehaviour {
 	/// <summary>
 	/// What allows character to turn about the Y axis
 	/// </summary>
-    void PlayerViewRotation()
+    void PlayerViewRotation(string inputAxis)
     {
-		yaw += horizontalTurn * Input.GetAxis ("Mouse X");
+        float h = Input.GetAxis(inputAxis);
 
-		charRB.transform.eulerAngles = new Vector3(0.0f, yaw, 0.0f);	// Euler Angles to prevent gimbal locking (as with previous issue)
+        /*turn
+        if (h < 0)
+        {
+            yaw -= (90 * h); //turn left
+        }
+        else
+        {
+            yaw += (90 * h); //turn right
+        } */
+
+        yaw += horizontalTurn * h;
+
+        yaw = yaw % 360; //use mod to loop yaw to always be within 360
+        this.transform.eulerAngles = new Vector3(0.0f, yaw, 0.0f);	// Euler Angles to prevent gimbal locking (as with previous issue)
     }
 
 	/// <summary>
@@ -271,8 +286,8 @@ public class PlayerBehavior : NetworkBehaviour {
         if (isLocalPlayer)
         {
             //ply movemenvt and cam
+            //PlayerViewRotation("Mouse X");
             PlayerMovement();
-            PlayerViewRotation ();
             PlayerJump ();
             CycleAbiility();
 		    DebugToggleButton ();
