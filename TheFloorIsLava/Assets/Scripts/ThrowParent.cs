@@ -157,6 +157,7 @@ public  class ThrowParent : NetworkBehaviour {
         //play anim
         if (plyBehavior.isGrounded) //only run aim in grounded for transitions sake
         {
+            //m_animator.SetTrigger("Throw"); //just a sped up, reverse, pickup
         }
 
         //make us unable to throw again
