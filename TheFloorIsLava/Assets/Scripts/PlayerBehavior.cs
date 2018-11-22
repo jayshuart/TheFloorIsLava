@@ -132,6 +132,12 @@ public class PlayerBehavior : NetworkBehaviour {
         v *= walkScale;
         currentV = Mathf.Lerp(currentV, v, Time.deltaTime * animInterpolation);
         m_animator.SetFloat("MoveSpeed", currentV);
+
+        if (charRB.velocity == Vector3.zero) //not moving
+        {
+            //idle
+            m_animator.SetTrigger("Idle");
+        }
     }
 
 	/// <summary>
