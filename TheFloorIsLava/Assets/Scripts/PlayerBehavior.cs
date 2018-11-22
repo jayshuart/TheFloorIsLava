@@ -128,16 +128,10 @@ public class PlayerBehavior : NetworkBehaviour {
 
         transform.Translate(xMovement, 0, zMovement);
 
-        //animation
+        //walk scaled by movespeed
         v *= walkScale;
         currentV = Mathf.Lerp(currentV, v, Time.deltaTime * animInterpolation);
         m_animator.SetFloat("MoveSpeed", currentV);
-
-        if (charRB.velocity == Vector3.zero) //not moving
-        {
-            //idle
-            m_animator.SetTrigger("Idle");
-        }
     }
 
 	/// <summary>
@@ -182,7 +176,6 @@ public class PlayerBehavior : NetworkBehaviour {
 		if (reachFinish == true) {
 			// do teleport code here
 			gameObject.transform.position = t.lobbyResPoint.transform.position;
-			Debug.Log("Teleportation Initialied...");
 		}
 	}
 
