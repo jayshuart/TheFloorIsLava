@@ -66,7 +66,6 @@ public class StateManager : MonoBehaviour {
         //quick check for if we even should be updating time at all
         if (!lobbyScript.nextLevel)
         {
-            Debug.Log("nope");
             return;
         }
 
