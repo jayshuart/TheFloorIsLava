@@ -26,7 +26,8 @@ public class Ability_DoubleJump : NetworkBehaviour {
     //start but only for local player junk
     public override void OnStartLocalPlayer()
     {
-        uiOverlay = GameObject.Find("Double Jump UI").transform.GetChild(0).gameObject.GetComponentInChildren<Image>();
+        if(GameObject.Find("Double Jump UI") != null)
+            uiOverlay = GameObject.Find("Double Jump UI").transform.GetChild(0).gameObject.GetComponentInChildren<Image>();
     }
 	
 	// Update is called once per frame

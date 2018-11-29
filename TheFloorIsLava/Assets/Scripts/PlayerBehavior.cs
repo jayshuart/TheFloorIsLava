@@ -8,12 +8,12 @@ public class PlayerBehavior : NetworkBehaviour {
 	// PUBLIC
 	public bool isGrounded;								// is the player connected with the ground
 	public bool reachFinish;							// has the player reached the finish line?
-	public GameObject spawnPoint;						// control spawning of the character
+    [SyncVar] public Transform spawnPoint;						// control spawning of the character
 
 	// PRIVATE
 	public bool debugToggle;
-	[SerializeField] private GameObject stateManager;	// game statemanager
-	private StateManager t;
+    [SerializeField] private GameObject stateManager;	// game statemanager
+	private StateManager stateScript;
 	private Rigidbody charRB;							// reference to the PC's rigidbody
 	private Collider charCollider;						//
 	private float yaw;									// rotation about Y axis
@@ -30,18 +30,41 @@ public class PlayerBehavior : NetworkBehaviour {
     [SerializeField] private List<Behaviour> abilities;
     private int activeAbility;
 
+    //lobby
+    private Lobby lobbyScript;
+    [SyncVar] public bool respawnFlag;
+
     //start but only for once the network player is started
-    public override void OnStartLocalPlayer()
+    public void Start()
 	{
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
+        spawnPoint = GameObject.FindGameObjectWithTag("LobbySpawn").transform; //set spawn point to that of the lobby
+        if (spawnPoint != null)
+        {
+            //set spawn
+            this.gameObject.transform.position = spawnPoint.position;
+        }
+
 		//set this local player as the player to ghost for the cam
 		GameObject ghost = GameObject.FindGameObjectWithTag ("PlayerGhost");
-		ghost.GetComponent<GhostCam> ().ply = this.gameObject;
+        if (ghost != null)
+            ghost.GetComponent<GhostCam>().ply = this.gameObject;
 
 		charRB = GetComponent<Rigidbody> ();
 		charCollider = GetComponent<Collider> ();
 
-		spawnPoint = GameObject.FindGameObjectWithTag ("LobbySpawn"); //set spawn point to that of the lobby - will update later
-		this.transform.position = spawnPoint.transform.position;
+		
+
+        GameObject lobby = GameObject.Find("ready area");
+        if (lobby != null)
+        {
+            //get lobby script
+            lobbyScript = lobby.GetComponent<Lobby>();
+        }
 
 		castDown = Vector3.down; // (0, -1, 0);
 
@@ -57,10 +80,18 @@ public class PlayerBehavior : NetworkBehaviour {
 
 		jumpForce = 8.0f;
 
+        respawnFlag = false;
+
 		// attach this player to the StateManager
 		stateManager = GameObject.FindGameObjectWithTag("StateMan");
-		t = stateManager.GetComponent<StateManager> ();
-		t.playerChar = this.gameObject;
+        if (stateManager != null)
+        {
+            stateScript = stateManager.GetComponent<StateManager> ();
+
+            if(stateScript != null)
+                stateScript.playerChar = this.gameObject;
+        }
+		
 
         //fill abilites list
         Behaviour[] components = this.gameObject.GetComponents<Behaviour>();
@@ -76,8 +107,14 @@ public class PlayerBehavior : NetworkBehaviour {
 
         //set active ability
         activeAbility = 0;
-        abilities[activeAbility].enabled = true;
+        if(abilities[activeAbility] != null)
+            abilities[activeAbility].enabled = true;
 	}
+
+    public void OnEnable()
+    {
+        
+    }
 
     /// <summary>
     /// Cycles the active abiility.
@@ -146,7 +183,7 @@ public class PlayerBehavior : NetworkBehaviour {
 	public void TeleportBackToLobby() {
 		if (reachFinish == true) {
 			// do teleport code here
-			gameObject.transform.position = t.lobbyResPoint.transform.position;
+			gameObject.transform.position = stateScript.lobbyResPoint.transform.position;
 			Debug.Log("Teleportation Initialied...");
 		}
 	}
@@ -155,6 +192,7 @@ public class PlayerBehavior : NetworkBehaviour {
 
 	#region COLLISION_DETECTION
 	private void OnCollisionEnter(Collision col) {
+        if (!isLocalPlayer){ return; }
 		ContactPoint[] cPoints = col.contacts;
 
 		for (int i = 0; i < cPoints.Length; i++) {
@@ -168,6 +206,7 @@ public class PlayerBehavior : NetworkBehaviour {
 	}
 
 	private void OnCollisionStay(Collision col) {
+        if (!isLocalPlayer){ return; }
 		ContactPoint[] cPoints = col.contacts;
 		bool contact = false;
 
@@ -193,6 +232,7 @@ public class PlayerBehavior : NetworkBehaviour {
 	}
 
 	private void OnCollisionExit(Collision col) {
+        if (!isLocalPlayer){ return; }
 		if (lCollisions.Contains(col.collider)) {
 			lCollisions.Remove (col.collider);
 		}
@@ -210,14 +250,14 @@ public class PlayerBehavior : NetworkBehaviour {
 	{
 		// Colliding with lav
         if (col.gameObject.CompareTag("Lava")) {
-			this.transform.position = spawnPoint.transform.position;
+			this.transform.position = spawnPoint.position;
 			//Debug.Log ("triggered");
 		}
 	}
 	#endregion
 
 	#region DEBUG
-	private void DebugToggleButton() {
+    private void DebugToggleButton() {
 		if (Input.GetKeyDown(KeyCode.B)) {
 			Debug.Log ("DEBUGGING: " + debugToggle);
 			debugToggle = !debugToggle;
@@ -239,10 +279,11 @@ public class PlayerBehavior : NetworkBehaviour {
 	/// <summary>
 	/// Players can force their own respawn
 	/// </summary>
-	private void PlayerForcedRespawn()
+    public void PlayerForcedRespawn(bool buttonOverride = false)
 	{
-		if (Input.GetKeyDown (KeyCode.R)) {
-			this.transform.position = spawnPoint.transform.position;
+        if (Input.GetKeyDown (KeyCode.R) || buttonOverride || respawnFlag) {
+			this.transform.position = spawnPoint.position;
+            respawnFlag = false;
 		}
 	}
 	#endregion DEBUG
@@ -259,6 +300,9 @@ public class PlayerBehavior : NetworkBehaviour {
             PlayerJump ();
             CycleAbiility();
 		    DebugToggleButton ();
+
+            PlayerForcedRespawn();
+
         }
     }
 }

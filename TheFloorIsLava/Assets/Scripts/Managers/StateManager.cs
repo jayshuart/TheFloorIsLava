@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class StateManager : NetworkBehaviour {
+public class StateManager : MonoBehaviour {
 
 	// PUBLIC
 	public GameObject playerChar;					// the character
@@ -18,9 +18,7 @@ public class StateManager : NetworkBehaviour {
 	// PRIVATE
 	private Rigidbody charRig;						// character's rigidbody
 	private GameObject finishLine;					// win state
-	[SerializeField] private GameObject[] nwPlayers;// the players in the level
 	private float elapsedTime;						// total time since start of game
-    [SerializeField] private CustomNetwork cm;		// network manager
 
 	// Use this for initialization
 	void Start () {
@@ -78,9 +76,6 @@ public class StateManager : NetworkBehaviour {
 			playerChar = GameObject.FindGameObjectWithTag ("Player");
 
 		timeScore.text = elapsedTime.ToString("0.00") + " Secs";
-
-		// populate the player array with all players in the scene
-		nwPlayers = GameObject.FindGameObjectsWithTag("Player");
 
 	}
 }

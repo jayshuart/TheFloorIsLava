@@ -34,16 +34,11 @@ public  class ThrowParent : NetworkBehaviour {
     // Use this for initialization
     protected void Start () {
         canThrow = true;
-        Camera.main.GetComponent<CameraEffect>().SetShader(screenEffect);
+        if(Camera.main.GetComponent<CameraEffect>() != null)
+            Camera.main.GetComponent<CameraEffect>().SetShader(screenEffect);
 
         // get line renderer
         line = throwStartTransform.gameObject.GetComponent<LineRenderer>();
-    }
-
-    //start but only for local player junk
-    public override void OnStartLocalPlayer()
-    {
-        
     }
 
     protected void OnEnable()
@@ -130,13 +125,19 @@ public  class ThrowParent : NetworkBehaviour {
 
     protected void InitializeUI(string uiName)
     {
-        uiOverlay = GameObject.Find(uiName).GetComponentInChildren<shadowOverlay>();
-        uiOverlay.LocalPlayer = this.gameObject;
-        uiOverlay.CooldownTime = this.cooldownTime;
-        uiOverlay.TimeWaited = this.timeWaited;
+        
+        if (GameObject.Find(uiName) != null)
+        {
+            uiOverlay = GameObject.Find(uiName).GetComponentInChildren<shadowOverlay>();
+            uiOverlay.LocalPlayer = this.gameObject;
+            uiOverlay.CooldownTime = this.cooldownTime;
+            uiOverlay.TimeWaited = this.timeWaited;
 
-        uiTop = GameObject.Find(uiName).GetComponent<Image>();
-        uiShadow = uiTop.gameObject.transform.GetChild(0).GetComponent<Image>();
+            uiTop = GameObject.Find(uiName).GetComponent<Image>();
+            uiShadow = uiTop.gameObject.transform.GetChild(0).GetComponent<Image>();
+        }
+       
+
     }
 
     /// <summary>
