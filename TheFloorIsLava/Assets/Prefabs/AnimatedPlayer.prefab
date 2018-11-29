@@ -526,6 +526,7 @@ GameObject:
   - component: {fileID: 114989874139281456}
   - component: {fileID: 114509917349957396}
   - component: {fileID: 114377813954398854}
+  - component: {fileID: 114664663174570096}
   m_Layer: 0
   m_Name: AnimatedPlayer
   m_TagString: Player
@@ -1314,6 +1315,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   throwablePrefab: {fileID: 1144172684995612, guid: 3ed046a5bb1ee83409f25a0918593045,
     type: 2}
+  m_animator: {fileID: 0}
   throwForce: 10
   forceScaleAmount: 1
   throwStartTransform: {fileID: 4908003956481444}
@@ -1339,12 +1341,14 @@ MonoBehaviour:
   spawnPoint: {fileID: 0}
   debugToggle: 0
   stateManager: {fileID: 0}
+  yaw: 0
   speedVar: 3
   horizontalTurn: 6.5
   jumpForce: 5
   maxDist: 1
   m_animator: {fileID: 95952962573812024}
   abilities: []
+  respawnFlag: 0
 --- !u!114 &114509917349957396
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1358,6 +1362,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   throwablePrefab: {fileID: 1535682391317602, guid: 1b82a3153b200854c86c8b4dad13567a,
     type: 2}
+  m_animator: {fileID: 0}
   throwForce: 10
   forceScaleAmount: 1
   throwStartTransform: {fileID: 4908003956481444}
@@ -1367,6 +1372,25 @@ MonoBehaviour:
   uiShadow: {fileID: 0}
   maxIntensity: 1
   screenEffect: {fileID: 4800000, guid: e85cf93b88a3f734aacbec1c2fad21e3, type: 3}
+--- !u!114 &114664663174570096
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1796193417218644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1590678366, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Animator: {fileID: 95952962573812024}
+  m_ParameterSendBits: 127
+  param0: 
+  param1: 
+  param2: 
+  param3: 
+  param4: 
+  param5: 
 --- !u!114 &114966304366471036
 MonoBehaviour:
   m_ObjectHideFlags: 1
