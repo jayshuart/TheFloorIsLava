@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public  class ThrowParent : NetworkBehaviour {
     [SerializeField] protected GameObject throwablePrefab; //prefab of object being thrown
+    [SerializeField] protected Animator m_animator;
 
     //force properties
     [SerializeField] protected float throwForce;
@@ -31,11 +32,20 @@ public  class ThrowParent : NetworkBehaviour {
     [SerializeField] protected float maxIntensity;
     [SerializeField] protected Shader screenEffect;
 
+    //path to rest fo ply behaviors
+    protected PlayerBehavior plyBehavior;
+
     // Use this for initialization
     protected void Start () {
         canThrow = true;
         if(Camera.main.GetComponent<CameraEffect>() != null)
             Camera.main.GetComponent<CameraEffect>().SetShader(screenEffect);
+
+        //set animator
+        m_animator = this.gameObject.GetComponent<Animator>();
+
+        //path to behvaiors
+        plyBehavior = this.gameObject.GetComponent<PlayerBehavior>();
 
         // get line renderer
         line = throwStartTransform.gameObject.GetComponent<LineRenderer>();
@@ -145,6 +155,12 @@ public  class ThrowParent : NetworkBehaviour {
     /// </summary>
     protected void ThrowObject()
     {
+        //play anim
+        if (plyBehavior.isGrounded) //only run aim in grounded for transitions sake
+        {
+            //m_animator.SetTrigger("Throw"); //just a sped up, reverse, pickup
+        }
+
         //make us unable to throw again
         canThrow = false;
         timeWaited = 0;

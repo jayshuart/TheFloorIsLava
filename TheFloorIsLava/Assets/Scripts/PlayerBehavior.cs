@@ -7,6 +7,7 @@ public class PlayerBehavior : NetworkBehaviour {
 
 	// PUBLIC
 	public bool isGrounded;								// is the player connected with the ground
+    private bool wasGrounded;
 	public bool reachFinish;							// has the player reached the finish line?
     [SyncVar] public Transform spawnPoint;						// control spawning of the character
 
@@ -16,7 +17,7 @@ public class PlayerBehavior : NetworkBehaviour {
 	private StateManager stateScript;
 	private Rigidbody charRB;							// reference to the PC's rigidbody
 	private Collider charCollider;						//
-	private float yaw;									// rotation about Y axis
+	public float yaw;									// rotation about Y axis
 	private Vector3 castDown;							// search for collisions downward to fix isGrounded
 	private RaycastHit hit;								// RaycastHit detection
 	private List<Collider> lCollisions;					// list of all objects the character will come into contact w
@@ -25,6 +26,12 @@ public class PlayerBehavior : NetworkBehaviour {
     [SerializeField] private float jumpForce;			// force in which player launches upwards
 	[SerializeField] private float maxDist = 1.0f;		// maximum distance for casting
 
+    //animation
+    [SerializeField] private Animator m_animator;
+
+    private readonly float animInterpolation = 10;
+    private readonly float walkScale = 1.5f;
+    private float currentV = 0;
 
     //ability switching
     [SerializeField] private List<Behaviour> abilities;
@@ -72,6 +79,7 @@ public class PlayerBehavior : NetworkBehaviour {
 
 		yaw = 0.0f;
 
+        wasGrounded = true;
 		isGrounded = true;
 
 		reachFinish = false;
@@ -149,20 +157,41 @@ public class PlayerBehavior : NetworkBehaviour {
     void PlayerMovement()
     {
         // Track movements in LEFT/RIGHT and FORWARD/BACKWARD
-        var xMovement = Input.GetAxis("Horizontal") * Time.deltaTime * speedVar;
-        var zMovement = Input.GetAxis("Vertical") * Time.deltaTime * speedVar;
+        float v = Input.GetAxis("Vertical");
+        float h = Input.GetAxis("Horizontal");
+
+        var xMovement = h * Time.deltaTime * speedVar;
+        var zMovement = v * Time.deltaTime * speedVar;
 
         transform.Translate(xMovement, 0, zMovement);
+
+        //walk scaled by movespeed
+        v *= walkScale;
+        currentV = Mathf.Lerp(currentV, v, Time.deltaTime * animInterpolation);
+        m_animator.SetFloat("MoveSpeed", currentV);
     }
 
 	/// <summary>
 	/// What allows character to turn about the Y axis
 	/// </summary>
-    void PlayerViewRotation()
+    void PlayerViewRotation(string inputAxis)
     {
-		yaw += horizontalTurn * Input.GetAxis ("Mouse X");
+        float h = Input.GetAxis(inputAxis);
 
-		charRB.transform.eulerAngles = new Vector3(0.0f, yaw, 0.0f);	// Euler Angles to prevent gimbal locking (as with previous issue)
+        /*turn
+        if (h < 0)
+        {
+            yaw -= (90 * h); //turn left
+        }
+        else
+        {
+            yaw += (90 * h); //turn right
+        } */
+
+        yaw += horizontalTurn * h;
+
+        yaw = yaw % 360; //use mod to loop yaw to always be within 360
+        this.transform.eulerAngles = new Vector3(0.0f, yaw, 0.0f);	// Euler Angles to prevent gimbal locking (as with previous issue)
     }
 
 	/// <summary>
@@ -184,7 +213,6 @@ public class PlayerBehavior : NetworkBehaviour {
 		if (reachFinish == true) {
 			// do teleport code here
 			gameObject.transform.position = stateScript.lobbyResPoint.transform.position;
-			Debug.Log("Teleportation Initialied...");
 		}
 	}
 
@@ -200,6 +228,7 @@ public class PlayerBehavior : NetworkBehaviour {
 				if (!lCollisions.Contains(col.collider)) {
 					lCollisions.Add (col.collider);
 				}
+                wasGrounded = isGrounded;
 				isGrounded = true;
 			}
 		}
@@ -226,6 +255,7 @@ public class PlayerBehavior : NetworkBehaviour {
 				lCollisions.Remove (col.collider);
 			}
 			if (lCollisions.Count == 0) {
+                wasGrounded = isGrounded;
 				isGrounded = false;
 			}
 		}
@@ -237,6 +267,7 @@ public class PlayerBehavior : NetworkBehaviour {
 			lCollisions.Remove (col.collider);
 		}
 		if (lCollisions.Count == 0) {
+            wasGrounded = isGrounded;
 			isGrounded = false;
 			lCollisions.Remove (col.collider);
 		}
@@ -296,14 +327,27 @@ public class PlayerBehavior : NetworkBehaviour {
         if (isLocalPlayer)
         {
             //ply movemenvt and cam
+            //PlayerViewRotation("Mouse X");
             PlayerMovement();
-            PlayerViewRotation ();
             PlayerJump ();
             CycleAbiility();
-	    DebugToggleButton ();
 
             PlayerForcedRespawn();
 
+		DebugToggleButton ();
+
+            //anim
+            m_animator.SetBool("Grounded", isGrounded);
+
+            if (!wasGrounded && isGrounded)
+            {
+                m_animator.SetTrigger("Land");
+            }
+
+            if (!isGrounded && wasGrounded)
+            {
+                m_animator.SetTrigger("Jump");
+            }
         }
     }
 }
