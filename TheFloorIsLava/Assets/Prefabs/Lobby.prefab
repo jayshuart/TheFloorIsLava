@@ -117,7 +117,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4307273206803682}
-  - component: {fileID: 114207499113841236}
   m_Layer: 0
   m_Name: Lobby
   m_TagString: Untagged
@@ -301,6 +300,7 @@ GameObject:
   - component: {fileID: 4537029243540346}
   - component: {fileID: 65291049331659498}
   - component: {fileID: 114822005327552040}
+  - component: {fileID: 114469727166898740}
   m_Layer: 0
   m_Name: ready area
   m_TagString: Untagged
@@ -1125,7 +1125,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1156071476260308}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -16.48, z: 0}
+  m_LocalPosition: {x: 0, y: -13, z: 0}
   m_LocalScale: {x: 0.77742803, y: 0.77742803, z: 0.77742803}
   m_Children:
   - {fileID: 4346943771479750}
@@ -3602,12 +3602,12 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114207499113841236
+--- !u!114 &114469727166898740
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1156071476260308}
+  m_GameObject: {fileID: 1307580867564736}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
@@ -3647,5 +3647,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkManager: {fileID: 0}
   nextLevel: 0
-  nextScene: Level1
+  nextScene: Level3
   respawnFlag: 0

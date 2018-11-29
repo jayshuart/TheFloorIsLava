@@ -37,26 +37,27 @@ public class StateManager : MonoBehaviour {
 
 	void ReachFinishLine(GameObject other) {
 		if (playerChar == null) {
+            Debug.Log("no player for finish line");
 			return;
 		}
 		Collider tempCollider = other.GetComponent<Collider> ();
 		//Collider tempCollider2 = playerChar.GetComponent<Collider> ();
 
-		if (other.tag == "Finisher" && playerChar.GetComponent<Collider>().bounds.Intersects (tempCollider.bounds)) {
+		if (other.tag == "Finisher" && playerChar.GetComponent<Collider>().bounds.Intersects (tempCollider.bounds)) 
+        {
+            Debug.Log("Finished!");
 			// display the time taken to reach finish
             totalScore.text = elapsedTime.ToString("0.00") + " Secs";
             totalScore.gameObject.transform.GetChild(0).gameObject.SetActive(true);
 
             timeScore.gameObject.SetActive(false);
 
+            Debug.Log("moving player back");
 			playerChar.GetComponent<PlayerBehavior>().reachFinish = true;
 			playerChar.GetComponent<PlayerBehavior> ().TeleportBackToLobby ();
             lobbyScript.nextLevel = true;
 
-		} else {
-			//Debug.Log ("Unknown error/exception");
 		}
-		//Debug.Log (elapsedTime.ToString("0.000"));
 	}
 
 
@@ -65,6 +66,7 @@ public class StateManager : MonoBehaviour {
         //quick check for if we even should be updating time at all
         if (!lobbyScript.nextLevel)
         {
+            Debug.Log("nope");
             return;
         }
 
