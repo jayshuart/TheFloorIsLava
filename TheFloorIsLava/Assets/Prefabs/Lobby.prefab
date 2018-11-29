@@ -51,7 +51,6 @@ GameObject:
   - component: {fileID: 4326652787136880}
   - component: {fileID: 33517815768470774}
   - component: {fileID: 23914512596400310}
-  - component: {fileID: 114815169298698360}
   m_Layer: 0
   m_Name: PH_Respawn1
   m_TagString: LobbySpawn
@@ -301,6 +300,7 @@ GameObject:
   - component: {fileID: 4537029243540346}
   - component: {fileID: 65291049331659498}
   - component: {fileID: 114822005327552040}
+  - component: {fileID: 114469727166898740}
   m_Layer: 0
   m_Name: ready area
   m_TagString: Untagged
@@ -1125,7 +1125,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1156071476260308}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 36.705345, y: 1.3333116, z: 38.316826}
+  m_LocalPosition: {x: 0, y: -13, z: 0}
   m_LocalScale: {x: 0.77742803, y: 0.77742803, z: 0.77742803}
   m_Children:
   - {fileID: 4346943771479750}
@@ -3602,17 +3602,38 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114815169298698360
+--- !u!114 &114469727166898740
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1022354130636612}
+  m_GameObject: {fileID: 1307580867564736}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1050975500, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 244
+    i1: 11
+    i2: 152
+    i3: 194
+    i4: 134
+    i5: 92
+    i6: 181
+    i7: 196
+    i8: 107
+    i9: 90
+    i10: 5
+    i11: 106
+    i12: 163
+    i13: 9
+    i14: 227
+    i15: 10
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &114822005327552040
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3624,3 +3645,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08fbc6e3d0a884f4cbba0a96a6835bde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  networkManager: {fileID: 0}
+  nextLevel: 0
+  nextScene: Level3
+  respawnFlag: 0

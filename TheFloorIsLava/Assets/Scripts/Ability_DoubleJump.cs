@@ -26,7 +26,8 @@ public class Ability_DoubleJump : NetworkBehaviour {
     //start but only for local player junk
     public override void OnStartLocalPlayer()
     {
-        uiOverlay = GameObject.Find("Double Jump UI").transform.GetChild(0).gameObject.GetComponentInChildren<Image>();
+        if(GameObject.Find("Double Jump UI") != null)
+            uiOverlay = GameObject.Find("Double Jump UI").transform.GetChild(0).gameObject.GetComponentInChildren<Image>();
     }
 	
 	// Update is called once per frame
@@ -48,7 +49,7 @@ public class Ability_DoubleJump : NetworkBehaviour {
         if (grounded && !canJump)
         {
             canJump = true;
-            StartCoroutine(FadeIn(100f));
+            StartCoroutine(FadeIn(250f));
         }
 
         //get input
@@ -67,7 +68,7 @@ public class Ability_DoubleJump : NetworkBehaviour {
             //remove one jump
             canJump = false;
             //uiOverlay.enabled = true;
-            StartCoroutine(FadeOut(180f));
+            StartCoroutine(FadeOut(300f));
         }
     }
 

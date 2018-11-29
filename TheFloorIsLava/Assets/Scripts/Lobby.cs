@@ -6,8 +6,9 @@ using UnityEngine.Networking;
 public class Lobby : NetworkBehaviour {
 
     [SerializeField] private CustomNetwork networkManager;
-    public bool nextLevel; //check for if we are chaning level or starting level
+    [SyncVar] public bool nextLevel; //check for if we are chaning level or starting level
     [SerializeField] string nextScene;
+    public bool respawnFlag;
 
 	// Use this for initialization
 	void Awake () {
@@ -19,16 +20,11 @@ public class Lobby : NetworkBehaviour {
 	void Update () {
 		
 	}
-
+        
     void OnTriggerEnter(Collider col)
     {
         //check if this is the host
-        if(col.gameObject.CompareTag("Player") && col.gameObject.GetComponent<NetworkIdentity>().netId.Value < 0)
-        {
-            //you have no power here- begone!
-            return;
-        }
-        else
+        if(col.gameObject.CompareTag("Player") && col.gameObject == networkManager.GetPlayerAt(0))
         {
             if (nextLevel)
             {
@@ -43,14 +39,18 @@ public class Lobby : NetworkBehaviour {
                 PlayerBehavior plyScript = ply.GetComponent<PlayerBehavior>();
 
                 //reset players spawnpoint
-                plyScript.spawnPoint = GameObject.FindGameObjectWithTag("Respawn"); //normal spawn point
+                plyScript.spawnPoint = GameObject.FindGameObjectWithTag("Respawn").transform; //normal spawn point
 
+                plyScript.respawnFlag = true;
                 //force respawn
-                ply.transform.position = plyScript.spawnPoint.transform.position;
+                //plyScript.PlayerForcedRespawn(true); //force respawn with btn overrride set to true
             }
 
+
+
+
+            //make it so next pass wil goto next level instead of restarting this one
+            nextLevel = true;
         }
-
-
     }
 }
