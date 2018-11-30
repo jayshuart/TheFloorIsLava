@@ -56,7 +56,8 @@ public class thrownPlatform : MonoBehaviour {
     IEnumerator Decay()
     {
         yield return new WaitForSeconds(decayTime);
-
+		StartCoroutine (timeToExpire ());
+		yield return new WaitForSeconds (5.0f);
         StartCoroutine(Destory());
     }
 
@@ -69,5 +70,16 @@ public class thrownPlatform : MonoBehaviour {
 
     }
 
-   
+	IEnumerator timeToExpire()
+	{
+		var ren = this.gameObject.transform.GetChild (0).gameObject.GetComponent<Renderer> ();
+		Vector4 v4_tempCol = ren.material.color;
+		float i = 0.0f;
+
+		while (i < 1.0f) {
+			i += Time.deltaTime * 0.2f;
+			ren.material.color = Vector4.Lerp (v4_tempCol, Color.red, i);
+			yield return null;
+		}
+	}
 }
