@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 
 public class Lobby : NetworkBehaviour {
 
-    [SerializeField] private CustomNetwork networkManager;
+    [SerializeField] public CustomNetwork networkManager;
     [SyncVar] public bool nextLevel; //check for if we are chaning level or starting level
     [SerializeField] string nextScene;
     public bool respawnFlag;

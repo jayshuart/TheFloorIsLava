@@ -319,6 +319,24 @@ public class PlayerBehavior : NetworkBehaviour {
 	}
 	#endregion DEBUG
 
+    private void LeaveGame()
+    {
+        //hit escape key to leave game
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if(lobbyScript.networkManager.GetPlayerAt(0) != null) //Host? - players list isnt synced, so only host has a functioning list
+            { 
+                //stop hosting the game
+                lobbyScript.networkManager.EndGame();
+            }
+            else //client?
+            { 
+                //leave this server
+                lobbyScript.networkManager.StopClient();
+            }
+        }
+    }
+
 	// Update is called once per frame
 	void Update ()
 
@@ -333,6 +351,8 @@ public class PlayerBehavior : NetworkBehaviour {
             CycleAbiility();
 
             PlayerForcedRespawn();
+
+            LeaveGame();
 
 		DebugToggleButton ();
 

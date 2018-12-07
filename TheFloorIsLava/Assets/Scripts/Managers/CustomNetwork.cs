@@ -15,7 +15,15 @@ public class CustomNetwork : NetworkManager {
 
     public GameObject GetPlayerAt(int index)
     {
-        return players[index];
+        if (index > (players.Count - 1) || index < 0)
+        {
+            return null; 
+        }
+        else
+        {
+            return players[index];
+        }
+
     }
     #endregion
 
@@ -27,7 +35,7 @@ public class CustomNetwork : NetworkManager {
 	
 	// Update is called once per frame
 	void Update () {
-		
+     
 	}
 
     /// <summary>
@@ -46,6 +54,13 @@ public class CustomNetwork : NetworkManager {
     {
         //runs startclient() in networkmanager
         StartClient();
+    }
+
+    public void EndGame()
+    {
+        players.Clear();
+        //StopServer();
+        StopHost();
     }
 
 
