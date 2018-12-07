@@ -526,6 +526,7 @@ GameObject:
   - component: {fileID: 114989874139281456}
   - component: {fileID: 114509917349957396}
   - component: {fileID: 114377813954398854}
+  - component: {fileID: 114664663174570096}
   m_Layer: 0
   m_Name: AnimatedPlayer
   m_TagString: Player
@@ -729,7 +730,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1796193417218644}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -2.813848, y: 1.594, z: -4.171095}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4908003956481444}
@@ -1314,6 +1315,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   throwablePrefab: {fileID: 1144172684995612, guid: 3ed046a5bb1ee83409f25a0918593045,
     type: 2}
+  m_animator: {fileID: 0}
   throwForce: 10
   forceScaleAmount: 1
   throwStartTransform: {fileID: 4908003956481444}
@@ -1339,11 +1341,14 @@ MonoBehaviour:
   spawnPoint: {fileID: 0}
   debugToggle: 0
   stateManager: {fileID: 0}
+  yaw: 0
   speedVar: 3
   horizontalTurn: 6.5
   jumpForce: 5
   maxDist: 1
+  m_animator: {fileID: 95952962573812024}
   abilities: []
+  respawnFlag: 0
 --- !u!114 &114509917349957396
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1357,6 +1362,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   throwablePrefab: {fileID: 1535682391317602, guid: 1b82a3153b200854c86c8b4dad13567a,
     type: 2}
+  m_animator: {fileID: 0}
   throwForce: 10
   forceScaleAmount: 1
   throwStartTransform: {fileID: 4908003956481444}
@@ -1366,13 +1372,32 @@ MonoBehaviour:
   uiShadow: {fileID: 0}
   maxIntensity: 1
   screenEffect: {fileID: 4800000, guid: e85cf93b88a3f734aacbec1c2fad21e3, type: 3}
---- !u!114 &114966304366471036
+--- !u!114 &114664663174570096
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1796193417218644}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1590678366, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Animator: {fileID: 95952962573812024}
+  m_ParameterSendBits: 127
+  param0: 
+  param1: 
+  param2: 
+  param3: 
+  param4: 
+  param5: 
+--- !u!114 &114966304366471036
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1796193417218644}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 32ca30c36b506c64aafa127f12f968fa, type: 3}
   m_Name: 
@@ -1394,12 +1419,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6044d02ecd0e4d4eb53e215f5160475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumps: 0
-  maxJumps: 1
-  jumpForce: 6
-  cooldownTime: 3.5
-  timeWaited: 0
-  maxJumpVelocity: 1.2
+  canJump: 0
+  jumpForce: 5
+  jumpEffectPrefab: {fileID: 1217066596094446, guid: 87739ba92167c09408563e3fc14fd61c,
+    type: 2}
 --- !u!120 &120397100557057618
 LineRenderer:
   m_ObjectHideFlags: 1

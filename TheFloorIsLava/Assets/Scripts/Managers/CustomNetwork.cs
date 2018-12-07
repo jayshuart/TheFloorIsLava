@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 public class CustomNetwork : NetworkManager {
-
     [SerializeField] private List<GameObject> players;
 
     #region Properties
@@ -54,7 +53,7 @@ public class CustomNetwork : NetworkManager {
     {
 
         //instantiate a player prefab (defined in the inspector - declared here as this.playerPrefab)
-        GameObject player = (GameObject)Object.Instantiate(this.playerPrefab, Vector3.zero, Quaternion.identity);
+        GameObject player = (GameObject)Object.Instantiate(this.playerPrefab, this.gameObject.transform.position, Quaternion.identity);
 
         //add to list of players for easy access
         players.Add(player);
@@ -83,7 +82,7 @@ public class CustomNetwork : NetworkManager {
 
     public override void OnClientConnect(NetworkConnection conn)
     {
-        base.OnClientConnect(conn); //commented out so this cusotm setup doesnt try to create a player that already exists
+        //base.OnClientConnect(conn); //commented out so this cusotm setup doesnt try to create a player that already exists
     }
         
 }

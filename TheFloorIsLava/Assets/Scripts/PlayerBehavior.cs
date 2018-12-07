@@ -7,16 +7,17 @@ public class PlayerBehavior : NetworkBehaviour {
 
 	// PUBLIC
 	public bool isGrounded;								// is the player connected with the ground
+    private bool wasGrounded;
 	public bool reachFinish;							// has the player reached the finish line?
-	public GameObject spawnPoint;						// control spawning of the character
+    [SyncVar] public Transform spawnPoint;						// control spawning of the character
 
 	// PRIVATE
 	public bool debugToggle;
-	[SerializeField] private GameObject stateManager;	// game statemanager
-	private StateManager t;
+    [SerializeField] private GameObject stateManager;	// game statemanager
+	private StateManager stateScript;
 	private Rigidbody charRB;							// reference to the PC's rigidbody
 	private Collider charCollider;						//
-	private float yaw;									// rotation about Y axis
+	public float yaw;									// rotation about Y axis
 	private Vector3 castDown;							// search for collisions downward to fix isGrounded
 	private RaycastHit hit;								// RaycastHit detection
 	private List<Collider> lCollisions;					// list of all objects the character will come into contact w
@@ -25,23 +26,52 @@ public class PlayerBehavior : NetworkBehaviour {
     [SerializeField] private float jumpForce;			// force in which player launches upwards
 	[SerializeField] private float maxDist = 1.0f;		// maximum distance for casting
 
+    //animation
+    [SerializeField] private Animator m_animator;
+
+    private readonly float animInterpolation = 10;
+    private readonly float walkScale = 1.5f;
+    private float currentV = 0;
 
     //ability switching
     [SerializeField] private List<Behaviour> abilities;
     private int activeAbility;
 
+    //lobby
+    private Lobby lobbyScript;
+    [SyncVar] public bool respawnFlag;
+
     //start but only for once the network player is started
-    public override void OnStartLocalPlayer()
+    public void Start()
 	{
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
+        spawnPoint = GameObject.FindGameObjectWithTag("LobbySpawn").transform; //set spawn point to that of the lobby
+        if (spawnPoint != null)
+        {
+            //set spawn
+            this.gameObject.transform.position = spawnPoint.position;
+        }
+
 		//set this local player as the player to ghost for the cam
 		GameObject ghost = GameObject.FindGameObjectWithTag ("PlayerGhost");
-		ghost.GetComponent<GhostCam> ().ply = this.gameObject;
+        if (ghost != null)
+            ghost.GetComponent<GhostCam>().ply = this.gameObject;
 
 		charRB = GetComponent<Rigidbody> ();
 		charCollider = GetComponent<Collider> ();
 
-		spawnPoint = GameObject.FindGameObjectWithTag ("LobbySpawn"); //set spawn point to that of the lobby - will update later
-		this.transform.position = spawnPoint.transform.position;
+		
+
+        GameObject lobby = GameObject.Find("ready area");
+        if (lobby != null)
+        {
+            //get lobby script
+            lobbyScript = lobby.GetComponent<Lobby>();
+        }
 
 		castDown = Vector3.down; // (0, -1, 0);
 
@@ -49,6 +79,7 @@ public class PlayerBehavior : NetworkBehaviour {
 
 		yaw = 0.0f;
 
+        wasGrounded = true;
 		isGrounded = true;
 
 		reachFinish = false;
@@ -57,10 +88,18 @@ public class PlayerBehavior : NetworkBehaviour {
 
 		jumpForce = 8.0f;
 
+        respawnFlag = false;
+
 		// attach this player to the StateManager
 		stateManager = GameObject.FindGameObjectWithTag("StateMan");
-		t = stateManager.GetComponent<StateManager> ();
-		t.playerChar = this.gameObject;
+        if (stateManager != null)
+        {
+            stateScript = stateManager.GetComponent<StateManager> ();
+
+            if(stateScript != null)
+                stateScript.playerChar = this.gameObject;
+        }
+		
 
         //fill abilites list
         Behaviour[] components = this.gameObject.GetComponents<Behaviour>();
@@ -76,8 +115,14 @@ public class PlayerBehavior : NetworkBehaviour {
 
         //set active ability
         activeAbility = 0;
-        abilities[activeAbility].enabled = true;
+        if(abilities[activeAbility] != null)
+            abilities[activeAbility].enabled = true;
 	}
+
+    public void OnEnable()
+    {
+        
+    }
 
     /// <summary>
     /// Cycles the active abiility.
@@ -112,20 +157,41 @@ public class PlayerBehavior : NetworkBehaviour {
     void PlayerMovement()
     {
         // Track movements in LEFT/RIGHT and FORWARD/BACKWARD
-        var xMovement = Input.GetAxis("Horizontal") * Time.deltaTime * speedVar;
-        var zMovement = Input.GetAxis("Vertical") * Time.deltaTime * speedVar;
+        float v = Input.GetAxis("Vertical");
+        float h = Input.GetAxis("Horizontal");
+
+        var xMovement = h * Time.deltaTime * speedVar;
+        var zMovement = v * Time.deltaTime * speedVar;
 
         transform.Translate(xMovement, 0, zMovement);
+
+        //walk scaled by movespeed
+        v *= walkScale;
+        currentV = Mathf.Lerp(currentV, v, Time.deltaTime * animInterpolation);
+        m_animator.SetFloat("MoveSpeed", currentV);
     }
 
 	/// <summary>
 	/// What allows character to turn about the Y axis
 	/// </summary>
-    void PlayerViewRotation()
+    void PlayerViewRotation(string inputAxis)
     {
-		yaw += horizontalTurn * Input.GetAxis ("Mouse X");
+        float h = Input.GetAxis(inputAxis);
 
-		charRB.transform.eulerAngles = new Vector3(0.0f, yaw, 0.0f);	// Euler Angles to prevent gimbal locking (as with previous issue)
+        /*turn
+        if (h < 0)
+        {
+            yaw -= (90 * h); //turn left
+        }
+        else
+        {
+            yaw += (90 * h); //turn right
+        } */
+
+        yaw += horizontalTurn * h;
+
+        yaw = yaw % 360; //use mod to loop yaw to always be within 360
+        this.transform.eulerAngles = new Vector3(0.0f, yaw, 0.0f);	// Euler Angles to prevent gimbal locking (as with previous issue)
     }
 
 	/// <summary>
@@ -146,8 +212,7 @@ public class PlayerBehavior : NetworkBehaviour {
 	public void TeleportBackToLobby() {
 		if (reachFinish == true) {
 			// do teleport code here
-			gameObject.transform.position = t.lobbyResPoint.transform.position;
-			Debug.Log("Teleportation Initialied...");
+			gameObject.transform.position = stateScript.lobbyResPoint.transform.position;
 		}
 	}
 
@@ -155,6 +220,7 @@ public class PlayerBehavior : NetworkBehaviour {
 
 	#region COLLISION_DETECTION
 	private void OnCollisionEnter(Collision col) {
+        if (!isLocalPlayer){ return; }
 		ContactPoint[] cPoints = col.contacts;
 
 		for (int i = 0; i < cPoints.Length; i++) {
@@ -162,12 +228,14 @@ public class PlayerBehavior : NetworkBehaviour {
 				if (!lCollisions.Contains(col.collider)) {
 					lCollisions.Add (col.collider);
 				}
+                wasGrounded = isGrounded;
 				isGrounded = true;
 			}
 		}
 	}
 
 	private void OnCollisionStay(Collision col) {
+        if (!isLocalPlayer){ return; }
 		ContactPoint[] cPoints = col.contacts;
 		bool contact = false;
 
@@ -187,16 +255,19 @@ public class PlayerBehavior : NetworkBehaviour {
 				lCollisions.Remove (col.collider);
 			}
 			if (lCollisions.Count == 0) {
+                wasGrounded = isGrounded;
 				isGrounded = false;
 			}
 		}
 	}
 
 	private void OnCollisionExit(Collision col) {
+        if (!isLocalPlayer){ return; }
 		if (lCollisions.Contains(col.collider)) {
 			lCollisions.Remove (col.collider);
 		}
 		if (lCollisions.Count == 0) {
+            wasGrounded = isGrounded;
 			isGrounded = false;
 			lCollisions.Remove (col.collider);
 		}
@@ -210,14 +281,14 @@ public class PlayerBehavior : NetworkBehaviour {
 	{
 		// Colliding with lav
         if (col.gameObject.CompareTag("Lava")) {
-			this.transform.position = spawnPoint.transform.position;
+			this.transform.position = spawnPoint.position;
 			//Debug.Log ("triggered");
 		}
 	}
 	#endregion
 
 	#region DEBUG
-	private void DebugToggleButton() {
+    private void DebugToggleButton() {
 		if (Input.GetKeyDown(KeyCode.B)) {
 			Debug.Log ("DEBUGGING: " + debugToggle);
 			debugToggle = !debugToggle;
@@ -239,26 +310,44 @@ public class PlayerBehavior : NetworkBehaviour {
 	/// <summary>
 	/// Players can force their own respawn
 	/// </summary>
-	private void PlayerForcedRespawn()
+    public void PlayerForcedRespawn(bool buttonOverride = false)
 	{
-		if (Input.GetKeyDown (KeyCode.R)) {
-			this.transform.position = spawnPoint.transform.position;
+        if (Input.GetKeyDown (KeyCode.R) || buttonOverride || respawnFlag) {
+			this.transform.position = spawnPoint.position;
+            respawnFlag = false;
 		}
 	}
 	#endregion DEBUG
 
 	// Update is called once per frame
 	void Update ()
+
     {
         //make sure we are the local player before we get user input
         if (isLocalPlayer)
         {
             //ply movemenvt and cam
+            //PlayerViewRotation("Mouse X");
             PlayerMovement();
-            PlayerViewRotation ();
             PlayerJump ();
             CycleAbiility();
-		    DebugToggleButton ();
+
+            PlayerForcedRespawn();
+
+		DebugToggleButton ();
+
+            //anim
+            m_animator.SetBool("Grounded", isGrounded);
+
+            if (!wasGrounded && isGrounded)
+            {
+                m_animator.SetTrigger("Land");
+            }
+
+            if (!isGrounded && wasGrounded)
+            {
+                m_animator.SetTrigger("Jump");
+            }
         }
     }
 }
