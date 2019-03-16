@@ -25,12 +25,9 @@ The HUD element for low gravity is the green icon with upward sprouts. It isnt a
 The HUD element for the emergency platform is a purple circle with a sot of arc icon and a platform at its bottom. While holding mouse 1 and aiming the throw the screen will go black and white as seen above. This was originally to support the idea that its an emergency but because it can be used outside of that it's also to be a reminder to players of which ability they are using at the moment. 
 
 # Known Bugs / Issues
-• Character model gets stuck halfway in the ground.
 
 • All players stack on top of each other when starting after Lobby.
 
 • Players do not animate on strafe.
-
-• Timer starts when spawning into the lobby as opposed to when starting the level.
 
 • Gravity ability stacks.
